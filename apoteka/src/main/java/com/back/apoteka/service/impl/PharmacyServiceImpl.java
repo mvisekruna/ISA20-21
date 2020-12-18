@@ -1,0 +1,33 @@
+package com.back.apoteka.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.back.apoteka.model.Pharmacy;
+import com.back.apoteka.repository.PharmacyRepository;
+import com.back.apoteka.service.PharmacyService;
+
+@Service
+public class PharmacyServiceImpl implements PharmacyService{
+
+	@Autowired
+	PharmacyRepository pharmacyRepository;
+	
+	@Override
+	public Pharmacy findById(Long id) {
+		return pharmacyRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public Pharmacy findByName(String name) {
+		return pharmacyRepository.findByName(name);
+	}
+
+	@Override
+	public List<Pharmacy> findAll() {
+		return pharmacyRepository.findAll();
+	}
+
+}
