@@ -1,0 +1,22 @@
+  
+<div class="card my-5">
+    <div class="card-body">
+      <h2>{{ title }}</h2>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let medicine of medicines">
+            <td>{{ medicine.id }}</td>
+            <td>{{ medicine.name }}</td>
+            <td>{{ medicine.type }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

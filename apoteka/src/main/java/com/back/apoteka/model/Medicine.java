@@ -1,5 +1,6 @@
 package com.back.apoteka.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,5 +20,15 @@ public class Medicine {
 	
 	private String name;
 	
-	private String description;
+	private Integer code; //sifra za sifarnik lekova
+	
+	private String type;
+	
+	private String contraindication;
+	
+	private String components;
+	
+	private String dailyIntake;
+	
+	private String replacments;
 }

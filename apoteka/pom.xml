@@ -38,10 +38,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-	   <dependency>
+ 	   <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency>  
 		<!-- ukljucena podrska za rad sa JWT -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
