@@ -28,11 +28,11 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private AuthorityService authService;
 
-	@Override
+	/*@Override
 	public User findByUsername(String username) throws UsernameNotFoundException {
 		User u = userRepository.findByUsername(username);
 		return u;
-	}
+	}*/
 
 	public User findById(Long id) throws AccessDeniedException {
 		User u = userRepository.findById(id).orElseGet(null);
@@ -47,12 +47,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(UserRequest userRequest) {
 		User u = new User();
-		u.setUsername(userRequest.getUsername());
+		u.setEmail(userRequest.getEmail());
 		u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 		u.setFirstName(userRequest.getFirstname());
 		u.setLastName(userRequest.getLastname());
 		u.setEnabled(true);
-		
+		u.setCity(userRequest.getCity());
+		u.setState(userRequest.getState());
+		u.setPhoneNumber(userRequest.getPhone());
+		u.setHomeAddress(userRequest.getAddress());
 		List<Authority> auth = authService.findByname("ROLE_USER");
 		u.setAuthorities(auth);
 		
@@ -64,6 +67,11 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(User user) {
 		userRepository.delete(user);
 		
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 
 }

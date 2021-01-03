@@ -3,7 +3,7 @@
         <h2>{{ title }}</h2>
         <button (click)="div1Function()" type="submit"  
         class="btn btn-info">{{ buttonName }}</button>
-        <div *ngIf="div1">
+        <div *ngIf="div1" id="div1">
       <form (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="email">Email</label>

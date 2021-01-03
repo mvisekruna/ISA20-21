@@ -16,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ import com.back.apoteka.security.TokenUtils;
 import com.back.apoteka.security.auth.JwtAuthenticationRequest;
 import com.back.apoteka.service.UserService;
 import com.back.apoteka.service.impl.CustomUserDetailsService;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
@@ -52,23 +53,30 @@ public class AuthenticationController {
 	public ResponseEntity<UserTokenState> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
 			HttpServletResponse response) {
 
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+		// 
+		System.out.println("usao u zahtev");
+		System.out.println(authenticationRequest.getEmail());
+		System.out.println(authenticationRequest.getPassword());
+		Authentication authentication = (Authentication) authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
 						authenticationRequest.getPassword()));
+		System.out.println("odradio authentifikaciju");
+		// Ubaci korisnika u trenutni security kontekst
+		SecurityContextHolder.getContext().setAuthentication((org.springframework.security.core.Authentication) authentication);
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		User user = (User) authentication.getPrincipal();
+		// Kreiraj token za tog korisnika
+		User user = (User) ((org.springframework.security.core.Authentication) authentication).getPrincipal();
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
 
+		// Vrati token kao odgovor na uspesnu autentifikaciju
 		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
 	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<User> addUser(@RequestBody UserRequest userRequest, UriComponentsBuilder ucBuilder) {
 
-		User existUser = this.userService.findByUsername(userRequest.getUsername());
+		User existUser = this.userService.findByEmail(userRequest.getEmail());
 		if (existUser != null) {
 			throw new ResourceConflictException(userRequest.getId(), "Username already exists");
 		}

@@ -32,8 +32,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
-    private String username;
+   // @Column(name = "username")
+  //  private String username;
 
     @JsonIgnore
     @Column(name = "password")
@@ -80,13 +80,13 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
+   /* public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
+    }*/
 
     public String getPassword() {
         return password;
@@ -197,5 +197,10 @@ public class User implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
 
 }

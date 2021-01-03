@@ -20,7 +20,7 @@ export class RegisterFormComponent implements OnInit {
     this.div1=!this.div1;
     if (this.div1==true){
       this.buttonName='Not now';
-    }
+    } else { this.buttonName='Register now'; }
   }
 
   onSubmit() {}
