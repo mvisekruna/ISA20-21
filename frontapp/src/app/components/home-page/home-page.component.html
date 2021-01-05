@@ -1,0 +1,43 @@
+<div *ngIf="info.token; else loggedOut">
+  <div class="card my-5">
+    <div class="card-body">
+    <h5 class="text-primary">Your Information</h5>
+    <p>
+      <strong>Email:</strong> {{info.email}}<br/>
+      <strong>Roles:</strong> {{info.authorities}}<br />
+      <strong>Token:</strong> {{info.token}}.
+    </p>
+    <button class="btn btn-secondary" (click)="logout()">Logout</button>
+    </div>
+    </div>
+  </div>
+   
+  <ng-template #loggedOut>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card bg-dark my-5">
+            <div class="card-body">
+              <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
+              <div>
+                <div style="float:left;width:49%;">
+                  <app-login-form></app-login-form>
+                </div>
+                <div style="float:right;width:49%;">
+                  <app-register-form></app-register-form>
+                </div>
+                <div style="clear:both; font-size:1px;"></div>
+              </div>
+              <div>
+                <app-pharmacy-list></app-pharmacy-list>
+              </div>
+              <div>
+                <app-medicine-list></app-medicine-list>
+              </div>
+            </div>
+          </div>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </ng-template>

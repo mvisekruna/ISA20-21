@@ -19,6 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     LoginFormComponent,
     PharmacyListComponent,
     MedicineListComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
