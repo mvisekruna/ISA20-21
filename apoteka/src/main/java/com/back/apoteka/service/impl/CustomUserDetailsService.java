@@ -40,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 	}
 
-	public void changePassword(String oldPassword, String newPassword) {
+	public User changePassword(String oldPassword, String newPassword) {
 
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 		String username = currentUser.getName();
@@ -52,7 +52,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		} else {
 			LOGGER.debug("No authentication manager set. can't change Password!");
 
-			return;
+			return null;
 		}
 
 		LOGGER.debug("Changing password for user '" + username + "'");
@@ -60,7 +60,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		User user = (User) loadUserByUsername(username);
 
 		user.setPassword(passwordEncoder.encode(newPassword));
-		userRepository.save(user);
-
+		
+		return userRepository.save(user);
 	}
 }

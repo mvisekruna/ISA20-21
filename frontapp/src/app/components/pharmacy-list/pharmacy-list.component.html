@@ -14,7 +14,9 @@
         <tbody>
           <tr *ngFor="let pharmacy of pharmacys" id="pharmacy">
             <td>{{ pharmacy.id }}</td>
-            <td>{{ pharmacy.name }}</td>
+            <td><button type="submit"   
+              class="btn btn-info"  style="width:100%">{{ pharmacy.name }}</button></td> 
+              <!-- dodati da na klik ide na prfil apoteke-->
             <td>{{ pharmacy.phone }}</td>
             <td>{{ pharmacy.address }}</td>
           </tr>

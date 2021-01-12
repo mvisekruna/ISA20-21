@@ -4,7 +4,8 @@ import java.util.List;
 
 import com.back.apoteka.model.User;
 
-import com.back.apoteka.model.UserRequest;;
+import com.back.apoteka.model.UserRequest;
+import com.back.apoteka.request.UserUpdateRequest;;
 
 public interface UserService {
     User findById(Long id);
@@ -13,4 +14,5 @@ public interface UserService {
 	User save(UserRequest userRequest);
 	public void deleteUser(User user);
 	User findByEmail(String email);
+	User update(UserUpdateRequest uur);
 }

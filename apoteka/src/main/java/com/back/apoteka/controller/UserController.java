@@ -25,8 +25,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.User;
 import com.back.apoteka.model.UserRequest;
+import com.back.apoteka.request.ChangePassRequest;
+import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.security.auth.JwtAuthenticationRequest;
 import com.back.apoteka.service.UserService;
+import com.back.apoteka.service.impl.CustomUserDetailsService;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -36,14 +39,15 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private CustomUserDetailsService customUserService;
 	// Za pristup ovoj metodi neophodno je da ulogovani korisnik ima ADMIN ulogu
 	// Ukoliko nema, server ce vratiti gresku 403 Forbidden
 	// Korisnik jeste autentifikovan, ali nije autorizovan da pristupi resursu
 	@GetMapping("/user/{userId}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public User loadById(@PathVariable Long userId) {
-		return this.userService.findById(userId);
+	public User loadById(@PathVariable int userId) {
+		return this.userService.findById(Integer.toUnsignedLong(userId));
 	}
 
 	@GetMapping("/user/all")
@@ -58,15 +62,29 @@ public class UserController {
 		return this.userService.findByUsername(user.getName());
 	}*/
 	
-	@PostMapping("saveuser")
+	@PostMapping("/savepatient")
 	@PreAuthorize("hasAnyRole(\"PATIENT\",\"SYSTEM_ADMIN\")")
-	public User save(UserRequest userRequest) {
+	public User savePatient(@RequestBody UserRequest userRequest) {
 		return this.userService.save(userRequest);
 	}
 	
+	@PostMapping("/updatepatient")
+	@PreAuthorize("hasRole('USER')")//zasad mek stoji user dok ne bude trebalo patient
+	public User updatePatient(@RequestBody UserUpdateRequest userRequest) {
+		System.out.println("usao u updatepatient");
+		return this.userService.update(userRequest);
+	}
+	@PostMapping("/pass")
+	@PreAuthorize("hasAnyRole(\"PATIENT\",\"USER\")")//zasad mek stoji user dok ne bude trebalo patient
+	public User changePassword(@RequestBody ChangePassRequest cpr) {
+		return this.customUserService.changePassword(cpr.getOldPassword(), cpr.getNewPassword());
+	}
+	
+	
 	@GetMapping("/whoami")
 	//@PreAuthorize("hasRole('USER')")
-	public User user(JwtAuthenticationRequest body) {
+	public User user(@RequestBody JwtAuthenticationRequest body) {
+		System.out.println(this.userService.findByEmail(body.getEmail()));
 		return this.userService.findByEmail(body.getEmail());
 	}
 	
@@ -74,8 +92,10 @@ public class UserController {
 	public ResponseEntity<User> findByEmail(@RequestBody String e, @Context HttpServletRequest request) {
 		User user = userService.findByEmail(e);
 		System.out.println(e);
+		System.out.println(user);
 		 HttpSession session = request.getSession();
          System.out.println("\nSesija KorisnikData: " + session);
+         System.out.println(new ResponseEntity<User>(user, HttpStatus.OK));
          return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	

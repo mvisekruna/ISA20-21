@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
   info: any;
+  isUser: boolean= false;
   title = 'Pharmacy information system';
   constructor() {
 
@@ -19,9 +20,14 @@ export class HomePageComponent implements OnInit {
       authorities: localStorage.getItem("AUTHORITIES")
     };
     console.log(this.info.token);
+    console.log(this.info.authorities);
+    if (this.info.authorities == "ROLE_USER"){
+      this.isUser=true;
+    }
   }
   logout() {
     localStorage.clear();
     window.location.reload();
+    this.isUser=false;
   }
 }

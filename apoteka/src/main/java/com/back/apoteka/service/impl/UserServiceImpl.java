@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.back.apoteka.model.Authority;
 import com.back.apoteka.model.User;
 import com.back.apoteka.model.UserRequest;
 import com.back.apoteka.repository.UserRepository;
+import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.service.AuthorityService;
 import com.back.apoteka.service.UserService;
 
@@ -28,11 +31,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private AuthorityService authService;
 
-	/*@Override
-	public User findByUsername(String username) throws UsernameNotFoundException {
-		User u = userRepository.findByUsername(username);
-		return u;
-	}*/
+	@Autowired
+	private CustomUserDetailsService customUserService;
 
 	public User findById(Long id) throws AccessDeniedException {
 		User u = userRepository.findById(id).orElseGet(null);
@@ -56,13 +56,27 @@ public class UserServiceImpl implements UserService {
 		u.setState(userRequest.getState());
 		u.setPhoneNumber(userRequest.getPhone());
 		u.setHomeAddress(userRequest.getAddress());
-		List<Authority> auth = authService.findByname("ROLE_USER");
+		List<Authority> auth = authService.findByname("ROLE_PATIENT");
 		u.setAuthorities(auth);
 		
 		u = this.userRepository.save(u);
 		return u;
 	}
 
+	@Override
+	public User update(UserUpdateRequest uur) {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		String email = currentUser.getName();
+		User u = (User) customUserService.loadUserByUsername(email);
+		u.setFirstName(uur.getFirstname());
+		u.setLastName(uur.getLastname());
+		u.setCity(uur.getCity());
+		u.setState(uur.getState());
+		u.setPhoneNumber(uur.getPhone());
+		u.setHomeAddress(uur.getAddress());
+		return userRepository.save(u);
+	}
+	
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteUser(User user) {
 		userRepository.delete(user);
@@ -71,6 +85,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByEmail(String email) {
+		System.out.println(email);
 		return userRepository.findByEmail(email);
 	}
 

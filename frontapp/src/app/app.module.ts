@@ -15,11 +15,8 @@ import { ApiServiceService } from './service/api-service.service';
 import { UserServiceService } from './service/user-service.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';  
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { environment } from '../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { HomePagePatientComponent } from './components/home-page/home-page-patient/home-page-patient.component';
 
 
 @NgModule({
@@ -29,7 +26,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
     PharmacyListComponent,
     MedicineListComponent,
     RegisterFormComponent,
-    HomePageComponent
+    HomePageComponent,
+    HomePagePatientComponent
   ],
   imports: [
     BrowserModule,
