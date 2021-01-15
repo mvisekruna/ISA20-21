@@ -17,6 +17,9 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';  
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { HomePagePatientComponent } from './components/home-page/home-page-patient/home-page-patient.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AllergiesListComponent } from './components/allergies-list/allergies-list.component';
 
 
 @NgModule({
@@ -27,7 +30,9 @@ import { HomePagePatientComponent } from './components/home-page/home-page-patie
     MedicineListComponent,
     RegisterFormComponent,
     HomePageComponent,
-    HomePagePatientComponent
+    HomePagePatientComponent,
+    MyProfileComponent,
+    AllergiesListComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,8 @@ import { HomePagePatientComponent } from './components/home-page/home-page-patie
     MedicineServiceService, 
     AuthServiceService,
     UserServiceService,
+    JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     ApiServiceService],
   bootstrap: [AppComponent]
 })

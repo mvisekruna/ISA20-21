@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.User;
-import com.back.apoteka.model.UserRequest;
 import com.back.apoteka.request.ChangePassRequest;
+import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.security.auth.JwtAuthenticationRequest;
 import com.back.apoteka.service.UserService;
@@ -45,13 +45,13 @@ public class UserController {
 	// Ukoliko nema, server ce vratiti gresku 403 Forbidden
 	// Korisnik jeste autentifikovan, ali nije autorizovan da pristupi resursu
 	@GetMapping("/user/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public User loadById(@PathVariable int userId) {
 		return this.userService.findById(Integer.toUnsignedLong(userId));
 	}
 
 	@GetMapping("/user/all")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public List<User> loadAll() {
 		return this.userService.findAll();
 	}
@@ -69,20 +69,20 @@ public class UserController {
 	}
 	
 	@PostMapping("/updatepatient")
-	@PreAuthorize("hasRole('USER')")//zasad mek stoji user dok ne bude trebalo patient
+	@PreAuthorize("hasRole('PATIENT')")//zasad mek stoji user dok ne bude trebalo patient
 	public User updatePatient(@RequestBody UserUpdateRequest userRequest) {
 		System.out.println("usao u updatepatient");
 		return this.userService.update(userRequest);
 	}
 	@PostMapping("/pass")
-	@PreAuthorize("hasAnyRole(\"PATIENT\",\"USER\")")//zasad mek stoji user dok ne bude trebalo patient
+	@PreAuthorize("hasRole('PATIENT')")//zasad mek stoji user dok ne bude trebalo patient
 	public User changePassword(@RequestBody ChangePassRequest cpr) {
 		return this.customUserService.changePassword(cpr.getOldPassword(), cpr.getNewPassword());
 	}
 	
 	
 	@GetMapping("/whoami")
-	//@PreAuthorize("hasRole('USER')")
+	//@PreAuthorize("hasRole('PATIENT')")
 	public User user(@RequestBody JwtAuthenticationRequest body) {
 		System.out.println(this.userService.findByEmail(body.getEmail()));
 		return this.userService.findByEmail(body.getEmail());
@@ -100,7 +100,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("user/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<User> deleteOne(@PathVariable(value="id") Long userId){
 		User u = userService.findById(userId);
 		if (u==null) {

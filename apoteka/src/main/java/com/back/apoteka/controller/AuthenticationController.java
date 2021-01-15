@@ -26,8 +26,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.back.apoteka.exception.ResourceConflictException;
 import com.back.apoteka.model.User;
-import com.back.apoteka.model.UserRequest;
-import com.back.apoteka.model.UserTokenState;
+import com.back.apoteka.request.UserRequest;
+import com.back.apoteka.response.UserTokenState;
 import com.back.apoteka.security.TokenUtils;
 import com.back.apoteka.security.auth.JwtAuthenticationRequest;
 import com.back.apoteka.service.UserService;
@@ -54,9 +54,7 @@ public class AuthenticationController {
 			HttpServletResponse response) {
 
 		// 
-		System.out.println("usao u zahtev");
-		System.out.println(authenticationRequest.getEmail());
-		System.out.println(authenticationRequest.getPassword());
+		
 		Authentication authentication = (Authentication) authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
 						authenticationRequest.getPassword()));
@@ -106,7 +104,7 @@ public class AuthenticationController {
 	}
 
 	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('PATIENT')")
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
 		userDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
 

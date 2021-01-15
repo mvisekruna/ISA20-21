@@ -1,12 +1,6 @@
 <div *ngIf="info.token; else loggedOut">
   <div class="card my-5">
     <div class="card-body">
-    <h5 class="text-primary">Your Information</h5> <!-- ovo posle obrisati!!!-->
-    <p>
-      <strong>Email:</strong> {{info.email}}<br/>
-      <strong>Roles:</strong> {{info.authorities}}<br />
-      <strong>Token:</strong> {{info.token}}.
-    </p>
     <div *ngIf="isUser" id="isUser">
       <app-home-page-patient></app-home-page-patient>
     </div>

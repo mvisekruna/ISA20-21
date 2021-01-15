@@ -21,7 +21,7 @@ export class HomePageComponent implements OnInit {
     };
     console.log(this.info.token);
     console.log(this.info.authorities);
-    if (this.info.authorities == "ROLE_USER"){
+    if (this.info.authorities == "ROLE_PATIENT"){
       this.isUser=true;
     }
   }

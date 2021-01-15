@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.back.apoteka.model.Authority;
 import com.back.apoteka.model.User;
-import com.back.apoteka.model.UserRequest;
 import com.back.apoteka.repository.UserRepository;
+import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.service.AuthorityService;
 import com.back.apoteka.service.UserService;

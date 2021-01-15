@@ -1,4 +1,4 @@
-package com.back.apoteka.model;
+package com.back.apoteka.request;
 
 public class UserRequest {
 

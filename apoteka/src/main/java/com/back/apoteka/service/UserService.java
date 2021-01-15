@@ -3,8 +3,7 @@ package com.back.apoteka.service;
 import java.util.List;
 
 import com.back.apoteka.model.User;
-
-import com.back.apoteka.model.UserRequest;
+import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;;
 
 public interface UserService {

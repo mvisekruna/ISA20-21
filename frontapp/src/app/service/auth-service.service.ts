@@ -7,6 +7,7 @@ import { ApiServiceService } from './api-service.service';
 import { AuthLoginInfo } from '../model/auth-login-info';
 import { Observable } from 'rxjs';
 import { AuthJwtResponce } from '../model/auth-jwt-responce';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class AuthServiceService {
 
     loginURL = 'http://localhost:8080/auth/login';
     singupURL = 'http://localhost:8080/auth/signup';
+    
     loginHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -24,7 +26,7 @@ export class AuthServiceService {
     httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-  constructor(private router: Router, private apiService: ApiServiceService, private http: HttpClient) { }
+  constructor(private router: Router, private apiService: ApiServiceService, private http: HttpClient, public jwtHelper: JwtHelperService) { }
  
   login(user: User) : Observable<any>{
     console.log('usao u login');
@@ -41,5 +43,12 @@ export class AuthServiceService {
   // JwtResponse(accessToken,type,username,authorities)
   attemptAuth(credentials: AuthLoginInfo): Observable<any> {
     return this.http.post<AuthJwtResponce>(this.loginURL, credentials, this.httpOptions);
+  }
+  public isAuthenticated(): boolean {
+     var token = localStorage.getItem("TOKEN");
+    if (token != null) {
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+  return false;
   }
 }

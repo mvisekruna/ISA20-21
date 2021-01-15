@@ -4,6 +4,9 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { PharmacyListComponent } from './components/pharmacy-list/pharmacy-list.component';
 import { MedicineListComponent } from './components/medicine-list/medicine-list.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { HomePagePatientComponent } from './components/home-page/home-page-patient/home-page-patient.component';
+import { MyProfileComponent } from './components/my-profile/my-profile.component';
+import { GuardServiceService } from './service/guard-service.service';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -16,8 +19,14 @@ const routes: Routes = [
    component: MedicineListComponent },
    { path: 'homepage',
   component: HomePageComponent },
+  { path: 'myprofile',
+  component: MyProfileComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },
   {
-    path: '',
+    path: '**',
     redirectTo: 'homepage',
     pathMatch: 'full'
 }

@@ -1,4 +1,4 @@
-package com.back.apoteka.model;
+package com.back.apoteka.response;
 
 public class UserTokenState {
 	
