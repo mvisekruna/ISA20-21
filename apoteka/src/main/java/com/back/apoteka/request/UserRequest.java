@@ -1,5 +1,7 @@
 package com.back.apoteka.request;
 
+import com.back.apoteka.model.Authority;
+
 public class UserRequest {
 
 	private Long id;
@@ -16,6 +18,17 @@ public class UserRequest {
 	private String city;
 	private String state;
 	private String phone;
+	private Authority authority;
+
+	
+	
+	public Authority getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
+	}
 
 	public String getEmail() {
 		return email;

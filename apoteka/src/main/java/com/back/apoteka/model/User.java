@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -32,8 +33,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   // @Column(name = "username")
-  //  private String username;
+   /* @Column(name = "username")
+    private String username;*/
 
     @JsonIgnore
     @Column(name = "password")
@@ -65,8 +66,11 @@ public class User implements UserDetails {
 
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
+    
+    @ManyToOne
+    private Authority authority;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER) ///ManyToOne
     @JoinTable(name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
@@ -79,9 +83,10 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
-
-   /* public String getUsername() {
-        return username;
+    /*
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     public void setUsername(String username) {
@@ -118,7 +123,16 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    @Override
+    
+    public Authority getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
+	}
+
+	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
     }

@@ -2,13 +2,18 @@ package com.back.apoteka.security;
 
 import java.util.Date;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.back.apoteka.model.User;
+import com.back.apoteka.repository.UserRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -28,6 +33,9 @@ public class TokenUtils {
 
 	@Value("Authorization")
 	private String AUTH_HEADER;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	private static final String AUDIENCE_UNKNOWN = "unknown";
 	private static final String AUDIENCE_WEB = "web";
@@ -39,10 +47,13 @@ public class TokenUtils {
 
 
 	public String generateToken(String username) {
+		
+		//Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		User user = userRepository.findByEmail(username);
 		return Jwts.builder()
 				.setIssuer(APP_NAME)
 				.setSubject(username)
-				.setAudience(generateAudience())
+				.setAudience(user.getAuthority().getName())
 				.setIssuedAt(new Date())
 				.setExpiration(generateExpirationDate())
 				// .claim("key", value) //moguce je postavljanje proizvoljnih podataka u telo JWT tokena
