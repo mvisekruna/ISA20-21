@@ -30,6 +30,7 @@ import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.response.UserTokenState;
 import com.back.apoteka.security.TokenUtils;
 import com.back.apoteka.security.auth.JwtAuthenticationRequest;
+import com.back.apoteka.service.AuthorityService;
 import com.back.apoteka.service.UserService;
 import com.back.apoteka.service.impl.CustomUserDetailsService;
 @CrossOrigin(origins = "http://localhost:4200")
@@ -48,6 +49,9 @@ public class AuthenticationController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AuthorityService authService;
 
 	@PostMapping("/login")
 	public ResponseEntity<UserTokenState> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
@@ -66,9 +70,10 @@ public class AuthenticationController {
 		User user = (User) ((org.springframework.security.core.Authentication) authentication).getPrincipal();
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
+		String role = tokenUtils.getAudienceFromToken(jwt);
 
 		// Vrati token kao odgovor na uspesnu autentifikaciju
-		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, role));
 	}
 
 	@PostMapping("/signup")
@@ -95,8 +100,9 @@ public class AuthenticationController {
 		if (this.tokenUtils.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
 			String refreshedToken = tokenUtils.refreshToken(token);
 			int expiresIn = tokenUtils.getExpiredIn();
+			String role = tokenUtils.getAudienceFromToken(refreshedToken);
 
-			return ResponseEntity.ok(new UserTokenState(refreshedToken, expiresIn));
+			return ResponseEntity.ok(new UserTokenState(refreshedToken, expiresIn, role));
 		} else {
 			UserTokenState userTokenState = new UserTokenState();
 			return ResponseEntity.badRequest().body(userTokenState);

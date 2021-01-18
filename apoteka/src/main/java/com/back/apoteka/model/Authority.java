@@ -4,8 +4,12 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -19,7 +23,7 @@ public class Authority implements GrantedAuthority {
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
+//nema onetomany
     @Column(name="name")
     String name;
 
@@ -45,5 +49,7 @@ public class Authority implements GrantedAuthority {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    
 
 }
