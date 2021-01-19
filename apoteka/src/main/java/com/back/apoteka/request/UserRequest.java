@@ -1,6 +1,6 @@
 package com.back.apoteka.request;
 
-import com.back.apoteka.model.Authority;
+import com.back.apoteka.model.User;
 
 public class UserRequest {
 
@@ -18,16 +18,24 @@ public class UserRequest {
 	private String city;
 	private String state;
 	private String phone;
-	private Authority authority;
+	private AuthorityRequest authority;
 
 	
-	
-	public Authority getAuthority() {
-		return authority;
+	public UserRequest() {
+		
 	}
-
-	public void setAuthority(Authority authority) {
-		this.authority = authority;
+	
+	public UserRequest(User user) {
+		id = user.getId();
+		email = user.getEmail();
+		password = user.getPassword();
+		firstname = user.getFirstName();
+		lastname = user.getLastName();
+		address = user.getHomeAddress();
+		city= user.getCity();
+		state = user.getState();
+		phone = user.getPhoneNumber();
+		authority = new AuthorityRequest(user.getAuthority());
 	}
 
 	public String getEmail() {
@@ -101,5 +109,15 @@ public class UserRequest {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	public AuthorityRequest getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(AuthorityRequest authority) {
+		this.authority = authority;
+	}
+	
+	
 
 }

@@ -17,7 +17,7 @@ public class Authority implements GrantedAuthority {
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
+//nema onetomany
     @Column(name="name")
     String name;
 
@@ -43,5 +43,7 @@ public class Authority implements GrantedAuthority {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    
 
 }

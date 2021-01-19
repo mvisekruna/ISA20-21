@@ -33,6 +33,16 @@ public class AuthorityServiceImpl implements AuthorityService {
     auths.add(auth);
     return auths;
   }
+  
+  public Authority findOne(Long id) {
+	  return authorityRepository.findById(id).orElseGet(null);
+  }
+  
+  public Authority findName(String name) {
+	  return authorityRepository.findByName(name);
+  }
+  
+  
 
 
 }

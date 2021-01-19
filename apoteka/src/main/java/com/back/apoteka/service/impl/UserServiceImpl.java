@@ -56,8 +56,11 @@ public class UserServiceImpl implements UserService {
 		u.setState(userRequest.getState());
 		u.setPhoneNumber(userRequest.getPhone());
 		u.setHomeAddress(userRequest.getAddress());
+		Authority authority = authService.findName("ROLE_PATIENT");
+		u.setAuthority(authority);
 		List<Authority> auth = authService.findByname("ROLE_PATIENT");
 		u.setAuthorities(auth);
+		
 		
 		u = this.userRepository.save(u);
 		return u;
