@@ -14,7 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
+
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -32,9 +34,6 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-   /* @Column(name = "username")
-    private String username;*/
 
     @JsonIgnore
     @Column(name = "password")
@@ -63,6 +62,7 @@ public class User implements UserDetails {
 
     @Column(name = "enabled")
     private boolean enabled;
+
 
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;

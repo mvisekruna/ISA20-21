@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { Pharmacy } from '../model/pharmacy';
 @Injectable(
 )
@@ -18,4 +18,8 @@ export class PharmacyServiceService {
      return this.http.get<Pharmacy[]>(this.pharmacyUrl);
    }
   
+   public getPharmacyInfo(pharmacyName: string): Observable<any>{
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<Pharmacy>(this.pharmacyUrlName, pharmacyName, {headers});
+   }
 }

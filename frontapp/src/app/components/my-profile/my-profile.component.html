@@ -6,7 +6,7 @@
         </div>
       </div>
     </div>
-    <div class="form-group" *ngIf="!changeInfo" id="changeInfo">
+    <div class="form-group" *ngIf="!changeInfo && !changePass" id="changeInfo">
       <p>
         <strong>Email:</strong> {{userInfo.email}}<br/>
         <strong>Name:</strong> {{userInfo.firstName}}<br/>
@@ -17,7 +17,23 @@
         <strong>Phone number:</strong> {{userInfo.phone}}<br/>
       </p>
       <!-- dodati prikaz liste alergija za tog korisnika -->
-      <app-allergies-list></app-allergies-list>
+      <div class="card my-5">
+        <div class="card-body">
+          <h2>{{ titleAllergie }}</h2>
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Medicine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let allergie of allergiesList" id="allergie">
+                <td>{{ allergie.medicineName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <button (click)="changeInfoFun()" type="submit"  
       class="btn btn-info">Update my profile</button>
       &nbsp;

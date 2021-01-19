@@ -11,14 +11,32 @@ export class PharmacyListComponent implements OnInit {
 
   pharmacys: Pharmacy[];
   title: string;
+  showPharm : boolean = false;
+  pharmacy1: Pharmacy;
   constructor(private pharmacyService: PharmacyServiceService) { 
-    this.title='Pharmacy list';
   }
   
   ngOnInit(): void {
+    this.pharmacy1 = new Pharmacy();
+    this.title='Pharmacy list';
     this.pharmacyService.findAll().subscribe(data => {
       this.pharmacys = data;
     });
   }
-
+  showPharmacy(name: string){
+    console.log(name);
+    this.pharmacyService.getPharmacyInfo(name)
+    .subscribe(data => {
+      console.log(data);
+      this.pharmacy1=data
+      this.title=data.name;
+    }
+    );
+    this.showPharm= true;
+  }
+backFun(){
+  this.title='Pharmacy list';
+  this.showPharm=false;
+  //this.title='Pharmacy list';
+}
 }

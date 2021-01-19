@@ -14,4 +14,5 @@ public interface UserService {
 	public void deleteUser(User user);
 	User findByEmail(String email);
 	User update(UserUpdateRequest uur);
+	List<User> findAllDermatoligists();
 }

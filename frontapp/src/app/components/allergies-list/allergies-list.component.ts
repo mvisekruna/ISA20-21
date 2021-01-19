@@ -10,17 +10,17 @@ import { AllergiesServiceService } from 'src/app/service/allergies-service.servi
 export class AllergiesListComponent implements OnInit {
 
   
-  title: string;
-  info: any;
+  titleAllergie: string;
+  infoAllergie: any;
   allergies: Allergies[];
   constructor(private allergiesService: AllergiesServiceService) { 
-    this.title='My allergies';
   }
 
   ngOnInit(): void {
-    this.info = {email: localStorage.getItem("USERNAME"),
+    this.titleAllergie='My allergies';
+    this.infoAllergie = {email: localStorage.getItem("USERNAME"),
     t: localStorage.getItem("TOKEN") };
-    this.allergiesService.getMedicinesForPatient(this.info.t)
+    this.allergiesService.getMedicinesForPatient(this.infoAllergie.t)
     .subscribe(data => {
       this.allergies=data;
     });

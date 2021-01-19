@@ -1,6 +1,6 @@
   
 <div class="card my-5">
-    <div class="card-body">
+    <div class="card-body" *ngIf="!showPharm" id="!showPharm">
       <h2>{{ title }}</h2>
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -14,7 +14,7 @@
         <tbody>
           <tr *ngFor="let pharmacy of pharmacys" id="pharmacy">
             <td>{{ pharmacy.id }}</td>
-            <td><button type="submit"   
+            <td><button type="submit" (click)="showPharmacy(pharmacy.name)"  
               class="btn btn-info"  style="width:100%">{{ pharmacy.name }}</button></td> 
               <!-- dodati da na klik ide na prfil apoteke-->
             <td>{{ pharmacy.phone }}</td>
@@ -22,5 +22,15 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="card my-5" *ngIf="showPharm" id="showPharm">
+      <div class="card-body">
+        <h2>{{ title }}</h2>
+      </div>
+      <p>
+        <strong>Address: {{ pharmacy1.address }}</strong><br/>
+        <strong>Phone: {{ pharmacy1.phone }}</strong><br/>
+        <button type="submit" (click)="backFun()"  
+              class="btn btn-info" >Back to list</button>
     </div>
   </div>

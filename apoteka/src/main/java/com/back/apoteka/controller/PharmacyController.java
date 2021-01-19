@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,8 +31,9 @@ public class PharmacyController {
 		return pharmacyService.findById(Long.valueOf(id));
 	}
 	
-	@GetMapping("/name")
-	public Pharmacy findByName(@RequestBody String name){
-		return pharmacyService.findByName(name);
+	@PostMapping("/name")
+	public Pharmacy findByName(@RequestBody String pharmacyName){
+		System.out.println(pharmacyName);
+		return pharmacyService.findByName(pharmacyName);
 	}
 }

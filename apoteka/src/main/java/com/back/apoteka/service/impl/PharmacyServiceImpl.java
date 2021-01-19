@@ -17,6 +17,8 @@ public class PharmacyServiceImpl implements PharmacyService{
 	
 	@Override
 	public Pharmacy findById(Long id) {
+		System.out.println("usao u pharmacyservce");
+		System.out.println(pharmacyRepository.findById(id));
 		return pharmacyRepository.findById(id).orElse(null);
 	}
 
@@ -27,6 +29,7 @@ public class PharmacyServiceImpl implements PharmacyService{
 
 	@Override
 	public List<Pharmacy> findAll() {
+		System.out.println("usao u pharmacyservce");
 		return pharmacyRepository.findAll();
 	}
 

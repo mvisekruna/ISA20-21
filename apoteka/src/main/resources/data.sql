@@ -1,11 +1,5 @@
 -- Lozinke su hesovane pomocu BCrypt algoritma https://www.dailycred.com/article/bcrypt-calculator
 -- Lozinka za oba user-a je 123
-
-INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Milica', 'Visekruna', 'user@example.com', 'Gavrila Principa 6', 'Backa Palanka', 'Srbija', '0649477321', true, '2020-12-17', 1);
-INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Tijana', 'Mitric', 'admin@example.com', 'Znam Da Je Neki Blok', 'Sremska Mitrovica', 'Srbija', '064123456', true, '2020-12-17', 6);
-INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Tijana', 'Mitric', 'pacijent@example.com', 'Znam Da Je Neki Blok', 'Sremska Mitrovica', 'Srbija', '064123456', true, '2020-12-17', 1);
-
-
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PATIENT');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_DERMATOLOGIST');
@@ -13,6 +7,12 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACY_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_SUPPLIER');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_SYSTEM_ADMIN');
 
+INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Milica', 'Visekruna', 'user@example.com', 'Gavrila Principa 6', 'Backa Palanka', 'Srbija', '0649477321', true, '2020-12-17', 1);
+INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Tijana', 'Mitric', 'admin@example.com', 'Znam Da Je Neki Blok', 'Sremska Mitrovica', 'Srbija', '064123456', true, '2020-12-17', 6);
+INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Tijana', 'Mitric', 'pacijent@example.com', 'Znam Da Je Neki Blok', 'Sremska Mitrovica', 'Srbija', '064123456', true, '2020-12-17', 1);
+INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Milica', 'Visekruna', 'dermatolog@example.com', 'Gavrila Principa 6', 'Backa Palanka', 'Srbija', '0649477321', true, '2020-12-17', 3);
+
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 6);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 3);

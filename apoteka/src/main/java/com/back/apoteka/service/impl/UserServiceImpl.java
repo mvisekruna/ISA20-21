@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,5 +88,21 @@ public class UserServiceImpl implements UserService {
 		System.out.println(email);
 		return userRepository.findByEmail(email);
 	}
+
+	@Override
+	public List<User> findAllDermatoligists(){
+		List<User> users=findAll();
+		List<User> dermatologists=findAll();
+		dermatologists.removeAll(dermatologists);
+		for (User u: users) {
+			List<Authority> lista=(List<Authority>) u.getAuthorities();
+			System.out.println(lista.get(0).getName());
+			if (lista.get(0).getName().contains("ROLE_DERMATOLOGIST")) {
+				dermatologists.add(u);
+			}
+		}
+		return dermatologists;
+	}
+
 
 }

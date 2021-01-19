@@ -20,6 +20,7 @@ import { HomePagePatientComponent } from './components/home-page/home-page-patie
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AllergiesListComponent } from './components/allergies-list/allergies-list.component';
+import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AllergiesListComponent } from './components/allergies-list/allergies-li
     HomePageComponent,
     HomePagePatientComponent,
     MyProfileComponent,
-    AllergiesListComponent
+    AllergiesListComponent,
+    PharmacyProfileComponent
   ],
   imports: [
     BrowserModule,

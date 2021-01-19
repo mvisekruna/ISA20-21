@@ -1,6 +1,6 @@
 package com.back.apoteka.controller;
 
-import java.security.Principal;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,8 +28,8 @@ import com.back.apoteka.request.ChangePassRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.security.auth.JwtAuthenticationRequest;
-import com.back.apoteka.service.UserService;
 import com.back.apoteka.service.impl.CustomUserDetailsService;
+import com.back.apoteka.service.impl.UserServiceImpl;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -38,7 +38,7 @@ import com.back.apoteka.service.impl.CustomUserDetailsService;
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 	@Autowired
 	private CustomUserDetailsService customUserService;
 	// Za pristup ovoj metodi neophodno je da ulogovani korisnik ima ADMIN ulogu
@@ -116,4 +116,10 @@ public class UserController {
         fooObj.put("foo", "bar");
         return fooObj;
     }
+	
+	@GetMapping("/derm")
+	public List<User> getDermatologists(){
+		return userService.findAllDermatoligists();
+		
+	}
 }

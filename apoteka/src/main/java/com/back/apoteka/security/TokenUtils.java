@@ -2,8 +2,6 @@ package com.back.apoteka.security;
 
 import java.util.Date;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 
