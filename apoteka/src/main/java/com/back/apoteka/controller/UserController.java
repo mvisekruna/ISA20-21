@@ -99,15 +99,15 @@ public class UserController {
          return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("user/{userId}")
+	@PostMapping("user/{userId}")
 	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
-	public ResponseEntity<User> deleteOne(@PathVariable(value="id") Long userId){
+	public ResponseEntity<Object> deleteOne(@PathVariable Long userId){
 		User u = userService.findById(userId);
 		if (u==null) {
 			return ResponseEntity.notFound().build();
 		}
 		userService.deleteUser(u);
-		return ResponseEntity.ok().build();
+		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping("/foo")

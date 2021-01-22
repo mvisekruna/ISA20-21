@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(u);
 	}
 	
+	
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteUser(User user) {
 		userRepository.delete(user);
