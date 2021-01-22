@@ -1,10 +1,14 @@
 package com.back.apoteka.model;
 
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -23,5 +27,13 @@ public class Pharmacy {
 	private String phone;
 	
 	private String address;
+	
+	private String description;
+	
+	@ManyToMany //sklonila fetch type namerno jer sa tim ne radi
+    @JoinTable(name = "pharmacy_medicine",
+            joinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "id"))
+	private List<Medicine> medicines;
 	
 }
