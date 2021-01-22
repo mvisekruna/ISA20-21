@@ -1,5 +1,5 @@
 export class Pharmacy {
-    id: string;
+    id: number;
     name: string;
     phone: string;
     address: string;

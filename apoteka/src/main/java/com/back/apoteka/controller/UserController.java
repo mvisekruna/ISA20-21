@@ -101,7 +101,7 @@ public class UserController {
 	
 	@DeleteMapping("user/{userId}")
 	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
-	public ResponseEntity<User> deleteOne(@PathVariable(value="id") Long userId){
+	public ResponseEntity<User> deleteOne(@PathVariable(value="userId") Long userId){
 		User u = userService.findById(userId);
 		if (u==null) {
 			return ResponseEntity.notFound().build();

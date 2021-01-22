@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -25,12 +26,14 @@ public class Examination {
 	private Long id;
 	
 	private Timestamp dateAndTime;
-	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User dermatologist;
 	
     @ManyToOne(fetch = FetchType.EAGER)
 	private Pharmacy pharmacy;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User patient;
 	
 	private double price;
 

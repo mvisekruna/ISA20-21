@@ -8,10 +8,11 @@ export class PharmacyServiceService {
 
   private pharmacyUrl: string;
   private pharmacyUrlId: string = 'http://localhost:8080/pharmacy/id';
-  private pharmacyUrlName: string = 'http://localhost:8080/pharmacy/name';
+  private pharmacyUrlName: string;
   
   constructor(private http: HttpClient) {
    this.pharmacyUrl= 'http://localhost:8080/pharmacy';
+   this.pharmacyUrlName= 'http://localhost:8080/pharmacy/name';
    }
 
    public findAll(): Observable<Pharmacy[]> {

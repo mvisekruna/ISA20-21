@@ -31,9 +31,8 @@ public class PharmacyController {
 		return pharmacyService.findById(Long.valueOf(id));
 	}
 	
-	@PostMapping("/name")
+	@PostMapping("/name")//hasRole patient
 	public Pharmacy findByName(@RequestBody String pharmacyName){
-		System.out.println(pharmacyName);
 		return pharmacyService.findByName(pharmacyName);
 	}
 }
