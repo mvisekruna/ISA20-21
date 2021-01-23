@@ -13,7 +13,7 @@ export class MedicineServiceService {
   private medicineUrlName: string = 'http://localhost:8080/medicine/name';
 
   constructor(private http: HttpClient) { 
-    this.medicineUrl='http://localhost:8080/medicine';
+    this.medicineUrl='http://localhost:8080/medicine/all';
   }
 
   public findAll(): Observable<Medicine[]> {

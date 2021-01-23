@@ -5,6 +5,7 @@ import java.util.List;
 import com.back.apoteka.model.Examination;
 import com.back.apoteka.request.ExaminationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
+import com.back.apoteka.response.CanUnscheduleResponce;
 
 public interface ExaminationService {
 
@@ -16,5 +17,5 @@ public interface ExaminationService {
 
 	Examination schedule(ScheduleExaminationRequest schedule);
 
-	List<Examination> getScheduled();
+	List<CanUnscheduleResponce> getScheduled();
 }

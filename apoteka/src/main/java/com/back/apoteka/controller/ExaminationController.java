@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.back.apoteka.model.Examination;
 import com.back.apoteka.request.ExaminationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
+import com.back.apoteka.response.CanUnscheduleResponce;
 import com.back.apoteka.service.impl.ExaminationServiceImpl;
 
 @RestController
@@ -50,8 +51,14 @@ public class ExaminationController {
 		System.out.println("usao u exam unschedule contr");
 		return examinationService.unschedule(schedule);
 	}
+	@PostMapping("/canunschedule")
+	public boolean canUnschedule(@RequestBody Long id) {
+		System.out.println("usao u can exam unschedule contr");
+		return examinationService.canUnschedule(id);
+	}
 	@GetMapping("/schedule")
-	public List<Examination> scheduledExaminations(){
+	public List<CanUnscheduleResponce> scheduledExaminations(){
+		System.out.println("usao u getScheudle");
 		return examinationService.getScheduled();
 	}
 }

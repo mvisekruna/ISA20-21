@@ -1,5 +1,7 @@
 package com.back.apoteka.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import com.back.apoteka.repository.ExaminationRepository;
 import com.back.apoteka.repository.UserRepository;
 import com.back.apoteka.request.ExaminationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
+import com.back.apoteka.response.CanUnscheduleResponce;
 import com.back.apoteka.service.ExaminationService;
 
 @Service
@@ -84,7 +87,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 	@Autowired
 	CustomUserDetailsService customUserService;
 	@Override
-	public List<Examination> getScheduled() {
+	public List<CanUnscheduleResponce> getScheduled() {
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 		User u = (User) customUserService.loadUserByUsername(currentUser.getName());
 		 
@@ -93,13 +96,21 @@ public class ExaminationServiceImpl implements ExaminationService{
 		java.sql.Timestamp currTime = new java.sql.Timestamp(time);
 		List<Examination> exams=examinationRepo.findByPatient(u);
 		List<Examination> temp = examinationRepo.findByPatient(u);
+		List<CanUnscheduleResponce> canUnsch= new ArrayList<CanUnscheduleResponce>();	
 		for (Examination e: temp) {
 			System.out.println(currTime + " " + e.getDateAndTime());
 			if(!(currTime).before(e.getDateAndTime())) {
 				exams.remove(e);
 			}
+			else {
+				CanUnscheduleResponce cue = new CanUnscheduleResponce();
+				cue.setExam(e);
+				cue.setCanUnschedule(canUnschedule(e.getId()));
+				System.out.println(cue);
+				canUnsch.add(cue);
+			}
 		}
-		return exams;
+		return canUnsch;
 	}
 	public boolean canUnschedule(Long examId) { //proverava da li pregled sa tim idijem moze da se otkaze
 		//tj da li do njega ima vise od 24h

@@ -7,6 +7,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { HomePagePatientComponent } from './components/home-page/home-page-patient/home-page-patient.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { GuardServiceService } from './service/guard-service.service';
+import { ExamScheduleComponent } from './components/exam-schedule/exam-schedule.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -21,6 +22,11 @@ const routes: Routes = [
   component: HomePageComponent },
   { path: 'myprofile',
   component: MyProfileComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },{ path: 'myexaminationschedule',
+  component: ExamScheduleComponent,
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_PATIENT'
