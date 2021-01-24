@@ -13,6 +13,7 @@ INSERT INTO USERS (password, first_name, last_name, email, home_address, city, s
 INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Milica', 'Visekruna', 'dermatolog@example.com', 'Gavrila Principa 6', 'Backa Palanka', 'Srbija', '0649477321', true, '2020-12-17', 3);
 INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Milica', 'Visekruna', 'adminapoteke@example.com', 'Gavrila Principa 6', 'Backa Palanka', 'Srbija', '0649477321', true, '2020-12-17', 4);
 INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Admin', 'Apoteke', 'pharmacyAdmin1@example.com', 'Ulica 1', 'Grad', 'Srbija', '064123456', true, '2020-12-17', 4);
+INSERT INTO USERS (password, first_name, last_name, email, home_address, city, state, phone_number,  enabled, last_password_reset_date, authority_id) VALUES ('$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra', 'Admin', 'Apoteke', 'farmaceut@example.com', 'Ulica 1', 'Grad', 'Srbija', '064123456', true, '2020-12-17', 2);
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 6);
@@ -20,6 +21,7 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (4, 3);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (5, 4);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (6, 4);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (7, 2);
 
 
 

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -36,4 +37,15 @@ public class Pharmacy {
             inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "id"))
 	private List<Medicine> medicines;
 	
+	@ManyToMany
+	@JoinTable(name = "pharmacy_dermatologist",
+	joinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"),
+	inverseJoinColumns =  @JoinColumn(name = "dermatologist_id", referencedColumnName = "id"))
+	private List<User> dermatologists;
+	
+	@OneToMany
+	private List<User> pharmacists;
+	//ocena?
+	//cena savetovanja??
+	private double priceForCounseling;
 }

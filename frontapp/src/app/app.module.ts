@@ -22,6 +22,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AllergiesListComponent } from './components/allergies-list/allergies-list.component';
 import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy-profile.component';
 import { ExamScheduleComponent } from './components/exam-schedule/exam-schedule.component';
+import { CounselingScheduleComponent } from './components/counseling-schedule/counseling-schedule.component';
+import { SchedulingCounselingComponent } from './components/scheduling-counseling/scheduling-counseling.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ExamScheduleComponent } from './components/exam-schedule/exam-schedule.
     MyProfileComponent,
     AllergiesListComponent,
     PharmacyProfileComponent,
-    ExamScheduleComponent
+    ExamScheduleComponent,
+    CounselingScheduleComponent,
+    SchedulingCounselingComponent
   ],
   imports: [
     BrowserModule,

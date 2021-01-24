@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.Pharmacy;
+import com.back.apoteka.model.User;
 import com.back.apoteka.service.impl.PharmacyServiceImpl;
 
 @RestController
@@ -34,5 +36,10 @@ public class PharmacyController {
 	@PostMapping("/name")//hasRole patient
 	public Pharmacy findByName(@RequestBody String pharmacyName){
 		return pharmacyService.findByName(pharmacyName);
+	}
+	
+	@GetMapping("/pharmacists/{id}")
+	public List<User> getPharmacistsFromPharmacy(@PathVariable int id){
+		return pharmacyService.getPharmacists(Long.valueOf(id));
 	}
 }

@@ -126,7 +126,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 		return false;
 	}
 
-	public Examination unschedule(ScheduleExaminationRequest schedule) {// nije isprobano
+	public Examination unschedule(ScheduleExaminationRequest schedule) {
 		Examination exam = examinationRepo.findById(schedule.getExamId()).orElse(null);
 		exam.setPatient(null);
 		return examinationRepo.save(exam);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.back.apoteka.model.Pharmacy;
+import com.back.apoteka.model.User;
 import com.back.apoteka.repository.PharmacyRepository;
 import com.back.apoteka.service.PharmacyService;
 
@@ -31,6 +32,13 @@ public class PharmacyServiceImpl implements PharmacyService{
 	public List<Pharmacy> findAll() {
 		System.out.println("usao u pharmacyservce");
 		return pharmacyRepository.findAll();
+	}
+
+	@Override
+	public List<User> getPharmacists(Long id) {
+		Pharmacy p=findById(id);
+		List<User> pharmacists= p.getPharmacists();
+		return pharmacists;
 	}
 
 }

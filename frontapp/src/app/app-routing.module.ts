@@ -8,6 +8,8 @@ import { HomePagePatientComponent } from './components/home-page/home-page-patie
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { GuardServiceService } from './service/guard-service.service';
 import { ExamScheduleComponent } from './components/exam-schedule/exam-schedule.component';
+import { CounselingScheduleComponent } from './components/counseling-schedule/counseling-schedule.component';
+import { SchedulingCounselingComponent } from './components/scheduling-counseling/scheduling-counseling.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -25,8 +27,21 @@ const routes: Routes = [
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_PATIENT'
-  }   },{ path: 'myexaminationschedule',
+  }   },
+  { path: 'myexaminationschedule',
   component: ExamScheduleComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },
+  { path: 'mycounselingschedule',
+  component: CounselingScheduleComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },
+  { path: 'schedulingcounseling',
+  component: SchedulingCounselingComponent,
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_PATIENT'
