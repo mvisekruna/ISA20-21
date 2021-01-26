@@ -74,6 +74,9 @@ public class MedicineController {
 		if(m == null) {
 			return ResponseEntity.notFound().build();
 		}
+		if(m.isReserved() == true) {
+			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
+		}
 		medicineService.deleteMed(m);
 		System.out.println("izbrisao lek");
 		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT); //code 204 izadje, proveriti u tabele kako se izbrisao

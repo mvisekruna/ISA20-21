@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
 @Table(name="USERS")
 public class User implements UserDetails {
@@ -76,8 +77,21 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
+    /*
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Pharmacy pharmacy;
+    
+    
 
-    public Long getId() {
+    public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
+
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}*/
+
+	public Long getId() {
         return id;
     }
 

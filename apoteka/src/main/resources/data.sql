@@ -23,6 +23,9 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (5, 4);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (6, 4);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (7, 2);
 
+INSERT INTO PHARMACY_PHARMACISTS(pharmacy_id, pharmacist_id) VALUES (1,7);
+
+
 
 
 INSERT INTO MEDICINE (name) VALUES ('Bensedin');

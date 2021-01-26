@@ -107,6 +107,21 @@ public class UserServiceImpl implements UserService {
 		}
 		return dermatologists;
 	}
+	
+	@Override
+	public List<User> findAllPharmacists(){
+		List<User> users=findAll();
+		List<User> pharmacists=findAll();
+		pharmacists.removeAll(pharmacists);
+		for (User u: users) {
+			List<Authority> lista=(List<Authority>) u.getAuthorities();
+			System.out.println(lista.get(0).getName());
+			if (lista.get(0).getName().contains("ROLE_PHARMACIST")) {
+				pharmacists.add(u);
+			}
+		}
+		return pharmacists;
+	}
 
 
 }

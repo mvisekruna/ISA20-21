@@ -31,4 +31,6 @@ public class Medicine {
 	private String dailyIntake;
 	
 	private String replacments;
+	
+	private boolean reserved;
 }

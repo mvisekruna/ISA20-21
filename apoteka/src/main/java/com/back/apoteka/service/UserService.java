@@ -15,4 +15,5 @@ public interface UserService {
 	User findByEmail(String email);
 	User update(UserUpdateRequest uur);
 	List<User> findAllDermatoligists();
+	List<User> findAllPharmacists();
 }

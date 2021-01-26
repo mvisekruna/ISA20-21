@@ -123,4 +123,10 @@ public class UserController {
 		return userService.findAllDermatoligists();
 		
 	}
+	
+	@GetMapping("/pharm")
+	public List<User> getPharmacists(){
+		return userService.findAllPharmacists();
+		
+	}
 }
