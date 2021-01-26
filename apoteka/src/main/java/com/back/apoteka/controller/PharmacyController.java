@@ -42,4 +42,8 @@ public class PharmacyController {
 	public List<User> getPharmacistsFromPharmacy(@PathVariable int id){
 		return pharmacyService.getPharmacists(Long.valueOf(id));
 	}
+	@GetMapping("/havemedicine/{id}")
+	public List<Pharmacy> getPharmacyWithMedicine(@PathVariable int id){
+		return pharmacyService.getPharmacyWithMedicine(id);
+	}
 }

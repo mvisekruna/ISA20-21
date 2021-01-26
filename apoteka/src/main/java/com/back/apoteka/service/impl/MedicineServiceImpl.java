@@ -21,7 +21,8 @@ public class MedicineServiceImpl implements MedicineService{
 
 	@Autowired
 	MedicineRepository medicineRepository;
-	
+	@Autowired
+	PharmacyServiceImpl pharmacyService;
 
 	public Medicine findById(Long id) throws AccessDeniedException {
 		Medicine m = medicineRepository.findById(id).orElseGet(null);

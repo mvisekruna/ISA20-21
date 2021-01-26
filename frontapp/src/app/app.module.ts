@@ -24,6 +24,7 @@ import { PharmacyProfileComponent } from './components/pharmacy-profile/pharmacy
 import { ExamScheduleComponent } from './components/exam-schedule/exam-schedule.component';
 import { CounselingScheduleComponent } from './components/counseling-schedule/counseling-schedule.component';
 import { SchedulingCounselingComponent } from './components/scheduling-counseling/scheduling-counseling.component';
+import { MedicineReservationListComponent } from './components/medicine-reservation-list/medicine-reservation-list.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { SchedulingCounselingComponent } from './components/scheduling-counselin
     PharmacyProfileComponent,
     ExamScheduleComponent,
     CounselingScheduleComponent,
-    SchedulingCounselingComponent
+    SchedulingCounselingComponent,
+    MedicineReservationListComponent
   ],
   imports: [
     BrowserModule,

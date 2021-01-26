@@ -1,39 +1,34 @@
 package com.back.apoteka.model;
 
-
+import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
-
-
 @Data
 @Entity
-@Table(name = "examination")
-public class Examination {
+@Table(name="medicine_reservation")
+public class MedicineReservation {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@ManyToOne
+	private User patient;
+	
 	private Timestamp dateAndTime;
-	@ManyToOne(fetch = FetchType.EAGER)
-	private User dermatologist;
 	
-    @ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	private Pharmacy pharmacy;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User patient;
 	
-	private double price;
-
+	@ManyToOne
+	private Medicine medicine;
 }

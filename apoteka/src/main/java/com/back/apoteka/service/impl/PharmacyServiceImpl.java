@@ -1,10 +1,12 @@
 package com.back.apoteka.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.back.apoteka.model.Medicine;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.repository.PharmacyRepository;
@@ -15,7 +17,8 @@ public class PharmacyServiceImpl implements PharmacyService{
 
 	@Autowired
 	PharmacyRepository pharmacyRepository;
-	
+	@Autowired
+	MedicineServiceImpl medicineService;
 	@Override
 	public Pharmacy findById(Long id) {
 		System.out.println("usao u pharmacyservce");
@@ -39,6 +42,21 @@ public class PharmacyServiceImpl implements PharmacyService{
 		Pharmacy p=findById(id);
 		List<User> pharmacists= p.getPharmacists();
 		return pharmacists;
+	}
+
+	public List<Pharmacy> getPharmacyWithMedicine(int id) {
+		Medicine m = medicineService.findById(Long.valueOf(id));
+		List<Pharmacy> phar = new ArrayList<Pharmacy>();
+		List<Pharmacy> temp = findAll();	
+		for(Pharmacy p : temp) {
+			List<Medicine> meds = p.getMedicines();
+			for (Medicine me: meds) {
+				if (me.equals(m)) {
+					phar.add(p);
+				}
+			}
+		}
+		return phar;
 	}
 
 }

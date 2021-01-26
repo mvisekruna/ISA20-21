@@ -10,6 +10,8 @@ import { GuardServiceService } from './service/guard-service.service';
 import { ExamScheduleComponent } from './components/exam-schedule/exam-schedule.component';
 import { CounselingScheduleComponent } from './components/counseling-schedule/counseling-schedule.component';
 import { SchedulingCounselingComponent } from './components/scheduling-counseling/scheduling-counseling.component';
+import { MedicineReservationRequest } from './model/medicine-reservation-request';
+import { MedicineReservationListComponent } from './components/medicine-reservation-list/medicine-reservation-list.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -42,6 +44,12 @@ const routes: Routes = [
   }   },
   { path: 'schedulingcounseling',
   component: SchedulingCounselingComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },
+  { path: 'medicinereservationlist',
+  component: MedicineReservationListComponent,
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_PATIENT'

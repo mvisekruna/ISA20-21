@@ -17,9 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Medicine;
+import com.back.apoteka.model.MedicineReservation;
 import com.back.apoteka.request.MedicineRequest;
+import com.back.apoteka.request.MedicineReservationRequest;
 import com.back.apoteka.request.MedicineUpdateRequest;
+import com.back.apoteka.request.ScheduleExaminationRequest;
+import com.back.apoteka.response.CanCancelReservationResponce;
+import com.back.apoteka.service.impl.MedicineReservationServiceImpl;
 import com.back.apoteka.service.impl.MedicineServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -72,7 +78,24 @@ public class MedicineController {
 		System.out.println("izbrisao lek");
 		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT); //code 204 izadje, proveriti u tabele kako se izbrisao
 	}
-	
+	@Autowired
+	MedicineReservationServiceImpl medicineReservationService;
+	@PostMapping("/reservation")
+	@PreAuthorize("hasRole('PATIENT')")
+	public boolean makeReservation(@RequestBody MedicineReservationRequest mrr) {
+		return medicineReservationService.save(mrr);
+	}
+	@GetMapping("/reservation")
+	@PreAuthorize("hasRole('PATIENT')")
+	public List<CanCancelReservationResponce> getReservations(){
+		return medicineReservationService.getReservations();
+	}
+	@PostMapping("/cancelreservation")
+	public boolean cancelREservation(@RequestBody ScheduleExaminationRequest schedule) {
+		System.out.println("usao u cancel reserv");
+		return medicineReservationService.cancel(schedule);
+	}
+
 	
 	
 }

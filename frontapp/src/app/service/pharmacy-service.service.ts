@@ -29,4 +29,9 @@ export class PharmacyServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<User[]>(`${this.pharmacyUrl}/pharmacists/${id}`, {headers});
   }
+  public getPharmacyWithMed(id: number): Observable<Pharmacy[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Pharmacy[]>(`${this.pharmacyUrl}/havemedicine/${id}`, {headers});
+  }
 }

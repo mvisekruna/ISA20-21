@@ -1,8 +1,6 @@
 package com.back.apoteka.request;
 
-import java.sql.Timestamp;
 
-import com.back.apoteka.model.User;
 
 import lombok.Data;
 
