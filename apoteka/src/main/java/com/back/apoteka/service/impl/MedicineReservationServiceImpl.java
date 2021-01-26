@@ -37,7 +37,6 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 		User patient = (User) customUserService.loadUserByUsername(currentUser.getName());
 		MedicineReservation mr= new MedicineReservation();
 		Medicine medicine = medicineService.findById(mrr.getMedicineId());
-		medicine.setReserved(true);
 		Pharmacy pharmacy = pharmacyService.findById(mrr.getPharmacyId());
 		mr.setDateAndTime(Timestamp.valueOf(mrr.getDateAndTime()));
 		mr.setMedicine(medicine);
