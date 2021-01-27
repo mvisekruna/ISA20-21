@@ -122,6 +122,14 @@ public class UserServiceImpl implements UserService {
 		}
 		return pharmacists;
 	}
-
-
+	
+	public User findOnePharmacist(Long id)  {
+		User pharmacist = findById(id);
+		List<Authority> lista = (List<Authority>) pharmacist.getAuthorities();
+		if(lista.get(0).getName().contains("ROLE_PHARMACIST")) {
+			System.out.println(lista.get(0).getName());
+		}
+		return pharmacist;
+	}
 }
+

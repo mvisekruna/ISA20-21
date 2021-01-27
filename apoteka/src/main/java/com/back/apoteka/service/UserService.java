@@ -16,4 +16,5 @@ public interface UserService {
 	User update(UserUpdateRequest uur);
 	List<User> findAllDermatoligists();
 	List<User> findAllPharmacists();
+	User findOnePharmacist(Long id);
 }

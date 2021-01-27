@@ -49,6 +49,11 @@ public class UserController {
 	public User loadById(@PathVariable int userId) {
 		return this.userService.findById(Integer.toUnsignedLong(userId));
 	}
+	
+	@GetMapping("/pharmacist/{pharmId}")
+	public User loadOnePharmacist(@PathVariable Long pharmId) {
+		return this.userService.findOnePharmacist(pharmId);
+	}
 
 	@GetMapping("/user/all")
 	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
