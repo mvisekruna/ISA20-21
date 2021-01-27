@@ -51,8 +51,13 @@ public class UserController {
 	}
 	
 	@GetMapping("/pharmacist/{pharmId}")
-	public User loadOnePharmacist(@PathVariable Long pharmId) {
-		return this.userService.findOnePharmacist(pharmId);
+	public ResponseEntity<Object> loadOnePharmacist(@PathVariable Long pharmId) {
+		User u = userService.findOnePharmacist(pharmId);
+		if(u.getId()==null) {
+			System.out.println("usao");
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<Object>(u, HttpStatus.OK);
 	}
 
 	@GetMapping("/user/all")
