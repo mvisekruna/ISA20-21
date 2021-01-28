@@ -2,7 +2,10 @@ package com.back.apoteka.service.impl;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.back.apoteka.model.Authority;
 import com.back.apoteka.model.User;
 import com.back.apoteka.repository.UserRepository;
+import com.back.apoteka.request.RegisterRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.service.AuthorityService;
@@ -106,6 +110,50 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return dermatologists;
+	}
+	@Autowired
+	EmailServiceImpl emailService;
+	
+	@Override
+	public User register(RegisterRequest userRequest) {
+		User u = new User();
+		u.setEmail(userRequest.getEmail());
+		u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		u.setFirstName(userRequest.getName());
+		u.setLastName(userRequest.getSurname());
+		u.setEnabled(false);
+		u.setCity(userRequest.getCity());
+		u.setState(userRequest.getCountry());
+		u.setPhoneNumber(userRequest.getPhone());
+		u.setHomeAddress(userRequest.getAddress());
+		Authority authority = authService.findName("ROLE_PATIENT");
+		u.setAuthority(authority);
+		List<Authority> auth = authService.findByname("ROLE_PATIENT");
+		u.setAuthorities(auth);
+		u = this.userRepository.save(u);
+		try {
+			emailService.sendNotificaitionAsync(userRequest, u.getId());
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return u;
+	}
+
+	public User activateAcc(String email) {
+		User user = findByEmail(email);
+		user.setEnabled(true);
+		System.out.println("aktiviran");
+		return userRepository.save(user);
+
 	}
 
 

@@ -6,7 +6,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { PharmacyListComponent } from './components/pharmacy-list/pharmacy-list.component';
 import { PharmacyServiceService } from './service/pharmacy-service.service';
 import { HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MedicineListComponent } from './components/medicine-list/medicine-list.component';
 import { MedicineServiceService } from './service/medicine-service.service';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
@@ -49,6 +49,7 @@ import { MedicineReservationListComponent } from './components/medicine-reservat
     CommonModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule
   ],
   providers: [PharmacyServiceService,

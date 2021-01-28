@@ -18,16 +18,11 @@ export class LoginFormComponent implements OnInit {
 
   user:  User;
   title: string;
-
-  //dodato sa https://grokonez.com/java-integration/angular-spring-boot-jwt-authentication-example-angular-6-spring-security-mysql-full-stack-part-3-build-frontend
   form: any = {};
-  
   errorMessage = '';
-  //--
   
-  constructor( private route: ActivatedRoute, 
-    private router: Router, 
-    private appComponent: AppComponent,
+  constructor( 
+    private router: Router,
     private authService: AuthServiceService,
     private userService: UserServiceService) {
       this.title='Log in';
@@ -41,7 +36,11 @@ export class LoginFormComponent implements OnInit {
 
   onSubmit() {
     console.log('kliknuo');
-   
+    this.userService.getMyInfo(this.user.email)
+    .subscribe(data => {
+    console.log(data);
+    if (data.enabled){
+
     this.authService.attemptAuth(this.user)
         .subscribe(data => {
             console.log(data);
@@ -50,6 +49,7 @@ export class LoginFormComponent implements OnInit {
             this.userService.getMyInfo(this.user.email)
             .subscribe(data => {
             console.log(data);
+            
             localStorage.setItem("USERNAME", data.email);
             localStorage.setItem("AUTHORITIES", JSON.stringify(data.authorities).split("\"")[3]); //7 za drugi autoriti
 
@@ -58,15 +58,17 @@ export class LoginFormComponent implements OnInit {
             //window.location.reload(); ne treba mi reload vec redirect,tj ruta!!
             window.location.reload();
             this.router.navigate(["/homepage"]);
-            
 
-            }
-            );
+            });
           
           },
           error => {
           console.log('Incorrect username or password.');
           console.log(error);          
           });
+        } else {
+          console.log("user didnt activated acc");
+        }
+      });
   }
 }

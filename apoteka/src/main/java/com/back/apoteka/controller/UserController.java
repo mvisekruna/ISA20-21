@@ -14,16 +14,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.User;
+import com.back.apoteka.repository.UserRepository;
 import com.back.apoteka.request.ChangePassRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
@@ -122,5 +127,18 @@ public class UserController {
 	public List<User> getDermatologists(){
 		return userService.findAllDermatoligists();
 		
+	}
+	
+	@RequestMapping(path = "/activateacc/{id}",	 method = RequestMethod.GET)
+	public String activateAccount(@PathVariable int id) {
+		 System.out.println("pogodio url");
+		 User u = userService.findById(Long.valueOf(id));
+		 userService.activateAcc(u.getEmail());
+		 return u.getEmail();
+	}
+	@ResponseBody
+	@ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+	public String handleHttpMediaTypeNotAcceptableException() {
+	    return "acceptable MIME type:" + MediaType.APPLICATION_JSON_VALUE;
 	}
 }

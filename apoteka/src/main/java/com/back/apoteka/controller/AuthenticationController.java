@@ -26,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.back.apoteka.exception.ResourceConflictException;
 import com.back.apoteka.model.User;
+import com.back.apoteka.request.RegisterRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.response.UserTokenState;
 import com.back.apoteka.security.TokenUtils;
@@ -85,6 +86,17 @@ public class AuthenticationController {
 		}
 		
 		User user = this.userService.save(userRequest);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
+		return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+
+		User existUser = this.userService.findByEmail(userRequest.getEmail());
+		if (existUser != null) {
+			throw new ResourceConflictException(existUser.getId(), "Username already exists");
+		}
+		
+		User user = this.userService.register(userRequest);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
 		return new ResponseEntity<>(user, HttpStatus.CREATED);

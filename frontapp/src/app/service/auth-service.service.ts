@@ -8,6 +8,7 @@ import { AuthLoginInfo } from '../model/auth-login-info';
 import { Observable } from 'rxjs';
 import { AuthJwtResponce } from '../model/auth-jwt-responce';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthSingupInfo } from '../model/auth-singup-info';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthServiceService {
   private accesstoken = "";
 
     loginURL = 'http://localhost:8080/auth/login';
-    singupURL = 'http://localhost:8080/auth/signup';
+    registerURL = 'http://localhost:8080/auth/register';
     
     loginHeaders = new HttpHeaders({
       'Accept': 'application/json',
@@ -50,5 +51,9 @@ export class AuthServiceService {
     return !this.jwtHelper.isTokenExpired(token);
   }
   return false;
+  }
+
+  register(asi: AuthSingupInfo): Observable<any> {
+    return this.http.post<Observable<any>>(this.registerURL, asi,  this.httpOptions);
   }
 }

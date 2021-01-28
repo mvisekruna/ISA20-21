@@ -14,6 +14,9 @@ export class HomePageComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if (localStorage.getItem("TOKEN")==null){
+      localStorage.setItem("AUTHORITIES", "UNAUTHENTICATED");
+    }
     this.info = {
       token: localStorage.getItem("TOKEN"),
       email: localStorage.getItem("USERNAME"),
@@ -27,6 +30,7 @@ export class HomePageComponent implements OnInit {
   }
   logout() {
     localStorage.clear();
+    localStorage.setItem("AUTHORITIES", "UNAUTHENTICATED");
     window.location.reload();
     this.isUser=false;
   }

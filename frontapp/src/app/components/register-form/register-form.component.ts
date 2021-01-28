@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthSingupInfo } from 'src/app/model/auth-singup-info';
+import { AuthServiceService } from 'src/app/service/auth-service.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NgModule } from '@angular/core';
+
 
 @Component({
   selector: 'app-register-form',
@@ -7,11 +12,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterFormComponent implements OnInit {
 
+  asi: AuthSingupInfo;
   title: string;
+  
+  registerForm: any = {};
   buttonName: string = 'Register now';
   div1:boolean = false;
-  constructor() { 
+  constructor(
+    private authService: AuthServiceService) { 
     this.title='Register';
+    this.asi = new AuthSingupInfo();
   }
   ngOnInit(): void {
   }
@@ -23,6 +33,15 @@ export class RegisterFormComponent implements OnInit {
     } else { this.buttonName='Register now'; }
   }
 
-  onSubmit() {}
+  onSubmit() {
+    console.log(this.asi);
+    alert('You will recieve verification mail. Please check Your mail!');
+
+    if (this.asi.password.match(this.asi.password_cnfrm)){
+    this.authService.register(this.asi).subscribe( data => {
+      console.log(data);
+    });
+  }
+  }
 
 }
