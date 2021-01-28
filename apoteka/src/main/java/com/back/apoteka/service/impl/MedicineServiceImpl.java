@@ -23,6 +23,7 @@ public class MedicineServiceImpl implements MedicineService{
 	MedicineRepository medicineRepository;
 	@Autowired
 	PharmacyServiceImpl pharmacyService;
+	
 
 	public Medicine findById(Long id) throws AccessDeniedException {
 		Medicine m = medicineRepository.findById(id).orElseGet(null);
@@ -59,7 +60,7 @@ public class MedicineServiceImpl implements MedicineService{
 		m = this.medicineRepository.save(m);
 		return m;
 	}
-
+	
 	@Transactional(rollbackFor = Exception.class)
 	public void deleteMed(Medicine medicine) {
 		medicineRepository.delete(medicine);

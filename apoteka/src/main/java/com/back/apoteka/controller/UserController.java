@@ -54,6 +54,16 @@ public class UserController {
 	public User loadById(@PathVariable int userId) {
 		return this.userService.findById(Integer.toUnsignedLong(userId));
 	}
+	
+	@GetMapping("/pharmacist/{pharmId}")
+	public ResponseEntity<Object> loadOnePharmacist(@PathVariable Long pharmId) {
+		User u = userService.findOnePharmacist(pharmId);
+		if(u.getId()==null) {
+			System.out.println("usao");
+			return ResponseEntity.notFound().build();
+		}
+		return new ResponseEntity<Object>(u, HttpStatus.OK);
+	}
 
 	@GetMapping("/user/all")
 	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
@@ -139,6 +149,11 @@ public class UserController {
 	@ResponseBody
 	@ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
 	public String handleHttpMediaTypeNotAcceptableException() {
-	    return "acceptable MIME type:" + MediaType.APPLICATION_JSON_VALUE;
+	    return "acceptable MIME type:" + MediaType.APPLICATION_JSON_VALUE;}
+	
+	@GetMapping("/pharm")
+	public List<User> getPharmacists(){
+		return userService.findAllPharmacists();
+		
 	}
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Medicine;
 import com.back.apoteka.model.MedicineReservation;
+import com.back.apoteka.repository.MedicineReservationRepository;
 import com.back.apoteka.request.MedicineRequest;
 import com.back.apoteka.request.MedicineReservationRequest;
 import com.back.apoteka.request.MedicineUpdateRequest;
@@ -36,6 +37,8 @@ public class MedicineController {
 
 	@Autowired
 	MedicineServiceImpl medicineService;
+	@Autowired
+	MedicineReservationRepository medicineReservationRepo;
 	
 	@GetMapping("/all")
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
@@ -68,16 +71,23 @@ public class MedicineController {
 	}
 	
 	@PostMapping("deletemedicine/{id}")
-	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public ResponseEntity<Object> deleteMedicine(@PathVariable Long id) {
-		Medicine m = medicineService.findById(id);
-		if(m == null) {
+		Medicine medicine = medicineService.findById(id);
+		if(medicine == null) {
 			return ResponseEntity.notFound().build();
 		}
-		medicineService.deleteMed(m);
-		System.out.println("izbrisao lek");
-		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT); //code 204 izadje, proveriti u tabele kako se izbrisao
-	}
+		List<MedicineReservation> list = medicineReservationRepo.findAll();
+		for(MedicineReservation mr: list) {
+			if(!mr.getMedicine().equals(medicine)) {
+				medicineService.deleteMed(medicine);	
+			}
+			else 
+				return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);	
+			}
+		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);//code 204 izadje, proveriti u tabele kako se izbrisao
+		}
+		
 	@Autowired
 	MedicineReservationServiceImpl medicineReservationService;
 	@PostMapping("/reservation")

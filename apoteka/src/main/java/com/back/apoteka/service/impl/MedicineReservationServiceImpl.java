@@ -19,9 +19,9 @@ import com.back.apoteka.repository.MedicineReservationRepository;
 import com.back.apoteka.request.MedicineReservationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
 import com.back.apoteka.response.CanCancelReservationResponce;
-import com.back.apoteka.service.MedicineReservvationService;
+import com.back.apoteka.service.MedicineReservationService;
 @Service
-public class MedicineReservationServiceImpl implements MedicineReservvationService {
+public class MedicineReservationServiceImpl implements MedicineReservationService {
 
 	@Autowired
 	MedicineReservationRepository medicineReservationRepo;
