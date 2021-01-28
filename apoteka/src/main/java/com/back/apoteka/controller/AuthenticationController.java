@@ -90,6 +90,8 @@ public class AuthenticationController {
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
+	@PostMapping("/register")
+	public ResponseEntity<User> RegisterUser(@RequestBody RegisterRequest userRequest, UriComponentsBuilder ucBuilder) {
 
 		User existUser = this.userService.findByEmail(userRequest.getEmail());
 		if (existUser != null) {
