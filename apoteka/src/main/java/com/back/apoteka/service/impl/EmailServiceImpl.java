@@ -1,5 +1,7 @@
 package com.back.apoteka.service.impl;
 
+import java.sql.Timestamp;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -39,6 +41,57 @@ public class EmailServiceImpl {
 		helper.setFrom(env.getProperty("spring.mail.username"));
 		javaMailSender.send(mimeMessage);
 		System.out.println("Email poslat!");
+	}
+	
+	@Async
+	public void sendMedicineReservationConfirmation(String email, String firstName, Long id, Timestamp dateAndTime) throws MessagingException {
+		System.out.println("Slanje emaila o leku...");
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+
+		String htmlMsg = "<h3>Hello "+firstName+"</h3><br> <p>We are informing You, that Your reservation "+id.toString()+" was successfuly made. You can take over till "+ dateAndTime.toString()+" </p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Reservation");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");
+		
+	}
+
+	@Async
+	public void sendConsuelingConfirmation(String email, String firstName, String name, String address,
+			Timestamp dateAndTime) throws MessagingException {
+		System.out.println("Slanje emaila o savetovamju...");
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+
+		String htmlMsg = "<h3>Hello "+firstName+"</h3><br> <p>We are informing You, that You schedule consueling at "+name+" pharmacy, with address: "+address+". Your conuseling time is: "+ dateAndTime.toString()+" </p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Reservation");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");
+		
+	}
+
+	public void sendExaminationConfirmationMail(String email, String firstName, String name, String address,
+			Timestamp dateAndTime) throws MessagingException {
+		System.out.println("Slanje emaila opregledu...");
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+
+		String htmlMsg = "<h3>Hello "+firstName+"</h3><br> <p>We are informing You, that You schedule examination at "+name+" pharmacy, with address: "+address+". Your examination time is: "+ dateAndTime.toString()+" </p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Reservation");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");		
 	}
 
 }

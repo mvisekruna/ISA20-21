@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,7 +71,8 @@ public class ExaminationServiceImpl implements ExaminationService{
 	
 	@Autowired
 	UserRepository userRepo;
-
+	@Autowired
+	EmailServiceImpl emailService;
 	@Override
 	public Examination schedule(ScheduleExaminationRequest schedule) {
 		System.out.println("usao u examschedule");
@@ -78,6 +81,12 @@ public class ExaminationServiceImpl implements ExaminationService{
 		exam.setPatient(patient);
 		System.out.println(exam.getPatient());
 		System.out.println(exam);
+		try {
+			emailService.sendExaminationConfirmationMail(patient.getEmail(), patient.getFirstName(), exam.getPharmacy().getName(), exam.getPharmacy().getAddress(), exam.getDateAndTime());
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return examinationRepo.save(exam);
 	}
 

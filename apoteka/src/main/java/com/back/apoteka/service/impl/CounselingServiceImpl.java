@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -88,6 +90,8 @@ public class CounselingServiceImpl implements CounselingService{
 	}
 	@Autowired
 	UserServiceImpl userService;
+	@Autowired
+	EmailServiceImpl emailService;
 	@Override
 	public boolean schedule(ScheduleCounselingRequest scr) {
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
@@ -99,6 +103,13 @@ public class CounselingServiceImpl implements CounselingService{
 		coun.setPharmacist(userService.findById(scr.getPharmacist()));
 		coun.setPharmacy(pharmacyService.findById(scr.getPharmacyId()));
 		counselingRepo.save(coun);
+		
+		try {
+			emailService.sendConsuelingConfirmation(patient.getEmail(), patient.getFirstName(), coun.getPharmacy().getName(), coun.getPharmacy().getAddress(), coun.getDateAndTime());
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 }

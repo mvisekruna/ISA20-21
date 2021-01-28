@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +32,8 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 	@Autowired
 	PharmacyServiceImpl pharmacyService;
 	@Autowired
+	EmailServiceImpl emailService;
+	@Autowired
 	CustomUserDetailsService customUserService;
 	@Override
 	public boolean save(MedicineReservationRequest mrr) {
@@ -44,6 +48,12 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 		mr.setPharmacy(pharmacy);
 		System.out.println("cua rez");
 		medicineReservationRepo.save(mr);
+		try {
+			emailService.sendMedicineReservationConfirmation(patient.getEmail(), patient.getFirstName(), mr.getId(), mr.getDateAndTime());
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 
