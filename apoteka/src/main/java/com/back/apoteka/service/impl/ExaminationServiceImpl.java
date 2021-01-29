@@ -138,5 +138,23 @@ public class ExaminationServiceImpl implements ExaminationService{
 		return examinationRepo.save(exam);
 	}
 
+	public List<Examination> historyOfExaminations() {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		User u = (User) customUserService.loadUserByUsername(currentUser.getName()); 
+		Date date= new Date();
+		long time = date.getTime();
+		java.sql.Timestamp currTime = new java.sql.Timestamp(time);
+		List<Examination> temp=examinationRepo.findByPatient(u);
+		
+		List<Examination> lista= new ArrayList<Examination>();
+		
+		for (Examination e : temp) {
+			if (currTime.after(e.getDateAndTime())) {
+				lista.add(e);
+			}
+		}
+		return lista;
+	}
+
 	
 }

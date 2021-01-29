@@ -31,4 +31,6 @@ public class MedicineReservation {
 	
 	@ManyToOne
 	private Medicine medicine;
+	
+	private boolean taken;
 }

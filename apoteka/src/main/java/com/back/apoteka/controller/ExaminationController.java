@@ -61,4 +61,9 @@ public class ExaminationController {
 		System.out.println("usao u getScheudle");
 		return examinationService.getScheduled();
 	}
+	@GetMapping("/history")
+	@PreAuthorize("hasRole('PATIENT')")
+	public List<Examination> historyOfExaminations(){
+		return examinationService.historyOfExaminations();
+	}
 }

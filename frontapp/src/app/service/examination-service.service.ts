@@ -13,13 +13,13 @@ export class ExaminationServiceService {
   private examUrl: string;
   private scheduleExamUrl: string;
   private unscheduleExamUrl: string;
-
+  private historyExamUrl: string;
   
   constructor(private http: HttpClient) {
    this.examUrl= 'http://localhost:8080/examination/pharm';
    this.scheduleExamUrl ='http://localhost:8080/examination/schedule';
    this.unscheduleExamUrl ='http://localhost:8080/examination/unschedule';
-
+   this.historyExamUrl ='http://localhost:8080/examination/history';
    }
 
    public findAllAvaiable(pharmId: number): Observable<Examination[]> {
@@ -41,6 +41,11 @@ export class ExaminationServiceService {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
      return this.http.post<Examination>(this.unscheduleExamUrl, ser, {headers});
+   }
+   public history(): Observable<Examination[]>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Examination[]>(this.historyExamUrl, {headers});
    }
    
 }

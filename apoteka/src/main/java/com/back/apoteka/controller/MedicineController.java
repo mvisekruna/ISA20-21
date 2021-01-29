@@ -105,7 +105,11 @@ public class MedicineController {
 		System.out.println("usao u cancel reserv");
 		return medicineReservationService.cancel(schedule);
 	}
-
-	
+	@PostMapping("/takeit")
+	@PreAuthorize("hasRole('PATIENT')")
+	public boolean takeMedicine(@RequestBody int id) {
+		System.out.println("usao u take medicine contr");
+		return medicineReservationService.takeMedicine(Long.valueOf(id));
+	}
 	
 }

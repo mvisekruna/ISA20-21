@@ -12,6 +12,8 @@ import { CounselingScheduleComponent } from './components/counseling-schedule/co
 import { SchedulingCounselingComponent } from './components/scheduling-counseling/scheduling-counseling.component';
 import { MedicineReservationRequest } from './model/medicine-reservation-request';
 import { MedicineReservationListComponent } from './components/medicine-reservation-list/medicine-reservation-list.component';
+import { ExaminationHistoryListComponent } from './components/examination-history-list/examination-history-list.component';
+import { CounselingHistoryListComponent } from './components/counseling-history-list/counseling-history-list.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -50,6 +52,18 @@ const routes: Routes = [
   }   },
   { path: 'medicinereservationlist',
   component: MedicineReservationListComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },
+  { path: 'examhistorylist',
+  component: ExaminationHistoryListComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },
+  { path: 'counhistorylist',
+  component: CounselingHistoryListComponent,
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_PATIENT'

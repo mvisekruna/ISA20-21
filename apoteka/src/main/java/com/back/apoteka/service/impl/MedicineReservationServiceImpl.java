@@ -46,6 +46,7 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 		mr.setMedicine(medicine);
 		mr.setPatient(patient);
 		mr.setPharmacy(pharmacy);
+		mr.setTaken(false);
 		System.out.println("cua rez");
 		medicineReservationRepo.save(mr);
 		try {
@@ -67,11 +68,12 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 		List<MedicineReservation> reservations = medicineReservationRepo.findAll();
 		List<MedicineReservation> temp = medicineReservationRepo.findAll();
 		for(MedicineReservation mr: temp) {
-			if (!mr.getPatient().equals(patient) || !(currTime).before(mr.getDateAndTime())) {
+			if (!mr.getPatient().equals(patient) || !(currTime).before(mr.getDateAndTime()) || mr.isTaken()) {
 				reservations.remove(mr);
 			}
 			else {
 				CanCancelReservationResponce ccrr= new CanCancelReservationResponce();
+				System.out.println(mr.isTaken()); // mora biti false ako ovde ulazi
 				ccrr.setMr(mr);
 				ccrr.setCanCancel(canCancel(mr.getId()));
 				responce.add(ccrr);
@@ -97,5 +99,14 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 		mr.setPatient(null);
 		medicineReservationRepo.delete(mr);
 		return true;
+	}
+
+	public boolean takeMedicine(Long id) {
+		System.out.println("usao u takitmedcine service");
+		MedicineReservation mr = medicineReservationRepo.findById(id).orElse(null);
+		mr.setTaken(true);
+		medicineReservationRepo.save(mr);
+		return true;
+		
 	}
 }

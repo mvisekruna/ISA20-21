@@ -44,4 +44,16 @@ ser: ScheduleExaminationRequest;
 
   }
 
+  takeit(id: number){
+    this.medicineSerrvice.takeit(id).subscribe( data => {
+      console.log(data);
+      this.medicineSerrvice.getReservation().subscribe( data => {
+        console.log(data);
+        this.canCancelReservation=data;
+        
+      });
+    });
+    this.router.navigate(["/medicinereservationlist"]);
+
+  }
 }

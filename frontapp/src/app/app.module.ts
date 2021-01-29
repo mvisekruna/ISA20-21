@@ -25,6 +25,8 @@ import { ExamScheduleComponent } from './components/exam-schedule/exam-schedule.
 import { CounselingScheduleComponent } from './components/counseling-schedule/counseling-schedule.component';
 import { SchedulingCounselingComponent } from './components/scheduling-counseling/scheduling-counseling.component';
 import { MedicineReservationListComponent } from './components/medicine-reservation-list/medicine-reservation-list.component';
+import { ExaminationHistoryListComponent } from './components/examination-history-list/examination-history-list.component';
+import { CounselingHistoryListComponent } from './components/counseling-history-list/counseling-history-list.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { MedicineReservationListComponent } from './components/medicine-reservat
     ExamScheduleComponent,
     CounselingScheduleComponent,
     SchedulingCounselingComponent,
-    MedicineReservationListComponent
+    MedicineReservationListComponent,
+    ExaminationHistoryListComponent,
+    CounselingHistoryListComponent
   ],
   imports: [
     BrowserModule,

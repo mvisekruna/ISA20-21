@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,11 @@ public class CounselingController {
 	public List<CanCancelCounselingResponse> scheduledCounselings(){
 		System.out.println("usao u getScheudle");
 		return counselingService.getScheduleCounseling();
+	}
+	@GetMapping("/history")
+	@PreAuthorize("hasRole('PATIENT')")
+	public List<Counseling> historyOfCounseling(){
+		return counselingService.historyOfCounseling();
 	}
 	@PostMapping("/schedule")
 	public boolean schedule(@RequestBody ScheduleCounselingRequest scr) {

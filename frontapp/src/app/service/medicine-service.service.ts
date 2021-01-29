@@ -14,9 +14,11 @@ export class MedicineServiceService {
   private medicineUrl: string;
   private medicineUrlId: string = 'http://localhost:8080/medicine/id';
   private medicineUrlName: string = 'http://localhost:8080/medicine/name';
+  private takeMedicineUrl: string;
 
   constructor(private http: HttpClient) { 
     this.medicineUrl='http://localhost:8080/medicine/all';
+    this.takeMedicineUrl='http://localhost:8080/medicine/takeit';
   }
 
   public findAll(): Observable<Medicine[]> {
@@ -36,6 +38,11 @@ export class MedicineServiceService {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
      return this.http.post<any>('http://localhost:8080/medicine/cancelreservation', ser, {headers});
+   }
+   public takeit(id: number): Observable<any>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+     return this.http.post<any>(this.takeMedicineUrl, id, {headers});
    }
    
 }

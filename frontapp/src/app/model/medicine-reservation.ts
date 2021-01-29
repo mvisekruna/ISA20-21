@@ -8,4 +8,5 @@ export class MedicineReservation {
     dateAndTime: Date;
     pharmacy: Pharmacy;
     medicine: Medicine;
+    taken: boolean;
 }

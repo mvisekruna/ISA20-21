@@ -112,4 +112,22 @@ public class CounselingServiceImpl implements CounselingService{
 		}
 		return true;
 	}
+	public List<Counseling> historyOfCounseling() {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		User patient = (User) customUserService.loadUserByUsername(currentUser.getName());
+		Date date= new Date();
+		long time = date.getTime();
+		java.sql.Timestamp currTime = new java.sql.Timestamp(time);
+		List<Counseling> temp = counselingRepo.findByPatient(patient);
+		
+		List<Counseling> lista = new ArrayList<Counseling>();
+		
+		for (Counseling c : temp) {
+			if (currTime.after(c.getDateAndTime())) {
+				lista.add(c);
+			}
+		}
+		return lista;
+		
+	}
 }
