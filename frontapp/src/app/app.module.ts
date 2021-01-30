@@ -13,8 +13,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { AuthServiceService } from './service/auth-service.service';
 import { ApiServiceService } from './service/api-service.service';
 import { UserServiceService } from './service/user-service.service';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { HomePagePatientComponent } from './components/home-page/home-page-patient/home-page-patient.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
@@ -27,7 +26,8 @@ import { SchedulingCounselingComponent } from './components/scheduling-counselin
 import { MedicineReservationListComponent } from './components/medicine-reservation-list/medicine-reservation-list.component';
 import { ExaminationHistoryListComponent } from './components/examination-history-list/examination-history-list.component';
 import { CounselingHistoryListComponent } from './components/counseling-history-list/counseling-history-list.component';
-
+import { SearchPipe } from './search.pipe';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -46,9 +46,11 @@ import { CounselingHistoryListComponent } from './components/counseling-history-
     SchedulingCounselingComponent,
     MedicineReservationListComponent,
     ExaminationHistoryListComponent,
-    CounselingHistoryListComponent
+    CounselingHistoryListComponent,
+    SearchPipe
   ],
   imports: [
+    DataTablesModule,
     BrowserModule,
     CommonModule,
     AppRoutingModule,

@@ -2,17 +2,21 @@
 <div class="card my-5">
     <div class="card-body" *ngIf="!showPharm" id="!showPharm">
       <h2>{{ title }}</h2>
-      <table class="table table-bordered table-striped">
+     <!-- <input type="text" [(ngModel)]="terms" placeholder="Serach fields by name/address"/> -->
+
+      <table class="table table-striped table-bordered table-sm row-border hover"  datatable [dtOptions]="dtOptions" >
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
+            <th scope="col">
+              Name
+              </th>
             <th scope="col">Phone</th>
             <th scope="col">Address</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pharmacy of pharmacys" id="pharmacy">
+          <tr *ngFor="let pharmacy of pharmacys | search:terms" id="pharmacy">
             <td>{{ pharmacy.id }}</td>
             <td><button type="submit" (click)="showPharmacy(pharmacy.name)"  
               class="btn btn-info"  style="width:100%">{{ pharmacy.name }}</button></td> 

@@ -14,6 +14,7 @@ import { MedicineReservationRequest } from './model/medicine-reservation-request
 import { MedicineReservationListComponent } from './components/medicine-reservation-list/medicine-reservation-list.component';
 import { ExaminationHistoryListComponent } from './components/examination-history-list/examination-history-list.component';
 import { CounselingHistoryListComponent } from './components/counseling-history-list/counseling-history-list.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path: 'medicine-list',
    component: MedicineListComponent },
    { path: 'registerform',
-   component: MedicineListComponent },
+   component: RegisterFormComponent },
    { path: 'homepage',
   component: HomePageComponent },
   { path: 'myprofile',

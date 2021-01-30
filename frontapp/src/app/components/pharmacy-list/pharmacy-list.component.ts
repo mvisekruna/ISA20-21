@@ -13,22 +13,32 @@ import { PharmacyServiceService } from 'src/app/service/pharmacy-service.service
 })
 export class PharmacyListComponent implements OnInit {
 
+  dtOptions: any = {};
+
   pharmacys: Pharmacy[];
   title: string;
   showPharm : boolean = false;
   pharmacy1: Pharmacy;
   examinations: Examination[];
   scheduleExam: any;
+  //terms="";
   scheduleExaminationRequest: ScheduleExaminationRequest;
   constructor(private pharmacyService: PharmacyServiceService, private examService: ExaminationServiceService) { 
   }
   
   ngOnInit(): void {
+    
     this.pharmacy1 = new Pharmacy();
     this.title='Pharmacy list';
     this.pharmacyService.findAll().subscribe(data => {
       this.pharmacys = data;
     });
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+    lengthMenu : [5, 10, 25],
+      processing: true
+    };
     
   }
   showPharmacy(name: string){
