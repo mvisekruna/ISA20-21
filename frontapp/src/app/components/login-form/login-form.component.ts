@@ -55,10 +55,14 @@ export class LoginFormComponent implements OnInit {
 
             //this.reloadPage();
             console.log(localStorage);
+            if (data.firstLogin==true){
+              console.log(data.firstlogin);
+              this.router.navigate(["/changepassword"]);
+            } else {
             //window.location.reload(); ne treba mi reload vec redirect,tj ruta!!
             window.location.reload();
             this.router.navigate(["/homepage"]);
-
+          }
             });
           
           },

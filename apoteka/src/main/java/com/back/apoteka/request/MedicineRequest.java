@@ -1,28 +1,23 @@
 package com.back.apoteka.request;
 
+import lombok.Data;
+
+@Data
 public class MedicineRequest {
 	
-	private Long id;
+private String name;
 	
-	private String name;
-	//dodati ostala polja kad bude trebalo
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	private Integer code; //sifra za sifarnik lekova
 	
+	private String type;
 	
-
+	private String contraindication;
+	
+	private String components;
+	
+	private String dailyIntake;
+	
+	private String replacments; //treba da budu sifre zamenskih lekova
+	
+	private boolean prescriptioRequired;
 }

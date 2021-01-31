@@ -53,6 +53,19 @@
             </tr>
           </tbody>
         </table>
+        <div *ngIf="isAdmin">
+            <input list="freeAdmins"  [(ngModel)]="pharmAdmin.email"
+      class="form-control" 
+      id="pharmAdmin.email" 
+      name="pharmAdmin.email"  >
+
+      <datalist id="freeAdmins">
+        <option *ngFor="let freeA of freeAdmins" id="freeAdmins">{{freeA.email}}
+        </option>
+    </datalist>
+    <button type="submit" (click)="makeAdmin()"  
+              class="btn btn-info" >Add admin to pharmacy</button>
+        </div>
         <button type="submit" (click)="backFun()"  
               class="btn btn-info" >Back to list</button>
     </div>

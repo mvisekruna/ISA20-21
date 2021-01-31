@@ -28,6 +28,11 @@ import { ExaminationHistoryListComponent } from './components/examination-histor
 import { CounselingHistoryListComponent } from './components/counseling-history-list/counseling-history-list.component';
 import { SearchPipe } from './search.pipe';
 import { DataTablesModule } from 'angular-datatables';
+import { HomePageSystemAdminComponent } from './components/home-page/home-page-system-admin/home-page-system-admin.component';
+import { CreatePharmacyComponent } from './components/create-pharmacy/create-pharmacy.component';
+import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
+import { CreateMedicineComponent } from './components/create-medicine/create-medicine.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,12 @@ import { DataTablesModule } from 'angular-datatables';
     MedicineReservationListComponent,
     ExaminationHistoryListComponent,
     CounselingHistoryListComponent,
-    SearchPipe
+    SearchPipe,
+    HomePageSystemAdminComponent,
+    CreatePharmacyComponent,
+    RegisterNewUserComponent,
+    CreateMedicineComponent,
+    ChangePasswordComponent
   ],
   imports: [
     DataTablesModule,

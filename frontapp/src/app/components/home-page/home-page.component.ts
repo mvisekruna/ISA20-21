@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomePageComponent implements OnInit {
   info: any;
   isUser: boolean= false;
+  isSystemAdmin= false;
   title = 'Pharmacy information system';
   constructor() {
 
@@ -26,6 +27,8 @@ export class HomePageComponent implements OnInit {
     console.log(this.info.authorities);
     if (this.info.authorities == "ROLE_PATIENT"){
       this.isUser=true;
+    } else if (this.info.authorities == "ROLE_SYSTEM_ADMIN"){
+      this.isSystemAdmin=true;
     }
   }
   logout() {
@@ -33,5 +36,6 @@ export class HomePageComponent implements OnInit {
     localStorage.setItem("AUTHORITIES", "UNAUTHENTICATED");
     window.location.reload();
     this.isUser=false;
+    this.isSystemAdmin=false;
   }
 }

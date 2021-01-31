@@ -60,7 +60,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		User user = (User) loadUserByUsername(username);
 
 		user.setPassword(passwordEncoder.encode(newPassword));
-		
+		user.setFirstLogin(false);
 		return userRepository.save(user);
 	}
 }

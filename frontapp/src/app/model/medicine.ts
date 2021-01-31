@@ -7,4 +7,6 @@ export class Medicine {
 	components: string;
 	dailyIntake: string;
 	replacments: string;
+	prescriptioRequired: boolean;
+
 }

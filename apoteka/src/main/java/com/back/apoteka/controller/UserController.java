@@ -27,9 +27,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back.apoteka.exception.ResourceConflictException;
+import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.repository.UserRepository;
+import com.back.apoteka.request.AddPhamracyAdminReuest;
+import com.back.apoteka.request.AddUserRequest;
 import com.back.apoteka.request.ChangePassRequest;
+import com.back.apoteka.request.DermatologistRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.security.auth.JwtAuthenticationRequest;
@@ -83,6 +88,21 @@ public class UserController {
 		return this.userService.save(userRequest);
 	}
 	
+	@PostMapping("/savederm")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public User saveDerm(@RequestBody DermatologistRequest userRequest) {
+		return this.userService.saveDerm(userRequest);
+	}
+	@PostMapping("/adduser") //dodaje svakog usera samo treba odgovarajuci authority da se poselje
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public User addUser(@RequestBody AddUserRequest userRequest) {
+		User existUser = this.userService.findByEmail(userRequest.getEmail());
+		if (existUser != null) {
+			throw new ResourceConflictException(existUser.getId(), "Username already exists");
+		}
+		System.out.println("usao u contr");
+		return userService.addUser(userRequest);
+	}
 	@PostMapping("/updatepatient")
 	@PreAuthorize("hasRole('PATIENT')")//zasad mek stoji user dok ne bude trebalo patient
 	public User updatePatient(@RequestBody UserUpdateRequest userRequest) {
@@ -90,7 +110,7 @@ public class UserController {
 		return this.userService.update(userRequest);
 	}
 	@PostMapping("/pass")
-	@PreAuthorize("hasRole('PATIENT')")//zasad mek stoji user dok ne bude trebalo patient
+	//@PreAuthorize("hasRole('PATIENT')")//zasad mek stoji user dok ne bude trebalo patient
 	public User changePassword(@RequestBody ChangePassRequest cpr) {
 		return this.customUserService.changePassword(cpr.getOldPassword(), cpr.getNewPassword());
 	}
@@ -156,4 +176,10 @@ public class UserController {
 		return userService.findAllPharmacists();
 		
 	}
+	@GetMapping("/freepharmadmin")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public List<User> findFreePharmAdmins(){
+		return userService.findFreePharmacyAdmins();
+	}
+	
 }

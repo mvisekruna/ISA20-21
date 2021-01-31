@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
+import com.back.apoteka.request.AddPhamracyAdminReuest;
+import com.back.apoteka.request.AddPharmacyRequest;
 import com.back.apoteka.service.impl.PharmacyServiceImpl;
 
 @RestController
@@ -46,4 +49,20 @@ public class PharmacyController {
 	public List<Pharmacy> getPharmacyWithMedicine(@PathVariable int id){
 		return pharmacyService.getPharmacyWithMedicine(id);
 	}
+	@PostMapping
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public Pharmacy addPharmacy(@RequestBody AddPharmacyRequest apr) {
+		return pharmacyService.addPharmacy(apr);
+	}
+	@PostMapping("/setadmin")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public Pharmacy addPharmacyAdmin(@RequestBody AddPhamracyAdminReuest apar) {
+		return pharmacyService.addPharmacyAdmin(apar);
+	}
+	@PostMapping("/setderm")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public Pharmacy addPharmacyDerm(@RequestBody AddPhamracyAdminReuest apar) {
+		return pharmacyService.addPharmacyDerm(apar);
+	}
+	
 }

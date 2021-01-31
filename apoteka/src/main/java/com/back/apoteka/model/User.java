@@ -77,6 +77,8 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
+    
+    private boolean firstLogin;
     /*
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Pharmacy pharmacy;
@@ -91,6 +93,12 @@ public class User implements UserDetails {
 		this.pharmacy = pharmacy;
 	}*/
 
+    public void setFirstLogin(boolean firstLogin) {
+    	this.firstLogin=firstLogin;
+    }
+    public boolean isFirstLogin() {
+    	return this.firstLogin;
+    }
 	public Long getId() {
         return id;
     }

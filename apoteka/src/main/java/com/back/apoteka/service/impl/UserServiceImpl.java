@@ -1,5 +1,6 @@
 package com.back.apoteka.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -15,8 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.back.apoteka.model.Authority;
+import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.repository.UserRepository;
+import com.back.apoteka.request.AddUserRequest;
+import com.back.apoteka.request.DermatologistRequest;
 import com.back.apoteka.request.RegisterRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
@@ -186,6 +190,67 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return us;
+	}
+
+	public User saveDerm(DermatologistRequest userRequest) {
+		User derm = new User();
+		derm.setCity(userRequest.getCity());
+		derm.setHomeAddress(userRequest.getAddress());
+		derm.setEmail(userRequest.getEmail());
+		derm.setEnabled(true);
+		derm.setFirstName(userRequest.getFirstname());
+		derm.setLastName(userRequest.getLastname());
+		derm.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		derm.setPhoneNumber(userRequest.getPhone());
+		Authority authority = authService.findName("ROLE_DERMATOLOGIST");
+		derm.setAuthority(authority);
+		List<Authority> auth = authService.findByname("ROLE_DERMATOLOGIST");
+		derm.setAuthorities(auth);
+		return userRepository.save(derm);
+		}
+
+	@Override
+	public User addUser(AddUserRequest userRequest) {
+		System.out.println("usaouservis");
+		User u = new User();
+		System.out.println(u.getId());
+		u.setEmail(userRequest.getEmail());
+		u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		u.setFirstName(userRequest.getFirstname());
+		u.setLastName(userRequest.getLastname());
+		u.setEnabled(true);
+		u.setCity(userRequest.getCity());
+		u.setState(userRequest.getState());
+		u.setPhoneNumber(userRequest.getPhone());
+		u.setHomeAddress(userRequest.getAddress());
+		Authority authority = authService.findName(userRequest.getAuthority().getName());
+		System.out.println(authority);
+		u.setAuthority(authority);
+		u.setFirstLogin(true);
+		List<Authority> auth = new ArrayList<Authority>();
+		auth.add(authority);
+		u.setAuthorities(auth);
+		//u = this.userRepository.save(u);
+		System.out.println(u);
+		return userRepository.save(u);
+	}
+
+	@Autowired
+	PharmacyServiceImpl pharmacyService;
+	public List<User> findFreePharmacyAdmins() {
+		Authority authority = authService.findName("ROLE_PHARMACY_ADMIN");
+		List<User> pharmacyAdmins = userRepository.findByAuthority(authority);
+		List<User> freePharmacyAdmins = userRepository.findByAuthority(authority);
+		List<Pharmacy> pharmacys  = pharmacyService.findAll();
+		for (User admins: pharmacyAdmins) {
+			for (Pharmacy p : pharmacys) {
+				if (p.getAdminApoteke().contains(admins)) {
+					freePharmacyAdmins.remove(admins);
+					break;
+				} 
+			}
+		}
+		return freePharmacyAdmins;
 	}
 }
 

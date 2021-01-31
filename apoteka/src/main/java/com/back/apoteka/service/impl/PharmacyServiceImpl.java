@@ -10,6 +10,8 @@ import com.back.apoteka.model.Medicine;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.repository.PharmacyRepository;
+import com.back.apoteka.request.AddPhamracyAdminReuest;
+import com.back.apoteka.request.AddPharmacyRequest;
 import com.back.apoteka.service.PharmacyService;
 
 @Service
@@ -57,6 +59,32 @@ public class PharmacyServiceImpl implements PharmacyService{
 			}
 		}
 		return phar;
+	}
+
+	public Pharmacy addPharmacy(AddPharmacyRequest apr) {
+		Pharmacy pharm = new Pharmacy();
+		pharm.setAddress(apr.getAddress());
+		pharm.setDescription(apr.getDescription());
+		pharm.setName(apr.getName());
+		pharm.setPhone(apr.getPhone());
+		return pharmacyRepository.save(pharm);
+	}
+
+	@Autowired
+	UserServiceImpl userService;
+	
+	public Pharmacy addPharmacyAdmin(AddPhamracyAdminReuest apar) {
+		Pharmacy pharm = pharmacyRepository.findById(apar.getPharmacyId()).orElse(null);
+		User pharmAdmin = userService.findByEmail(apar.getAdminEmail());
+		pharm.getAdminApoteke().add(pharmAdmin);
+		return pharmacyRepository.save(pharm);
+	}
+
+	public Pharmacy addPharmacyDerm(AddPhamracyAdminReuest apar) {
+		Pharmacy pharm = pharmacyRepository.findById(apar.getPharmacyId()).orElse(null);
+		User pharmDerm = userService.findByEmail(apar.getAdminEmail());
+		pharm.getDermatologists().add(pharmDerm);
+		return pharmacyRepository.save(pharm);
 	}
 
 }

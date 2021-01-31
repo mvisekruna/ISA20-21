@@ -4,6 +4,9 @@
     <div *ngIf="isUser" id="isUser">
       <app-home-page-patient></app-home-page-patient>
     </div>
+    <div *ngIf="isSystemAdmin" id="isSystemAdmin">
+      <app-home-page-system-admin></app-home-page-system-admin>
+    </div>
     <button class="btn btn-info" (click)="logout()">Logout</button>
     </div>
     </div>

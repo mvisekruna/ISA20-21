@@ -44,9 +44,16 @@ public class MedicineServiceImpl implements MedicineService{
 		
 		Medicine m = new Medicine();
 		m.setName(medicineRequest.getName());
+		m.setCode(medicineRequest.getCode());
+		m.setComponents(medicineRequest.getComponents());
+		m.setContraindication(medicineRequest.getContraindication());
+		m.setDailyIntake(medicineRequest.getDailyIntake());
+		m.setPrescriptioRequired(medicineRequest.isPrescriptioRequired());
+		m.setReplacments(medicineRequest.getReplacments());
+		m.setType(medicineRequest.getType());
 		
-		m = this.medicineRepository.save(m);
-		return m;
+		return medicineRepository.save(m);
+ 
 		
 	}
 	

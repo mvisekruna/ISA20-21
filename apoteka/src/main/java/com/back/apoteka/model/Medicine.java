@@ -16,7 +16,7 @@ public class Medicine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id; //msm da je id zapravo sifra leka
 	
 	private String name;
 	
@@ -30,5 +30,8 @@ public class Medicine {
 	
 	private String dailyIntake;
 	
-	private String replacments;
+	private String replacments; //treba da budu sifre zamenskih lekova
+	
+	private boolean prescriptioRequired;
+
 }

@@ -52,6 +52,6 @@ public class Pharmacy {
 	//cena savetovanja??
 	private double priceForCounseling;
 	
-	@ManyToOne
-	private User adminApoteke;
+	@OneToMany
+	private List<User> adminApoteke;
 }

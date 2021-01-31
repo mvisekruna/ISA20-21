@@ -3,6 +3,7 @@ package com.back.apoteka.service;
 import java.util.List;
 
 import com.back.apoteka.model.User;
+import com.back.apoteka.request.AddUserRequest;
 import com.back.apoteka.request.RegisterRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;;
@@ -21,5 +22,6 @@ public interface UserService {
 
 	List<User> findAllPharmacists();
 	User findOnePharmacist(Long id);
+	User addUser(AddUserRequest userRequest);
 
 }

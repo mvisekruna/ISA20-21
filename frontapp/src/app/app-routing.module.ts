@@ -15,12 +15,18 @@ import { MedicineReservationListComponent } from './components/medicine-reservat
 import { ExaminationHistoryListComponent } from './components/examination-history-list/examination-history-list.component';
 import { CounselingHistoryListComponent } from './components/counseling-history-list/counseling-history-list.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { CreatePharmacyComponent } from './components/create-pharmacy/create-pharmacy.component';
+import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
+import { CreateMedicineComponent } from './components/create-medicine/create-medicine.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const routes: Routes = [
   { path: 'loginform',
    component: LoginFormComponent },
   { path: 'pharmacy-list',
    component: PharmacyListComponent },
+   { path: 'changepassword',
+   component: ChangePasswordComponent },
   { path: 'medicine-list',
    component: MedicineListComponent },
    { path: 'registerform',
@@ -50,6 +56,24 @@ const routes: Routes = [
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_PATIENT'
+  }   },
+  { path: 'createpharmacy',
+  component: CreatePharmacyComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_SYSTEM_ADMIN'
+  }   },
+  { path: 'createmedicine',
+  component: CreateMedicineComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_SYSTEM_ADMIN'
+  }   },
+  { path: 'registernewuser',
+  component: RegisterNewUserComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_SYSTEM_ADMIN'
   }   },
   { path: 'medicinereservationlist',
   component: MedicineReservationListComponent,

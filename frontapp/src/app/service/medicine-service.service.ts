@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MedicineReservationRequest } from '../model/medicine-reservation-request';
 import { CanCancelReservation } from '../model/can-cancel-reservation';
 import { ScheduleExaminationRequest } from '../model/schedule-examination-request';
+import { MedicineRequest } from '../model/medicine-request';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,11 @@ export class MedicineServiceService {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
      return this.http.post<any>(this.takeMedicineUrl, id, {headers});
+   }
+   public saveMed(mr: MedicineRequest): Observable<Medicine>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+     return this.http.post<Medicine>('http://localhost:8080/medicine/savemedicine', mr, {headers});
    }
    
 }
