@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.back.apoteka.model.Counseling;
+import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.repository.CounselingRepository;
@@ -129,5 +130,40 @@ public class CounselingServiceImpl implements CounselingService{
 		}
 		return lista;
 		
+	}
+	public List<User> getPharmacistsIMet()//vraca farmaceute sa kojima je imao iskustva
+	//da moze da pise zalbe
+	{
+		
+		List<Counseling> counselings = historyOfCounseling();
+		System.out.println(counselings.size());
+		List<User> pharmacists = new ArrayList<User>();
+		for (Counseling coun: counselings) {
+			if (!pharmacists.contains(coun.getPharmacist())) {
+				pharmacists.add(coun.getPharmacist());
+			}
+		}
+		return pharmacists;
+	}
+	@Autowired
+	ExaminationServiceImpl examService;
+	public List<Pharmacy> getPharmacyIBeen()//vraca sve apoteke u kojima je bio, tj imao pregled il savetovanje
+	{
+		List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
+		List<Counseling> counselings = historyOfCounseling();
+		List<Examination> examinations = examService.historyOfExaminations();
+		for (Counseling coun: counselings) {
+			if(!pharmacys.contains(coun.getPharmacy())) {
+				pharmacys.add(coun.getPharmacy());
+				System.out.println("dodao apoteku sa farmaceutom" + coun.getPharmacist().getId().toString());
+			}
+		}
+		for (Examination exam: examinations) {
+			if (!pharmacys.contains(exam.getPharmacy())) {
+				pharmacys.add(exam.getPharmacy());
+				System.out.println("dodao apoteku sa derm" + exam.getDermatologist().getId().toString());
+			}
+		}
+		return pharmacys;
 	}
 }

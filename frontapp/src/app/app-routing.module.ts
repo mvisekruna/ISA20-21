@@ -19,6 +19,7 @@ import { CreatePharmacyComponent } from './components/create-pharmacy/create-pha
 import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
 import { CreateMedicineComponent } from './components/create-medicine/create-medicine.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { WriteComplaintComponent } from './components/write-complaint/write-complaint.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -35,6 +36,12 @@ const routes: Routes = [
   component: HomePageComponent },
   { path: 'myprofile',
   component: MyProfileComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PATIENT'
+  }   },
+  { path: 'writecomplaint',
+  component: WriteComplaintComponent,
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_PATIENT'

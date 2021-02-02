@@ -156,5 +156,19 @@ public class ExaminationServiceImpl implements ExaminationService{
 		return lista;
 	}
 
+	public List<User> getDermatologistsIMet()//vraca dermatologe sa kojima je imao iskustva
+	//da moze da pise zalbe
+	{
+		List<Examination> examinations = historyOfExaminations();
+		System.out.println(examinations.size());
+		List<User> dermatologists = new ArrayList<>();
+		for (Examination exam: examinations) {
+			if (!dermatologists.contains(exam.getDermatologist())) {
+				System.out.println("usao u if");
+				dermatologists.add(exam.getDermatologist());
+			}
+		}
+		return dermatologists;
+	}
 	
 }

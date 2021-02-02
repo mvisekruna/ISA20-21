@@ -33,6 +33,7 @@ import { CreatePharmacyComponent } from './components/create-pharmacy/create-pha
 import { RegisterNewUserComponent } from './components/register-new-user/register-new-user.component';
 import { CreateMedicineComponent } from './components/create-medicine/create-medicine.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { WriteComplaintComponent } from './components/write-complaint/write-complaint.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
     CreatePharmacyComponent,
     RegisterNewUserComponent,
     CreateMedicineComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    WriteComplaintComponent
   ],
   imports: [
     DataTablesModule,
