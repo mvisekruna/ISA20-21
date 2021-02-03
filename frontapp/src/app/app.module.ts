@@ -34,6 +34,7 @@ import { RegisterNewUserComponent } from './components/register-new-user/registe
 import { CreateMedicineComponent } from './components/create-medicine/create-medicine.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { WriteComplaintComponent } from './components/write-complaint/write-complaint.component';
+import { ComplaintListComponent } from './components/complaint-list/complaint-list.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { WriteComplaintComponent } from './components/write-complaint/write-comp
     RegisterNewUserComponent,
     CreateMedicineComponent,
     ChangePasswordComponent,
-    WriteComplaintComponent
+    WriteComplaintComponent,
+    ComplaintListComponent
   ],
   imports: [
     DataTablesModule,

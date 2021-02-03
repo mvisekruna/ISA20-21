@@ -94,4 +94,19 @@ public class EmailServiceImpl {
 		System.out.println("Email poslat!");		
 	}
 
+	public void sendResponceToComplaint(String email, String answer) throws MessagingException {
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+
+		String htmlMsg = "<h3>Hello</h3><br> <p>Here is answer for Your complaint<br>"+answer+" </p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Complaint answer");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");		
+		
+	}
+
 }

@@ -27,5 +27,7 @@ public class Complaint {
 	private Pharmacy pharmacy;
 	
 	private String message;
+	private boolean answered;
+	private String answer;
 
 }

@@ -1,5 +1,9 @@
 package com.back.apoteka.service.impl;
 
+import java.util.List;
+
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +36,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 		complaint.setPatient(patient);
 		complaint.setStaff(staff);
 		complaint.setMessage(cr.getMessage());
+		complaint.setAnswered(false);
 
 		return complaintRepository.save(complaint);
 	}
@@ -48,9 +53,31 @@ public class ComplaintServiceImpl implements ComplaintService {
 		complaint.setStaff(null);
 		complaint.setPharmacy(pharm);
 		complaint.setMessage(cr.getMessage());
+		complaint.setAnswered(false);
+
 		return complaintRepository.save(complaint);
 
-
-
+	}
+	@Override
+	public Complaint findById(Long id) {
+		return complaintRepository.findById(id).orElse(null);
+	}
+	@Override
+	public List<Complaint> findAll(){
+		return complaintRepository.findAll();
+	}
+	public List<Complaint> findAllUnaswered(){
+		return complaintRepository.findByAnswered(false);
+	}
+	@Autowired
+	EmailServiceImpl emailService;
+	public Complaint answer(Complaint comp) {
+		try {
+			emailService.sendResponceToComplaint(comp.getPatient().getEmail(), comp.getAnswer());
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return complaintRepository.save(comp);
 	}
 }

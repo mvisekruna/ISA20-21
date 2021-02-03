@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.back.apoteka.model.Counseling;
 import com.back.apoteka.model.Examination;
+import com.back.apoteka.model.MedicineReservation;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.repository.CounselingRepository;
@@ -147,11 +148,17 @@ public class CounselingServiceImpl implements CounselingService{
 	}
 	@Autowired
 	ExaminationServiceImpl examService;
+	@Autowired
+	MedicineReservationServiceImpl medicineReservationService;
 	public List<Pharmacy> getPharmacyIBeen()//vraca sve apoteke u kojima je bio, tj imao pregled il savetovanje
 	{
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		User patient = (User) customUserService.loadUserByUsername(currentUser.getName());
+		
 		List<Pharmacy> pharmacys = new ArrayList<Pharmacy>();
 		List<Counseling> counselings = historyOfCounseling();
 		List<Examination> examinations = examService.historyOfExaminations();
+		List<MedicineReservation> reservations = medicineReservationService.medicineReservationRepo.findByPatientAndTaken(patient, true);
 		for (Counseling coun: counselings) {
 			if(!pharmacys.contains(coun.getPharmacy())) {
 				pharmacys.add(coun.getPharmacy());
@@ -162,6 +169,11 @@ public class CounselingServiceImpl implements CounselingService{
 			if (!pharmacys.contains(exam.getPharmacy())) {
 				pharmacys.add(exam.getPharmacy());
 				System.out.println("dodao apoteku sa derm" + exam.getDermatologist().getId().toString());
+			}
+		}
+		for (MedicineReservation res: reservations) {
+			if (!pharmacys.contains(res.getPharmacy())){
+				pharmacys.add(res.getPharmacy());
 			}
 		}
 		return pharmacys;
