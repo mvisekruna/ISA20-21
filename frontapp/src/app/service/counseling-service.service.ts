@@ -44,6 +44,11 @@ export class CounselingServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<Counseling[]>(this.hsitoryCounUrl, {headers});
    }
+   public historyPharm(): Observable<Counseling[]>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Counseling[]>('http://localhost:8080/counseling/mypatients', {headers});
+   }
    public getPharmacyIBeen(): Observable<Pharmacy[]>{
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);

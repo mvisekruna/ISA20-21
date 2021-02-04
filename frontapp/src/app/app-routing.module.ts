@@ -21,6 +21,7 @@ import { CreateMedicineComponent } from './components/create-medicine/create-med
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { WriteComplaintComponent } from './components/write-complaint/write-complaint.component';
 import { ComplaintListComponent } from './components/complaint-list/complaint-list.component';
+import { PatientListComponent } from './components/patient-list/patient-list.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -39,7 +40,13 @@ const routes: Routes = [
   component: MyProfileComponent,
   canActivate: [GuardServiceService],
   data: { 
-    expectedRole: 'ROLE_PATIENT'
+    expectedRole: 'ROLE_PATIENT ROLE_DERMATOLOGIST ROLE_PHARMACIST'
+  }   },
+  { path: 'patientlist',
+  component: PatientListComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_DERMATOLOGIST ROLE_PHARMACIST'
   }   },
   { path: 'writecomplaint',
   component: WriteComplaintComponent,

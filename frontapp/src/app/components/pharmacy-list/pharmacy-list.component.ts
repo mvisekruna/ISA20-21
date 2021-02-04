@@ -43,6 +43,12 @@ export class PharmacyListComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+    lengthMenu : [5, 10, 25],
+      processing: true
+    };
     if (localStorage.getItem("AUTHORITIES")=="ROLE_SYSTEM_ADMIN"){
       this.isAdmin=true;
       this.userService.getFreePharmacyAdmin().subscribe( data => {
@@ -55,12 +61,7 @@ export class PharmacyListComponent implements OnInit {
     this.pharmacyService.findAll().subscribe(data => {
       this.pharmacys = data;
     });
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-    lengthMenu : [5, 10, 25],
-      processing: true
-    };
+   
     
     
   }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.Counseling;
+import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.request.ScheduleCounselingRequest;
@@ -63,5 +64,10 @@ public class CounselingController {
 	@PreAuthorize("hasRole('PATIENT')")
 	public List<Pharmacy> pharmacysIBeen(){
 		return counselingService.getPharmacyIBeen();
+	}
+	@GetMapping("/mypatients")
+	@PreAuthorize("hasRole('PHARMACIST')")
+	public List<Counseling> myPatients(){
+		return counselingService.historyOfCounselingsPharm();
 	}
 }

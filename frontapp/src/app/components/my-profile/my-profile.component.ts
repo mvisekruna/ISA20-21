@@ -35,12 +35,17 @@ export class MyProfileComponent implements OnInit {
   userUpdateRequest: UserUpdateRequest;
   medicine: string;
   passRequest: any = {};
+  isPatient: boolean=false;
+  isDr: boolean= false;
   constructor(private _location: Location, private userService: UserServiceService, private routher: Router, private authService: AuthServiceService, private allergiesService: AllergiesServiceService) {
     this.userUpdateRequest=new UserUpdateRequest();
     this.authlogin=new AuthLoginInfo("","");
    }
 
   ngOnInit(): void {
+    if (localStorage.getItem('AUTHORITIES')=='ROLE_PATIENT'){
+      this.isPatient=true;
+    } else {this.isDr=true;}
     this.titleAllergie='My allergies';
     this.title="My profile";
     this.info = {email: localStorage.getItem("USERNAME"),
@@ -61,10 +66,11 @@ export class MyProfileComponent implements OnInit {
       console.log(this.userInfo);
   }
   );
+  if (this.isPatient){
   this.allergiesService.getMedicinesForPatient(this.info.t)
     .subscribe(data => {
       this.allergiesList=data;
-    });
+    });}
   }
   changeInfoFun() {
     this.changeInfo=true;

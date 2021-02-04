@@ -11,4 +11,5 @@ import com.back.apoteka.model.User;
 public interface ExaminationRepository extends JpaRepository<Examination, Long> {
 
 	List<Examination> findByPatient(User user); // vraca slobodne termine kada se prosledi null
+	List<Examination> findByDermatologist(User dermatologist);
 }

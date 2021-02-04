@@ -10,4 +10,5 @@ import com.back.apoteka.model.User;
 public interface CounselingRepository extends JpaRepository<Counseling, Long>{
 
 	List<Counseling> findByPatient(User user); // vraca slobodne termine kada se prosledi null
+	List<Counseling> findByPharmacist(User pharmacist);
 }

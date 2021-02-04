@@ -14,7 +14,7 @@ export class GuardServiceService implements CanActivate {
     // decode the token to get its payload
     const tokenPayload = localStorage.getItem("AUTHORITIES");
     if (!this.auth.isAuthenticated() || 
-    tokenPayload !== expectedRole) {
+    !expectedRole.includes(tokenPayload)) {
       this.router.navigate(['homepage']);
       return false;
     }

@@ -9,6 +9,8 @@ export class HomePageComponent implements OnInit {
   info: any;
   isUser: boolean= false;
   isSystemAdmin= false;
+  isDerm=false;
+  isPharm=false;
   title = 'Pharmacy information system';
   constructor() {
 
@@ -29,6 +31,10 @@ export class HomePageComponent implements OnInit {
       this.isUser=true;
     } else if (this.info.authorities == "ROLE_SYSTEM_ADMIN"){
       this.isSystemAdmin=true;
+    } else if (this.info.authorities == "ROLE_PHARMACIST"){
+      this.isPharm=true;
+    } else if (this.info.authorities == "ROLE_DERMATOLOGIST"){
+      this.isDerm=true;
     }
   }
   logout() {

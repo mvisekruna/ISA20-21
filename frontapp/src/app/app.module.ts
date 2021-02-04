@@ -35,6 +35,9 @@ import { CreateMedicineComponent } from './components/create-medicine/create-med
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { WriteComplaintComponent } from './components/write-complaint/write-complaint.component';
 import { ComplaintListComponent } from './components/complaint-list/complaint-list.component';
+import { HomePageDermatologistComponent } from './components/home-page/home-page-dermatologist/home-page-dermatologist.component';
+import { HomePagePharmacistComponent } from './components/home-page/home-page-pharmacist/home-page-pharmacist.component';
+import { PatientListComponent } from './components/patient-list/patient-list.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { ComplaintListComponent } from './components/complaint-list/complaint-li
     CreateMedicineComponent,
     ChangePasswordComponent,
     WriteComplaintComponent,
-    ComplaintListComponent
+    ComplaintListComponent,
+    HomePageDermatologistComponent,
+    HomePagePharmacistComponent,
+    PatientListComponent
   ],
   imports: [
     DataTablesModule,

@@ -178,4 +178,22 @@ public class CounselingServiceImpl implements CounselingService{
 		}
 		return pharmacys;
 	}
+	public List<Counseling> historyOfCounselingsPharm() {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		User pharmacist = (User) customUserService.loadUserByUsername(currentUser.getName());
+		Date date= new Date();
+		long time = date.getTime();
+		java.sql.Timestamp currTime = new java.sql.Timestamp(time);
+		List<Counseling> temp = counselingRepo.findByPharmacist(pharmacist);
+		
+		List<Counseling> lista = new ArrayList<Counseling>();
+		
+		for (Counseling c : temp) {
+			if (currTime.after(c.getDateAndTime())) {
+				lista.add(c);
+			}
+		}
+		return lista;
+
+	}
 }

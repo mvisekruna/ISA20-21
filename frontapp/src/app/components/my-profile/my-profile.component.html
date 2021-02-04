@@ -17,7 +17,12 @@
         <strong>Phone number:</strong> {{userInfo.phone}}<br/>
       </p>
       <!-- dodati prikaz liste alergija za tog korisnika -->
-      <div class="card my-5">
+      <div class="card my-5" *ngIf="isDr">
+        <div class="card-body">
+           <h3>Working schedule</h3> 
+        </div>
+      </div>
+      <div class="card my-5" *ngIf="isPatient">
         <div class="card-body">
           <h2>{{ titleAllergie }}</h2>
           <table class="table table-bordered table-striped">
@@ -39,7 +44,7 @@
       &nbsp;
       <button (click)="changePassFun()" type="submit"  
       class="btn btn-info">Change my password</button><br/><br/>
-      <button (click)="addAllergies()" type="submit"  
+      <button *ngIf="isPatient" (click)="addAllergies()" type="submit"  
       class="btn btn-info">Add new allergie</button>
     </div>
     <div class="form-group" *ngIf="changeInfo" id="changeInfo">

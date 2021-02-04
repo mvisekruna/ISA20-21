@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
 		u.setState(userRequest.getState());
 		u.setPhoneNumber(userRequest.getPhone());
 		u.setHomeAddress(userRequest.getAddress());
+		u.setFirstLogin(true);
 		Authority authority = authService.findName("ROLE_PATIENT");
 		u.setAuthority(authority);
 		List<Authority> auth = authService.findByname("ROLE_PATIENT");
@@ -135,6 +136,7 @@ public class UserServiceImpl implements UserService {
 		u.setAuthority(authority);
 		List<Authority> auth = authService.findByname("ROLE_PATIENT");
 		u.setAuthorities(auth);
+		u.setFirstLogin(true);
 		u = this.userRepository.save(u);
 		try {
 			emailService.sendNotificaitionAsync(userRequest, u.getId());

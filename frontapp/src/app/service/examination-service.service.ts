@@ -47,5 +47,10 @@ export class ExaminationServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<Examination[]>(this.historyExamUrl, {headers});
    }
+   public historyDerm(): Observable<Examination[]>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Examination[]>('http://localhost:8080/examination/mypatients', {headers});
+   }
    
 }

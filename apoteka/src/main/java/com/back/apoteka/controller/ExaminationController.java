@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServer;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.Examination;
+import com.back.apoteka.model.User;
 import com.back.apoteka.request.ExaminationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
 import com.back.apoteka.response.CanUnscheduleResponce;
@@ -65,5 +67,10 @@ public class ExaminationController {
 	@PreAuthorize("hasRole('PATIENT')")
 	public List<Examination> historyOfExaminations(){
 		return examinationService.historyOfExaminations();
+	}
+	@GetMapping("/mypatients")
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	public List<Examination> myPatients(){
+		return examinationService.historyOfExaminationsDerm();
 	}
 }

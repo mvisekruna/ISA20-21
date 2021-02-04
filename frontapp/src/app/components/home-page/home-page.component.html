@@ -7,6 +7,12 @@
     <div *ngIf="isSystemAdmin" id="isSystemAdmin">
       <app-home-page-system-admin></app-home-page-system-admin>
     </div>
+    <div *ngIf="isPharm" id="isPharm">
+      <app-home-page-pharmacist></app-home-page-pharmacist>
+    </div>
+    <div *ngIf="isDerm" id="isDerm">
+      <app-home-page-dermatologist></app-home-page-dermatologist>
+    </div>
     <button class="btn btn-info" (click)="logout()">Logout</button>
     </div>
     </div>
