@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Medicine;
+import com.back.apoteka.model.MedicineAmount;
 import com.back.apoteka.model.MedicineReservation;
 import com.back.apoteka.repository.MedicineReservationRepository;
 import com.back.apoteka.request.MedicineRequest;
@@ -26,6 +27,7 @@ import com.back.apoteka.request.MedicineReservationRequest;
 import com.back.apoteka.request.MedicineUpdateRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
 import com.back.apoteka.response.CanCancelReservationResponce;
+import com.back.apoteka.response.MedicineAmountResponse;
 import com.back.apoteka.service.impl.MedicineReservationServiceImpl;
 import com.back.apoteka.service.impl.MedicineServiceImpl;
 
@@ -68,6 +70,12 @@ public class MedicineController {
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public Medicine updateMedicine(Long id, @RequestBody MedicineUpdateRequest mur) {
 		return this.medicineService.updateMed(id, mur);
+	}
+	@PostMapping("/tryreservation/{idMed}")
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	public MedicineAmountResponse tryREservation(@PathVariable Long idMed, @RequestBody Examination exam){
+		System.out.println("usao u controler");
+		return medicineReservationService.tryReservation(idMed, exam);
 	}
 	
 	@PostMapping("deletemedicine/{id}")

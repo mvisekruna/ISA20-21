@@ -22,6 +22,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { WriteComplaintComponent } from './components/write-complaint/write-complaint.component';
 import { ComplaintListComponent } from './components/complaint-list/complaint-list.component';
 import { PatientListComponent } from './components/patient-list/patient-list.component';
+import { WorkingScheduleComponent } from './components/working-schedule/working-schedule.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -44,6 +45,12 @@ const routes: Routes = [
   }   },
   { path: 'patientlist',
   component: PatientListComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_DERMATOLOGIST ROLE_PHARMACIST'
+  }   },
+  { path: 'workingschedule',
+  component: WorkingScheduleComponent,
   canActivate: [GuardServiceService],
   data: { 
     expectedRole: 'ROLE_DERMATOLOGIST ROLE_PHARMACIST'

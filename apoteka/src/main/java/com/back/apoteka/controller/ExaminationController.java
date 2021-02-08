@@ -18,6 +18,7 @@ import com.back.apoteka.request.ExaminationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
 import com.back.apoteka.response.CanUnscheduleResponce;
 import com.back.apoteka.service.impl.ExaminationServiceImpl;
+import com.back.apoteka.service.impl.PenaltyServiceImpl;
 
 @RestController
 @EnableAutoConfiguration
@@ -42,7 +43,19 @@ public class ExaminationController {
 		System.out.println(id);
 		return examinationService.findByDermatologist(Long.valueOf(id));
 	}
-	
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	@GetMapping("/derm") //vraca samo zakazane termine za tog dermatologa
+	public List<Examination> scheduleForDermatologist(){
+	//	System.out.println(id);
+		return examinationService.scheduleForDermatologist();
+	}
+	@Autowired
+	PenaltyServiceImpl penaltyServicel;
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	@PostMapping("/cancel")
+	public Examination scheduleExamination(@RequestBody Examination exam) {
+		return examinationService.didntShow(exam);
+	}
 	@PostMapping("/schedule")
 	public Examination scheduleExamination(@RequestBody ScheduleExaminationRequest schedule) {
 		System.out.println("usao u exam schedule contr");
@@ -72,5 +85,10 @@ public class ExaminationController {
 	@PreAuthorize("hasRole('DERMATOLOGIST')")
 	public List<Examination> myPatients(){
 		return examinationService.historyOfExaminationsDerm();
+	}
+	@PostMapping("/finish")
+	@PreAuthorize("hasRole('DERMATOLOGIST')")
+	public Examination finish(@RequestBody Examination exam){
+		return examinationService.finish(exam);
 	}
 }

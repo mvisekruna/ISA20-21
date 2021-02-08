@@ -8,4 +8,7 @@ export class Examination {
     dermatologist: User;
     patient: User;
     pharmacy: Pharmacy;
+    executed: boolean;
+    didntShow: boolean;
+    report: string;
 }

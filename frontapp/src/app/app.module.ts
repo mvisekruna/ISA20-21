@@ -38,6 +38,7 @@ import { ComplaintListComponent } from './components/complaint-list/complaint-li
 import { HomePageDermatologistComponent } from './components/home-page/home-page-dermatologist/home-page-dermatologist.component';
 import { HomePagePharmacistComponent } from './components/home-page/home-page-pharmacist/home-page-pharmacist.component';
 import { PatientListComponent } from './components/patient-list/patient-list.component';
+import { WorkingScheduleComponent } from './components/working-schedule/working-schedule.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { PatientListComponent } from './components/patient-list/patient-list.com
     ComplaintListComponent,
     HomePageDermatologistComponent,
     HomePagePharmacistComponent,
-    PatientListComponent
+    PatientListComponent,
+    WorkingScheduleComponent
   ],
   imports: [
     DataTablesModule,

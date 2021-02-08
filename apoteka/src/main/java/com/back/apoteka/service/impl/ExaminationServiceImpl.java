@@ -44,8 +44,8 @@ public class ExaminationServiceImpl implements ExaminationService{
 		}
 		return list1;
 	}
-
-	@Override
+	
+	@Override 
 	public List<Examination> findByDermatologist(Long id) {
 		List<Examination> list= examinationRepo.findByPatient(null);
 		List<Examination> list1= examinationRepo.findByPatient(null);
@@ -66,6 +66,9 @@ public class ExaminationServiceImpl implements ExaminationService{
 		exam.setPatient(null);
 		exam.setPharmacy(pharmacyService.findById(examRequst.getPharmacy()));
 		exam.setPrice(examRequst.getPrice());
+		exam.setDidntShow(false);
+		exam.setReport("");
+		exam.setExecuted(false);
 		return examinationRepo.save(exam);
 	}
 	
@@ -189,5 +192,44 @@ public class ExaminationServiceImpl implements ExaminationService{
 			}
 		}
 		return lista;
+	}
+
+	public List<Examination> scheduleForDermatologist() {
+
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		User dermatologist = (User) customUserService.loadUserByUsername(currentUser.getName()); 
+		List<Examination> lista = examinationRepo.findByDermatologist(dermatologist);
+		System.out.println(lista.size());
+		List<Examination> exams = new ArrayList<Examination>();
+		Date date= new Date();
+		long time = date.getTime();
+		java.sql.Timestamp currTime = new java.sql.Timestamp(time);
+		for(Examination e: lista) {
+			if (currTime.before(e.getDateAndTime()) && !e.isDidntShow() && !e.isExecuted()) {
+				System.out.println("usao u f");
+				exams.add(e);
+			}
+		}
+		return exams;
+	}
+
+	@Autowired
+	PenaltyServiceImpl penaltyService;
+	public Examination didntShow(Examination exam) {
+		//exam.setDidntShow(true);
+		System.out.println(exam.toString());
+		System.out.println(exam.getId());
+		User patient = exam.getPatient();
+		penaltyService.addPenalty(patient);
+		exam.setDidntShow(true);
+		return examinationRepo.save(exam);
+	}
+
+	public Examination finish(Examination exam) {
+		Examination e = examinationRepo.findById(exam.getId()).orElse(null);
+		e.setReport(exam.getReport());
+		e.setDidntShow(false);
+		e.setExecuted(true);
+		return examinationRepo.save(e);
 	}
 }

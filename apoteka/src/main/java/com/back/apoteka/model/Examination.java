@@ -34,6 +34,9 @@ public class Examination {
     @ManyToOne(fetch = FetchType.EAGER)
     private User patient;
 	
+    private boolean executed;
+    private boolean didntShow;
+    private String report;  
 	private double price;
 
 }

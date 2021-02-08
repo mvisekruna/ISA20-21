@@ -6,11 +6,13 @@ import { MedicineReservationRequest } from '../model/medicine-reservation-reques
 import { CanCancelReservation } from '../model/can-cancel-reservation';
 import { ScheduleExaminationRequest } from '../model/schedule-examination-request';
 import { MedicineRequest } from '../model/medicine-request';
+import { Examination } from '../model/examination';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicineServiceService {
+  
 
   private medicineUrl: string;
   private medicineUrlId: string = 'http://localhost:8080/medicine/id';
@@ -21,7 +23,12 @@ export class MedicineServiceService {
     this.medicineUrl='http://localhost:8080/medicine/all';
     this.takeMedicineUrl='http://localhost:8080/medicine/takeit';
   }
+  public tryReservation(exam: Examination, idMed: number): Observable<any> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post<Observable<any>>(`http://localhost:8080/medicine/tryreservation/${idMed}`, exam, {headers});
 
+  }
   public findAll(): Observable<Medicine[]> {
     return this.http.get<Medicine[]>(this.medicineUrl);
   }

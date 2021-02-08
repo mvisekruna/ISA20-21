@@ -43,6 +43,7 @@ export class PharmacyListComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.pharmacys=[];
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
