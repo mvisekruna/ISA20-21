@@ -233,4 +233,10 @@ public class CounselingServiceImpl implements CounselingService{
 		e.setExecuted(true);
 		return counselingRepo.save(e);
 	}
+	public Counseling scheduleCoun(ScheduleExaminationRequest ser) {
+		Counseling c = counselingRepo.findById(ser.getExamId()).orElse(null);
+		User u = (User) customUserService.loadUserByUsername(ser.getPatientEmail());
+		c.setPatient(u);
+		return counselingRepo.save(c);
+	}
 }

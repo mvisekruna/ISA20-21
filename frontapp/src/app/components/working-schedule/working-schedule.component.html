@@ -76,9 +76,13 @@
       <tr *ngFor="let coun of counselings" id="counselings">
         <td>{{ coun.id }}</td>
         <td>{{coun.dateAndTime}}></td>
-        <td >{{ coun.patient.firstName }} {{coun.patient.lastName}}</td>
+        <td *ngIf="coun.patient!=null ">{{ coun.patient.firstName }} {{coun.patient.lastName}}</td>
+        <td *ngIf="coun.patient==null "> </td>
 
-        <td ><button type="submit" (click)="openCoun(coun.id)"  
+        <td *ngIf="coun.patient==null "><button type="submit" (click)="scheduleCoun(coun.id)"  
+          class="btn btn-info"
+          style="width:100%">Schedule</button></td>
+        <td *ngIf="coun.patient!=null "><button type="submit" (click)="openCoun(coun.id)"  
             class="btn btn-info"
             style="width:100%">Open</button></td>
       </tr>

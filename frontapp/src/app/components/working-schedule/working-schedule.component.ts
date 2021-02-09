@@ -142,6 +142,14 @@ export class WorkingScheduleComponent implements OnInit {
     });
     this.scheduleClicked=true;
   }
+  scheduleCoun(id: number){
+    this.ser.examId=id;
+    this.ser.patientEmail=this.currPatient.email;
+    this.counService.scheduleCoun(this.ser).subscribe( data => {
+      console.log(data);// za sad bez provere o slobodnom terminu i zauzetosti pacijesnta
+    });
+    this.scheduleClicked=true;
+  }
   finishExam(){
     this.exam.report=this.report;
     this.examService.finishExam(this.exam).subscribe( data => {

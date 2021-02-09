@@ -29,6 +29,12 @@ export class CounselingServiceService {
     return this.http.post<Counseling>('http://localhost:8080/counseling/cancel', coun, {headers}); 
      
    }
+   public scheduleCoun(ser: ScheduleExaminationRequest): Observable<any>{
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    console.log(ser);
+    return this.http.post<Counseling>('http://localhost:8080/counseling/schedulecoun', ser, {headers}); 
+     
+   }
    public finishCoun(exam: Counseling): Observable<Counseling>{
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);

@@ -46,6 +46,11 @@ public class CounselingController {
 	public Counseling finish(@RequestBody Counseling exam){
 		return counselingService.finish(exam);
 	}
+	@PostMapping("/schedulecoun")
+	@PreAuthorize("hasRole('PHARMACIST')")
+	public Counseling scheCoun(@RequestBody ScheduleExaminationRequest ser) {
+		return counselingService.scheduleCoun(ser);
+	}
 	@PreAuthorize("hasRole('PHARMACIST')")
 	@GetMapping("/pharm") //vraca samo zakazane termine za tog dermatologa
 	public List<Counseling> scheduleForPharmacist(){
