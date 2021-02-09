@@ -20,6 +20,7 @@ import com.back.apoteka.request.ScheduleExaminationRequest;
 import com.back.apoteka.response.CanCancelCounselingResponse;
 import com.back.apoteka.service.impl.CounselingServiceImpl;
 import com.back.apoteka.service.impl.ExaminationServiceImpl;
+import com.back.apoteka.service.impl.PenaltyServiceImpl;
 
 @RestController
 @EnableAutoConfiguration
@@ -39,6 +40,24 @@ public class CounselingController {
 	@PreAuthorize("hasRole('PATIENT')")
 	public List<Counseling> historyOfCounseling(){
 		return counselingService.historyOfCounseling();
+	}
+	@PostMapping("/finish")
+	@PreAuthorize("hasRole('PHARMACIST')")
+	public Counseling finish(@RequestBody Counseling exam){
+		return counselingService.finish(exam);
+	}
+	@PreAuthorize("hasRole('PHARMACIST')")
+	@GetMapping("/pharm") //vraca samo zakazane termine za tog dermatologa
+	public List<Counseling> scheduleForPharmacist(){
+	//	System.out.println(id);
+		return counselingService.scheduleForPharmacistt();
+	}
+	@Autowired
+	PenaltyServiceImpl penaltyServicel;
+	@PreAuthorize("hasRole('PHARMACIST')")
+	@PostMapping("/cancel")
+	public Counseling scheduleExamination(@RequestBody Counseling exam) {
+		return counselingService.didntShow(exam);
 	}
 	@PostMapping("/schedule")
 	public boolean schedule(@RequestBody ScheduleCounselingRequest scr) {

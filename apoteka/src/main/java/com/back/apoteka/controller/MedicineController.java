@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.back.apoteka.model.Counseling;
 import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Medicine;
 import com.back.apoteka.model.MedicineAmount;
@@ -77,7 +78,12 @@ public class MedicineController {
 		System.out.println("usao u controler");
 		return medicineReservationService.tryReservation(idMed, exam);
 	}
-	
+	@PostMapping("/tryreservationpharm/{idMed}")
+	@PreAuthorize("hasRole('PHARMACIST')")
+	public MedicineAmountResponse tryREservation(@PathVariable Long idMed, @RequestBody Counseling exam){
+		System.out.println("usao u controler");
+		return medicineReservationService.tryReservationPharmacist(idMed, exam);
+	}
 	@PostMapping("deletemedicine/{id}")
 	//@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public ResponseEntity<Object> deleteMedicine(@PathVariable Long id) {

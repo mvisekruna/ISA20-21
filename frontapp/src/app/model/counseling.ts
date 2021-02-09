@@ -7,4 +7,7 @@ export class Counseling {
     pharmacist: User;
     patient: User;
     pharmacy: Pharmacy;
+    report: string;
+    executed: boolean;
+    didtnShow: boolean;
 }

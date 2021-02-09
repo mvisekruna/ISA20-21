@@ -104,6 +104,9 @@ public class CounselingServiceImpl implements CounselingService{
 		coun.setPatient(patient);
 		coun.setPharmacist(userService.findById(scr.getPharmacist()));
 		coun.setPharmacy(pharmacyService.findById(scr.getPharmacyId()));
+		coun.setDidntShow(false);
+		coun.setExecuted(false);
+		coun.setReport("");
 		counselingRepo.save(coun);
 		
 		try {
@@ -195,5 +198,39 @@ public class CounselingServiceImpl implements CounselingService{
 		}
 		return lista;
 
+	}
+	public List<Counseling> scheduleForPharmacistt() {
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		User pharmacist = (User) customUserService.loadUserByUsername(currentUser.getName()); 
+		List<Counseling> lista = counselingRepo.findByPharmacist(pharmacist);
+		System.out.println(lista.size());
+		List<Counseling> coun = new ArrayList<Counseling>();
+		Date date= new Date();
+		long time = date.getTime();
+		java.sql.Timestamp currTime = new java.sql.Timestamp(time);
+		for(Counseling c: lista) {
+			if (currTime.before(c.getDateAndTime()) && !c.isDidntShow() && !c.isExecuted()) {
+				System.out.println("usao u f");
+				coun.add(c);
+			}
+		}
+		return coun;
+		}
+	
+	@Autowired
+	PenaltyServiceImpl penaltyService;
+	public Counseling didntShow(Counseling exam) {
+		User patient = exam.getPatient();
+		penaltyService.addPenalty(patient);
+		exam.setDidntShow(true);
+		return counselingRepo.save(exam);
+
+	}
+	public Counseling finish(Counseling exam) {
+		Counseling e = counselingRepo.findById(exam.getId()).orElse(null);
+		e.setReport(exam.getReport());
+		e.setDidntShow(false);
+		e.setExecuted(true);
+		return counselingRepo.save(e);
 	}
 }

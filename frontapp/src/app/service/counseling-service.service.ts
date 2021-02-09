@@ -23,7 +23,23 @@ export class CounselingServiceService {
     this.unscheduleCounUrl= 'http://localhost:8080/counseling/unschedule';
     this.hsitoryCounUrl= 'http://localhost:8080/counseling/history';
   }
-
+  public cancel(coun: Counseling): Observable<Counseling>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post<Counseling>('http://localhost:8080/counseling/cancel', coun, {headers}); 
+     
+   }
+   public finishCoun(exam: Counseling): Observable<Counseling>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post<Counseling>('http://localhost:8080/counseling/finish', exam, {headers}); 
+     
+   }
+  public getSchedulePharm(): Observable<Counseling[]>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Counseling[]>('http://localhost:8080/counseling/pharm', {headers});
+   }
   public getSchedule(): Observable<CanCancelCounseling[]>{
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);

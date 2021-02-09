@@ -31,4 +31,7 @@ public class Counseling {
     
     @ManyToOne(fetch = FetchType.EAGER)
     private User patient;
+    private boolean didntShow;
+    private boolean executed;
+    private String report;
 }
