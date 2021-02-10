@@ -71,14 +71,6 @@ INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (26, 6);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (27, 6);
 
 
-
-
-
-INSERT INTO PHARMACY_PHARMACISTS (pharmacy_id, pharmacists_id) VALUES (1,7);
-INSERT INTO PHARMACY_PHARMACISTS (pharmacy_id, pharmacists_id) VALUES (1,8);
-INSERT INTO EXAMINATION (dermatologist_id, patient_id, pharmacy_id) VALUES (4, 3, 1);
-INSERT INTO MEDICINE_RESERVATION (medicine_id, pharmacy_id, patient_id) VALUES (1, 1, 3);
-
 --lekovi
 INSERT INTO MEDICINE (name, code, daily_intake, prescriptio_required, replacments, type) VALUES ('Bensedin', '100', '3', true, 'Ksalol', 'tableta');
 INSERT INTO MEDICINE (name, code, daily_intake, prescriptio_required, replacments, type) VALUES ('Ksalol', '101', '3', true, 'Bensedin', 'tableta');
