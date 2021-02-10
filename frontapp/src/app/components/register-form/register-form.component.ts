@@ -35,6 +35,9 @@ export class RegisterFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.asi);
+    if (this.asi.password!=this.asi.password_cnfrm){
+      alert("Please insert password again!");
+    } else {
     alert('You will recieve verification mail. Please check Your mail!');
 
     if (this.asi.password.match(this.asi.password_cnfrm)){
@@ -43,5 +46,5 @@ export class RegisterFormComponent implements OnInit {
     });
   }
   }
-
+  }
 }

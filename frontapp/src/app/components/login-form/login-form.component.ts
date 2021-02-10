@@ -39,6 +39,7 @@ export class LoginFormComponent implements OnInit {
     this.userService.getMyInfo(this.user.email)
     .subscribe(data => {
     console.log(data);
+    if (data!=null){
     if (data.enabled){
 
     this.authService.attemptAuth(this.user)
@@ -67,12 +68,15 @@ export class LoginFormComponent implements OnInit {
           
           },
           error => {
+            alert("Incorrect password!");
           console.log('Incorrect username or password.');
           console.log(error);          
           });
         } else {
           console.log("user didnt activated acc");
+          alert("User didn't activate account!");
         }
+      } else { alert("User with that email doesn't exist");}
       });
   }
 }

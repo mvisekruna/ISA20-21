@@ -27,8 +27,12 @@ import { WorkingScheduleComponent } from './components/working-schedule/working-
 const routes: Routes = [
   { path: 'loginform',
    component: LoginFormComponent },
-  { path: 'pharmacy-list',
-   component: PharmacyListComponent },
+   { path: 'pharmacy-list',
+   component: PharmacyListComponent,
+   canActivate: [GuardServiceService],
+   data: { 
+     expectedRole: 'ROLE_PATIENT ROLE_SYSTEM_ADMIN UNAUTHENTICATED'
+   }   },
    { path: 'changepassword',
    component: ChangePasswordComponent },
   { path: 'medicine-list',
