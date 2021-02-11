@@ -14,7 +14,8 @@
       <tr *ngFor="let cue of canUnscheduleExam" id="canUnscheduleExam">
         <td>{{ cue.exam.id }}</td>
         <td>{{ cue.exam.dermatologist.firstName }}</td>
-        <td>{{ cue.exam.dateAndTime }}</td>
+        <td>{{ cue.exam.dateAndTime | date:'medium'
+        }}</td>
         <td><button type="submit" (click)="cancelExamination(cue.exam.id)"  
           class="btn btn-info" [disabled]="!cue.canUnschedule"
           style="width:100%">Cancel</button></td>

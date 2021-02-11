@@ -19,7 +19,7 @@
             <td>{{ exam.id }}</td>
             <td>{{ exam.patient.firstName }}</td>
             <td>{{ exam.patient.lastName }}</td>
-            <td>{{ exam.dateAndTime }}</td>
+            <td>{{ exam.dateAndTime | date:'medium'}}</td>
           </tr>
         </tbody>
       </table>
@@ -38,7 +38,7 @@
             <td>{{ coun.id }}</td>
             <td>{{ coun.patient.firstName }}</td>
             <td>{{ coun.patient.lastName }}</td>
-            <td>{{ coun.dateAndTime }}</td>
+            <td>{{ coun.dateAndTime | date:'medium' }}</td>
           </tr>
         </tbody>
       </table>

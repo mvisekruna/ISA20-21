@@ -14,7 +14,7 @@
       <tr *ngFor="let ccc of canCancelCounseling" id="canCancelCounseling">
         <td>{{ ccc.counseling.id }}</td>
         <td>{{ ccc.counseling.pharmacist.firstName }}</td>
-        <td>{{ ccc.counseling.dateAndTime }}</td>
+        <td>{{ ccc.counseling.dateAndTime | date:'medium' }}</td>
         <td><button type="submit" (click)="cancelCounseling(ccc.counseling.id)"  
           class="btn btn-info" [disabled]="!ccc.canCancel"
           style="width:100%">Cancel</button></td>

@@ -14,7 +14,7 @@
       <tr *ngFor="let coun of counselings" id="counselings">
         <td>{{ coun.id }}</td>
         <td>{{ coun.pharmacist.firstName }}</td>
-        <td>{{ coun.dateAndTime }}</td>
+        <td>{{ coun.dateAndTime | date:'medium' }}</td>
         <td>{{ coun.pharmacy.priceForCounseling }}</td>
       </tr>
     </tbody>

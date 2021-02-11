@@ -47,7 +47,7 @@
             <tr *ngFor="let exam of examinations" id="examinations">
               <td>{{ exam.id }}</td>
               <td>{{ exam.dermatologist.firstName }}</td>
-              <td>{{ exam.dateAndTime }}</td>
+              <td>{{ exam.dateAndTime | date:'medium'}}</td>
               <td><button type="submit" (click)="scheduleExamination(exam.id)"  
                 class="btn btn-info"  style="width:100%">schedule</button></td>
             </tr>

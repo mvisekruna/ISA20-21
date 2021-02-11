@@ -18,7 +18,7 @@
         <td>{{ crr.mr.id }}</td>
         <td>{{ crr.mr.medicine.name }}</td>
         <td>{{ crr.mr.pharmacy.name }}</td>
-        <td>{{ crr.mr.dateAndTime }}</td>
+        <td>{{ crr.mr.dateAndTime | date:'medium' }}</td>
         <td><button type="submit" (click)="cancelReservation(crr.mr.id)"  
           class="btn btn-info" [disabled]="!crr.canCancel"
           style="width:100%">Cancel</button></td>
