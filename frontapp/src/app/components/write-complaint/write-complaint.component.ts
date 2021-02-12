@@ -41,31 +41,33 @@ export class WriteComplaintComponent implements OnInit {
     this.counService.getDermatologistsIMet().subscribe( data => {
       this.myDermatologists=data;
       console.log(data);
-    });
-    this.isDermatologist=true;
+      this.isDermatologist=true;
     this.isPharmacist=false;
     this.isPharmacy=false;
+    });
+    
   }
   forPharmacy(){
     this.poruka="";
 
     this.counService.getPharmacyIBeen().subscribe( data => {
       this.myPharmacys=data;
-    });
-    this.isDermatologist=false;
+      this.isDermatologist=false;
     this.isPharmacist=false;
     this.isPharmacy=true;
+    });
+    
   }
   forPharmacist(){
     this.poruka="";
     this.counService.getPharmacistsIMet().subscribe( data => {
       this.myPharmacists=data;
       console.log(data);
-
+      this.isDermatologist=false;
+      this.isPharmacist=true;
+      this.isPharmacy=false;
     });
-    this.isDermatologist=false;
-    this.isPharmacist=true;
-    this.isPharmacy=false;
+    
   }
   submitComplaintP(){
     this.body.id = (<HTMLInputElement>document.getElementById("pharmacist")).value;
