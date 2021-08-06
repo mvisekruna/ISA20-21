@@ -104,7 +104,7 @@ public class UserController {
 		return userService.addUser(userRequest);
 	}
 	@PostMapping("/updatepatient")
-	@PreAuthorize("hasRole('PATIENT')")//zasad mek stoji user dok ne bude trebalo patient
+	//@PreAuthorize("hasRole('PATIENT')")//zasad mek stoji user dok ne bude trebalo patient
 	public User updatePatient(@RequestBody UserUpdateRequest userRequest) {
 		System.out.println("usao u updatepatient");
 		return this.userService.update(userRequest);

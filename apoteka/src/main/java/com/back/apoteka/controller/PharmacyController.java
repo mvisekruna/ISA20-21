@@ -65,4 +65,6 @@ public class PharmacyController {
 		return pharmacyService.addPharmacyDerm(apar);
 	}
 	
+	
+	
 }

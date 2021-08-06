@@ -23,6 +23,7 @@ import { WriteComplaintComponent } from './components/write-complaint/write-comp
 import { ComplaintListComponent } from './components/complaint-list/complaint-list.component';
 import { PatientListComponent } from './components/patient-list/patient-list.component';
 import { WorkingScheduleComponent } from './components/working-schedule/working-schedule.component';
+import { PharmacistsListComponent } from './components/pharmacists-list/pharmacists-list.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -45,7 +46,7 @@ const routes: Routes = [
   component: MyProfileComponent,
   canActivate: [GuardServiceService],
   data: { 
-    expectedRole: 'ROLE_PATIENT ROLE_DERMATOLOGIST ROLE_PHARMACIST'
+    expectedRole: 'ROLE_PATIENT ROLE_DERMATOLOGIST ROLE_PHARMACIST ROLE_PHARMACY_ADMIN'
   }   },
   { path: 'patientlist',
   component: PatientListComponent,
@@ -53,6 +54,14 @@ const routes: Routes = [
   data: { 
     expectedRole: 'ROLE_DERMATOLOGIST ROLE_PHARMACIST'
   }   },
+//moje
+  { path: 'pharmacists-list',
+  component: PharmacistsListComponent,
+  canActivate: [GuardServiceService],
+  data: { 
+    expectedRole: 'ROLE_PHARMACY_ADMIN'
+  }   },
+//
   { path: 'workingschedule',
   component: WorkingScheduleComponent,
   canActivate: [GuardServiceService],

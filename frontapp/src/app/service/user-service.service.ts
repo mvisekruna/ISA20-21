@@ -41,4 +41,11 @@ export class UserServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<User[]>(`${this.userUrl}/freepharmadmin`, {headers});
    }
+  public getAllPharmacists(): Observable<User[]>{
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<User[]>(`${this.userUrl}/pharm`, {headers});
+  }
+
+
 }
