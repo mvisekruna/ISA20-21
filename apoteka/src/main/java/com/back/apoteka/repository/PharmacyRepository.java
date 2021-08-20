@@ -6,4 +6,5 @@ import com.back.apoteka.model.Pharmacy;
 
 public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 	Pharmacy findByName(String name);
+	
 }

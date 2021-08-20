@@ -11,17 +11,19 @@ import com.back.apoteka.request.UserUpdateRequest;;
 public interface UserService {
     User findById(Long id);
     //User findByUsername(String username);
-    List<User> findAll ();
+    List<User> findAll();
 	User save(UserRequest userRequest);
 	public void deleteUser(User user);
 	User findByEmail(String email);
 	User update(UserUpdateRequest uur);
-	List<User> findAllDermatoligists();
+	List<User> findAllDermatologists();
 
 	User register(RegisterRequest userRequest);
 
 	List<User> findAllPharmacists();
 	User findOnePharmacist(Long id);
 	User addUser(AddUserRequest userRequest);
+	
+	User getCurrent();
 
 }

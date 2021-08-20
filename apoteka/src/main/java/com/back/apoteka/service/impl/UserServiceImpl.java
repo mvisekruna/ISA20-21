@@ -11,6 +11,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.back.apoteka.model.Authority;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
+import com.back.apoteka.model.WorkTime;
 import com.back.apoteka.repository.UserRepository;
 import com.back.apoteka.request.AddUserRequest;
 import com.back.apoteka.request.DermatologistRequest;
+import com.back.apoteka.request.PharmacistRequest;
 import com.back.apoteka.request.RegisterRequest;
 import com.back.apoteka.request.UserRequest;
 import com.back.apoteka.request.UserUpdateRequest;
 import com.back.apoteka.service.AuthorityService;
 import com.back.apoteka.service.UserService;
+import com.back.apoteka.service.WorkTimeService;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -41,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private CustomUserDetailsService customUserService;
+	
 
 	public User findById(Long id) throws AccessDeniedException {
 		User u = userRepository.findById(id).orElseGet(null);
@@ -103,7 +108,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findAllDermatoligists(){
+	public List<User> findAllDermatologists(){
 		List<User> users=findAll();
 		List<User> dermatologists=findAll();
 		dermatologists.removeAll(dermatologists);
@@ -162,6 +167,24 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 
 	}
+	
+	//pharmacy admin, dodaje radno vreme
+	public User savePharmacist(PharmacistRequest userRequest) {
+		User pharm = new User();
+		pharm.setCity(userRequest.getCity());
+		pharm.setHomeAddress(userRequest.getAddress());
+		pharm.setEmail(userRequest.getEmail());
+		pharm.setEnabled(true);
+		pharm.setFirstName(userRequest.getFirstname());
+		pharm.setLastName(userRequest.getLastname());
+		pharm.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		pharm.setPhoneNumber(userRequest.getPhone());
+		Authority authority = authService.findName("ROLE_PHARMACIST");
+		pharm.setAuthority(authority);
+		List<Authority> auth = authService.findByname("ROLE_PHARMACIST");
+		pharm.setAuthorities(auth);
+		return userRepository.save(pharm);
+	}
 
 	
 	@Override
@@ -209,7 +232,9 @@ public class UserServiceImpl implements UserService {
 		List<Authority> auth = authService.findByname("ROLE_DERMATOLOGIST");
 		derm.setAuthorities(auth);
 		return userRepository.save(derm);
-		}
+	}
+	
+
 
 	@Override
 	public User addUser(AddUserRequest userRequest) {
@@ -253,6 +278,26 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return freePharmacyAdmins;
+	}
+	
+	@Override
+	public User getCurrent() 
+	{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		
+		if(principal.equals(null)) {
+			return null;
+		}
+		
+		String username;
+		
+		if (principal instanceof UserDetails) {
+			  username = ((UserDetails)principal).getUsername();
+			} else {
+			  username = principal.toString();
+			}
+		return userRepository.findByEmail(username);
 	}
 }
 

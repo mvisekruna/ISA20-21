@@ -155,7 +155,7 @@ public class UserController {
 	
 	@GetMapping("/derm")
 	public List<User> getDermatologists(){
-		return userService.findAllDermatoligists();
+		return userService.findAllDermatologists();
 		
 	}
 	

@@ -11,4 +11,6 @@ public interface PharmacyService {
 	Pharmacy findByName(String name);
 	List<Pharmacy> findAll();
 	List<User> getPharmacists(Long valueOf);
+	List<User> getDermatologists(Long valueOf);
+	
 }

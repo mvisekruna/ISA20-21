@@ -54,4 +54,17 @@ public class Pharmacy {
 	
 	@OneToMany
 	private List<User> adminApoteke;
+	
+	public boolean isUserPharmacyAdmin(Long id) {
+		
+		for(User user: adminApoteke) {
+			
+			if(user.getId().equals(id)) {
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
 }
