@@ -2,6 +2,7 @@ import { Component, OnInit, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { Examination } from 'src/app/model/examination';
+import { Medicine } from 'src/app/model/medicine';
 import { Pharmacy } from 'src/app/model/pharmacy';
 import { ScheduleExaminationRequest } from 'src/app/model/schedule-examination-request';
 import { User } from 'src/app/model/user';
@@ -27,6 +28,10 @@ export class PharmacyListComponent implements OnInit {
   freeAdmins: User[];
   pharmAdmin: User;
   body: any;
+  
+  dermatologists : User[];
+  pharmacists : User[];
+  medicines : Medicine[];
   //terms="";
   scheduleExaminationRequest: ScheduleExaminationRequest;
   constructor(private pharmacyService: PharmacyServiceService,
@@ -78,6 +83,17 @@ export class PharmacyListComponent implements OnInit {
       this.examService.findAllAvaiable(this.pharmacy1.id).subscribe(data => {
         this.examinations = data;
       });
+      this.pharmacyService.getDermatologists(this.pharmacy1.id).subscribe(data => {
+        this.dermatologists = data;
+      })
+
+      this.pharmacyService.getPharmacists(this.pharmacy1.id).subscribe(data => {
+        this.pharmacists = data;
+      })
+
+      this.pharmacyService.getMedicinesFromPharmacy(this.pharmacy1.id).subscribe(data => {
+        this.medicines = data;
+      })
     }
     );
     //await delay(1100);

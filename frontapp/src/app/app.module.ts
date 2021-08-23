@@ -41,6 +41,7 @@ import { PatientListComponent } from './components/patient-list/patient-list.com
 import { WorkingScheduleComponent } from './components/working-schedule/working-schedule.component';
 import { PharmacistsListComponent } from './components/pharmacists-list/pharmacists-list.component';
 import { HomePagePharmacyAdminComponent } from './components/home-page/home-page-pharmacy-admin/home-page-pharmacy-admin.component';
+import { AddNewPharmacistOrDermatologistComponent } from './components/add-new-pharmacist-or-dermatologist/add-new-pharmacist-or-dermatologist.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { HomePagePharmacyAdminComponent } from './components/home-page/home-page
     PatientListComponent,
     WorkingScheduleComponent,
     PharmacistsListComponent,
-    HomePagePharmacyAdminComponent
+    HomePagePharmacyAdminComponent,
+    AddNewPharmacistOrDermatologistComponent
   ],
   imports: [
     DataTablesModule,

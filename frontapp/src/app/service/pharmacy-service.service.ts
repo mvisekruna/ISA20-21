@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { Pharmacy } from '../model/pharmacy';
 import { User } from '../model/user';
+import { Medicine } from '../model/medicine';
 @Injectable(
 )
 export class PharmacyServiceService {
@@ -31,7 +32,7 @@ export class PharmacyServiceService {
    public getPharmacists(id: number): Observable<User[]> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.get<User[]>(`${this.pharmacyUrl}/pharmacists/${id}`, {headers});
+    return this.http.get<User[]>(`${this.pharmacyUrl}/getPharmacists/${id}`, {headers});
   }
   public getPharmacyWithMed(id: number): Observable<Pharmacy[]> {
     const t= localStorage.getItem("TOKEN");
@@ -43,4 +44,19 @@ export class PharmacyServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.post<Pharmacy>(`${this.pharmacyUrl}/setadmin`, body, {headers});
   }
+
+
+  public getDermatologists(id: number): Observable<User[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<User[]>(`${this.pharmacyUrl}/getDermatologists/${id}`, {headers});
+  }
+
+  public getMedicinesFromPharmacy(id: number): Observable<Medicine[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Medicine[]>(`${this.pharmacyUrl}/getMedicines/${id}`, {headers});
+  }
+
+
 }

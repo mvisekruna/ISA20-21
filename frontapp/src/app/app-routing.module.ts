@@ -24,6 +24,7 @@ import { ComplaintListComponent } from './components/complaint-list/complaint-li
 import { PatientListComponent } from './components/patient-list/patient-list.component';
 import { WorkingScheduleComponent } from './components/working-schedule/working-schedule.component';
 import { PharmacistsListComponent } from './components/pharmacists-list/pharmacists-list.component';
+import { AddNewPharmacistOrDermatologistComponent } from './components/add-new-pharmacist-or-dermatologist/add-new-pharmacist-or-dermatologist.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -32,8 +33,16 @@ const routes: Routes = [
    component: PharmacyListComponent,
    canActivate: [GuardServiceService],
    data: { 
-     expectedRole: 'ROLE_PATIENT ROLE_SYSTEM_ADMIN UNAUTHENTICATED'
+     expectedRole: 'ROLE_PATIENT ROLE_PHARMACY_ADMIN ROLE_SYSTEM_ADMIN UNAUTHENTICATED'
    }   },
+   {
+     path : 'add-new',
+     component : AddNewPharmacistOrDermatologistComponent,
+     canActivate: [GuardServiceService],
+     data: { 
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    }
+   },
    { path: 'changepassword',
    component: ChangePasswordComponent },
   { path: 'medicine-list',

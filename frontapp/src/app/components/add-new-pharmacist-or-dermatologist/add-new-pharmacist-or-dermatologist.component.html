@@ -1,0 +1,65 @@
+<div class="card my-5">
+    <div class="card-body">
+        <h2>{{ title }}</h2>
+        <div >
+      <form (ngSubmit)="onSubmit()" #form="ngForm" name="addWorkTimeForm" #r="ngForm" novalidate>
+        <div class="form-group">
+          <label for="pharmacyId">Pharmacy</label>
+          <input type="text"   [(ngModel)]="addWorkTimeRequest.pharmacyId"
+            class="form-control" 
+            id="pharmacyId" 
+            name="pharmacyId" 
+            placeholder="Enter pharmacy id"
+            >
+        </div>
+        <div class="form-group">
+          <label for="pharmOrDermEmail">Email</label>
+          <input type="text"  [(ngModel)]="addWorkTimeRequest.pharmOrDermEmail"
+            class="form-control" 
+            id="pharmOrDermEmail" 
+            name="pharmOrDermEmail" 
+            placeholder="Enter employees email"
+            > 
+        </div>
+        <div class="form-group">
+            <label for="dayWT">Day</label>
+            <input list="days"  [(ngModel)]="addWorkTimeRequest.day"
+              class="form-control" 
+              id="day" 
+              name="day" 
+              
+              > 
+              
+              <datalist id="days">
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+              </datalist>
+        </div>
+          <div class="form-group">
+            <label for="fromWT">From</label>
+            <input type="time"  [(ngModel)]="addWorkTimeRequest.fromWT"
+              class="form-control" 
+              id="fromWT" 
+              name="fromWT" 
+              placeholder="Enter start work time"
+              >    
+          </div>
+          <div class="form-group">
+            <label for="toWT">To</label>
+            <input type="time"  [(ngModel)]="addWorkTimeRequest.toWT"
+              class="form-control" 
+              id="toWT" 
+              name="toWT" 
+              placeholder="Enter end work time"
+              >    
+          </div>
+          <button type="submit" 
+          class="btn btn-info">Add</button>
+      </form>
+      </div>
+   </div>
+</div>
+          
