@@ -1,6 +1,8 @@
 package com.back.apoteka.service.impl;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -13,8 +15,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.back.apoteka.model.Promotion;
 import com.back.apoteka.model.User;
+import com.back.apoteka.request.CreateAbsenceRequest;
 import com.back.apoteka.request.RegisterRequest;
+import com.back.apoteka.request.SendPromotionRequest;
+import com.back.apoteka.service.PromotionService;
 @Service
 public class EmailServiceImpl {
 	
@@ -25,6 +31,9 @@ public class EmailServiceImpl {
 	Environment env;
 	@Autowired
 	UserServiceImpl userService;
+	
+	@Autowired
+	PromotionService promoService;
 	
 	@Async
 	public void sendNotificaitionAsync(RegisterRequest rr, Long id) throws MailException, InterruptedException, MessagingException {
@@ -108,5 +117,74 @@ public class EmailServiceImpl {
 		System.out.println("Email poslat!");		
 		
 	}
+	
+	public void sendNewPromotionNotification(String email, Long id) throws MessagingException {
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+		
+		Promotion p = promoService.findById(id);
+		
+		String htmlMsg = "<h3>Hello</h3><br> <p>New promotion arrived: <br>"+p.getDescription()+" </p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("New promotion");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");		
+	}
+	
+	public void sendNotificationAboutOfferToSupplier(String email) throws MessagingException { //obavestamo dobavljaca da je njegova ponuda prihvacena
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+		
+		String htmlMsg = "<h3>Hello</h3><br> <p>Your offer has been accepted<br> </p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Offer notification");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");	
+	}
+	
+	public void sendAbsenceRequestNotification(String email, Date startAbsence, Date endAbsence) throws MessagingException {
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+		
+		String htmlMsg = "<h3>Hello</h3><br> <p>I would like to have leave of absence from <br>" + startAbsence + " to " + endAbsence + "</p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Leave of absence");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
