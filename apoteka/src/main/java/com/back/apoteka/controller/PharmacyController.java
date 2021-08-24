@@ -133,6 +133,8 @@ public class PharmacyController {
 	@PostMapping("/setdermatologist")
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public Pharmacy addPharmacyDerm(@RequestBody AddWorkTimeRequest wtr) {
+		System.out.println("sad printam");
+		System.out.println(wtr);
 		return pharmacyService.addPharmacyDerm(wtr);
 	}
 	
@@ -142,21 +144,23 @@ public class PharmacyController {
 		return pharmacyService.getDermatologists(id);
 	}
 	
-	@GetMapping("/getAllPharmDermatologists/{id}/{dermEmail}") ///kako ruta
+	@GetMapping("/getAllPharmDermatologists/{id}/{dermEmail}") 
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public List<User> getAllDermatologistsFromPharmacy(@PathVariable Long id,@PathVariable String dermEmail){
 		return pharmacyService.getAllDermatologistsFromPharmacy(id, dermEmail);
 	}
 	
-	@GetMapping("/getOnePharmDermatologist/{id}/{dermatologistSurname}") ///kako ruta
+	@GetMapping("/getOnePharmDermatologist/{id}/{dermatologistSurname}") 
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public User findOneDermatologistFromPharmacy(@PathVariable Long id,@PathVariable String dermatologistSurname) {
 		return pharmacyService.findOneDermatologistFromPharmacy(id, dermatologistSurname);
 	}
 	
-	@PostMapping("/deletePharmDermatologist/{id}/{dermatologistSurname}") //kako ruta
+	@PostMapping("/deletePharmDermatologist/{id}/{dermatologistSurname}") 
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public String deleteDermatologistFromPharmacy(@PathVariable Long id, @PathVariable String dermatologistSurname) {
+		System.out.println(id);
+		System.out.println(dermatologistSurname);
 		return pharmacyService.deleteDermatologistFromPharmacy(id, dermatologistSurname);
 		
 	}

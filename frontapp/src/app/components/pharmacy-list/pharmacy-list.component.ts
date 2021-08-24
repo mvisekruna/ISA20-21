@@ -130,4 +130,28 @@ makeAdmin(){
   });
 }
 
+removeDermatologistFromList(id:number, dermatologistSurname: string){
+  console.log(id);
+  console.log(dermatologistSurname); //ispise, tj. preuzme dobro ali izgleda ko da ne ulazi uopste beku
+  this.pharmacyService.deleteDermatologistFromPharmacy(id, dermatologistSurname).subscribe(data =>{
+    console.log(data);
+  })
+}
+
+removePharmacistFromList(id:number, pharmacistSurname: string){
+  console.log(id);
+  console.log(pharmacistSurname); 
+  this.pharmacyService.deletePharmacistFromPharmacy(id, pharmacistSurname).subscribe(data =>{
+    console.log(data);
+  })
+}
+
+removeMedicineFromList(id:number, medName: string){
+  console.log(id);
+  console.log(medName); 
+  this.pharmacyService.deleteMedicineFromPharmacy(id, medName).subscribe(data =>{
+    console.log(data);
+  })
+}
+
 }

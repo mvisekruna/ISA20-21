@@ -1,5 +1,7 @@
 package com.back.apoteka.service.impl;
 
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +15,7 @@ import com.back.apoteka.repository.WorkTimeRepository;
 import com.back.apoteka.request.AddWorkTimeRequest;
 import com.back.apoteka.service.UserService;
 import com.back.apoteka.service.WorkTimeService;
+
 
 @Service
 public class WorkTimeServiceImpl implements WorkTimeService {
@@ -41,13 +44,13 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 	public WorkTime addWorkTime(AddWorkTimeRequest wtr) {
 		WorkTime wt = new WorkTime();
 		wt.setDay(wtr.getDayWT());
-		wt.setFrom(wtr.getFromWT());
-		wt.setTo(wtr.getToWT());
-		User user = userService.findByEmail(wtr.getPharmOdDermEmail());
+		wt.setFrom(parseDate(wtr.getFromWT()));
+		wt.setTo(parseDate(wtr.getToWT()));
+		User user = userService.findByEmail(wtr.getPharmOrDermEmail());
 		if(user.getAuthority().getName().contains("PHARMACIST")) {
 			wt.setPharmacist(user);
 		} else if(user.getAuthority().getName().contains("DERMATOLOGIST")) {
-			boolean check = checkDermWorkTime(user.getId(), wtr.getFromWT(), wtr.getToWT(), wtr.getDayWT());
+			boolean check = checkDermWorkTime(user.getId(), wt.getFrom(), wt.getTo(), wtr.getDayWT());
 			System.out.println(check);//udje ovde ali ipak doda iz nekog razloga ponovo u listu dermatologa apoteke
 			if(check) {
 				wt.setDermatologist(user);
@@ -83,5 +86,27 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 		}
 		return true;
 	}
+	
+	public Date parseDate(String dateString) {
+		
+		String[] parts = dateString.split(":");
+		Date date = new Timestamp(0,0,0,0,0,0,0);
+		date.setHours(Integer.parseInt(parts[0]));
+		date.setMinutes(Integer.parseInt(parts[1]));
+		return date;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

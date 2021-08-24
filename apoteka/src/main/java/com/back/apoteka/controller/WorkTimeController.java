@@ -20,7 +20,7 @@ public class WorkTimeController {
 	@Autowired
 	private WorkTimeService wtService;
 	
-	@PostMapping
+	@PostMapping("/addworktime")
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public WorkTime addWorkTime(@RequestBody AddWorkTimeRequest wtr) {
 		return wtService.addWorkTime(wtr);

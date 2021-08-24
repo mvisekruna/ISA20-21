@@ -226,7 +226,7 @@ public class PharmacyServiceImpl implements PharmacyService{
 	
 	public Pharmacy addPharmacyPharmacist(AddWorkTimeRequest wtr) { //RADI
 		Pharmacy pharmacy = pharmacyRepository.findById(wtr.getPharmacyId()).orElse(null);
-		User pharmacistPharmacy = userService.findByEmail(wtr.getPharmOdDermEmail());
+		User pharmacistPharmacy = userService.findByEmail(wtr.getPharmOrDermEmail());
 		pharmacy.getPharmacists().add(pharmacistPharmacy);
 		workTimeService.addWorkTime(wtr);
 		return pharmacyRepository.save(pharmacy);
@@ -305,7 +305,7 @@ public class PharmacyServiceImpl implements PharmacyService{
 /*DERMATOLOZI***************************************************/
 	public Pharmacy addPharmacyDerm(AddWorkTimeRequest wtr) { //ne radi dobro uslovm, tj. doda ipak bez id-ja
 		Pharmacy pharmacy = pharmacyRepository.findById(wtr.getPharmacyId()).orElse(null);
-		User pharmacyDermatologist = userService.findByEmail(wtr.getPharmOdDermEmail());
+		User pharmacyDermatologist = userService.findByEmail(wtr.getPharmOrDermEmail());
 		pharmacy.getDermatologists().add(pharmacyDermatologist);
 		WorkTime wt = workTimeService.addWorkTime(wtr);
 		if(wt != null) {

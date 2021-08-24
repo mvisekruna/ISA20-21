@@ -42,6 +42,7 @@
               <th scope="col">Last Name</th>
               <th scope="col">Phone Number</th>
               <th scope="col">City</th>
+              <th scope="col">Remove dermatologist</th>
             </tr>
           </thead>
           <tbody>
@@ -53,6 +54,8 @@
             <td>{{ derm.lastName }}</td>
             <td>{{ derm.phoneNumber }}</td>
             <td>{{ derm.city }}</td>
+            <td><button type="submit" (click)="removeDermatologistFromList(pharmacy1.id, derm.lastName)"
+              class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
 
 
@@ -64,6 +67,7 @@
               <th scope="col">Last Name</th>
               <th scope="col">Phone Number</th>
               <th scope="col">City</th>
+              <th scope="col">Remove pharmacist</th>
             </tr>
           </thead>
           <tbody>
@@ -75,6 +79,8 @@
             <td>{{ pharm.lastName }}</td>
             <td>{{ pharm.phoneNumber }}</td>
             <td>{{ pharm.city }}</td>
+            <td><button type="submit" (click)="removePharmacistFromList(pharmacy1.id, pharm.lastName)"
+              class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
 
 
@@ -85,6 +91,7 @@
               <th scope="col">Name</th>
               <th scope="col">Code</th>
               <th scope="col">Type</th>
+              <th scope="col">Remove medicine</th>
             </tr>
           </thead>
           <tbody>
@@ -95,6 +102,8 @@
             <td>{{ med.name }}</td>
             <td>{{ med.code }}</td>
             <td>{{ med.type }}</td>
+            <td><button type="submit" (click)="removeMedicineFromList(pharmacy1.id, med.name)"
+              class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
         
         <strong>Address: {{ pharmacy1.address }}</strong><br/>

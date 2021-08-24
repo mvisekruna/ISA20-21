@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class AddWorkTimeRequest {
 	
-	private Date fromWT;
-	private Date toWT;
+	private String fromWT;
+	private String toWT;
 	private Long dayWT;
-	private String pharmOdDermEmail;
+	private String pharmOrDermEmail;
 	
 	
 	private Long pharmacyId;
