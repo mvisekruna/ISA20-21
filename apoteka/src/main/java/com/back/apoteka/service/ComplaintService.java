@@ -7,13 +7,13 @@ import com.back.apoteka.request.ComplaintRequest;
 
 public interface ComplaintService {
 
-
 	Complaint writeComplaintForPharmacy(ComplaintRequest cr);
 
 	Complaint writeComplaintForStaff(ComplaintRequest cr);
 
 	List<Complaint> findAll();
 
-	Complaint findById(Long id);
+	Complaint findById(Long id); 
 
+	
 }
