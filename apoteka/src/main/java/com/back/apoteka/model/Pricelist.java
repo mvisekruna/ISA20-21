@@ -23,7 +23,7 @@ public class Pricelist {
 	@ManyToOne
 	private Medicine medicine;
 	
-	private String price;
+	private double price;
 	
 	private Date fromPeriod;
 	
