@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Data
@@ -24,7 +25,7 @@ public class Examination {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Timestamp dateAndTime;
+	private Date dateAndTime;
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User dermatologist;
 	
@@ -33,6 +34,7 @@ public class Examination {
     
     @ManyToOne(fetch = FetchType.EAGER)
     private User patient;
+    private Long duration;
 	
     private boolean executed;
     private boolean didntShow;

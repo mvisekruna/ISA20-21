@@ -1,6 +1,7 @@
 package com.back.apoteka.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +15,15 @@ import org.springframework.stereotype.Service;
 import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
+import com.back.apoteka.model.WorkTime;
 import com.back.apoteka.repository.ExaminationRepository;
 import com.back.apoteka.repository.UserRepository;
+import com.back.apoteka.repository.WorkTimeRepository;
 import com.back.apoteka.request.ExaminationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
 import com.back.apoteka.response.CanUnscheduleResponce;
 import com.back.apoteka.service.ExaminationService;
+import com.back.apoteka.service.WorkTimeService;
 
 @Service
 public class ExaminationServiceImpl implements ExaminationService{
@@ -30,8 +34,23 @@ public class ExaminationServiceImpl implements ExaminationService{
 	PharmacyServiceImpl pharmacyService;
 	@Autowired
 	UserServiceImpl userService;
+	@Autowired
+	WorkTimeService workTimeService;
+	@Autowired
+	WorkTimeRepository workTimeRepo;
+	@Autowired
+	UserRepository userRepo;
+	@Autowired
+	EmailServiceImpl emailService;
+	@Autowired
+	CustomUserDetailsService customUserService;
+	@Autowired
+	PenaltyServiceImpl penaltyService;
+	
+	
+	
 	@Override
-	public List<Examination> findByPharmacy(Long id) {
+	public List<Examination> findByPharmacy(Long id) { //vraca samo slobodne termine za tu apoteku
 		Pharmacy pharm = pharmacyService.findById(id);
 		System.out.println(pharm);
 		List<Examination> list= examinationRepo.findByPatient(null);
@@ -46,7 +65,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 	}
 	
 	@Override 
-	public List<Examination> findByDermatologist(Long id) {
+	public List<Examination> findByDermatologist(Long id) { //vraca samo slobodne termine za tog dermatologa
 		List<Examination> list= examinationRepo.findByPatient(null);
 		List<Examination> list1= examinationRepo.findByPatient(null);
 		for (Examination exam: list) {
@@ -57,25 +76,87 @@ public class ExaminationServiceImpl implements ExaminationService{
 		}
 		return list1;
 	}
-
-	@Override
-	public Examination save(ExaminationRequest examRequst) {
+	
+	public Examination getByDeramtologist(Long id) {
+		List<Examination> exams = examinationRepo.findAll();
 		Examination exam = new Examination();
-		exam.setDateAndTime(examRequst.getDateAndTime());
-		exam.setDermatologist(userService.findById(examRequst.getDermatologist()));
-		exam.setPatient(null);
-		exam.setPharmacy(pharmacyService.findById(examRequst.getPharmacy()));
-		exam.setPrice(examRequst.getPrice());
-		exam.setDidntShow(false);
-		exam.setReport("");
-		exam.setExecuted(false);
-		return examinationRepo.save(exam);
+		for(Examination e:exams) {
+			if(e.getDermatologist().getId().equals(id)) {
+				exam = e;
+			}
+		}
+		return exam;
 	}
 	
-	@Autowired
-	UserRepository userRepo;
-	@Autowired
-	EmailServiceImpl emailService;
+	
+	
+	public Examination save(ExaminationRequest examRequest) { 
+		Examination exam = null; //u njega dodajemo krajni examination
+		
+		//provera da se ne poklapa sa vec zakazanim
+		List<Examination> exams = examinationRepo.findAll(); //dobavim sve preglede prvo da bih proverila da nema vec zakazan tad 
+		for(Examination e:exams) {
+			if(e.getDermatologist().getId().equals(examRequest.getDermatologistId())) { //prvo uporedjujem dermatologa za kojeg zakazujem, da vidim je l ima vec nesto zakazano
+				//ako ulazi u if onda proveravamo dan da li je isti sto prosledjujem
+				Date d = new Date(e.getDateAndTime().getTime() + (e.getDuration() * 60000)); //dodaje trajanje na pocetak pregleda
+				if(examRequest.getDateAndTime().getDay() == e.getDateAndTime().getDay()) { //ako udje u ovo, proverava vreme da li upada u termin vec zakazanog
+					if(examRequest.getDateAndTime().after(e.getDateAndTime()) || examRequest.getDateAndTime().before(d)){
+						System.out.println("desio se null");																								//da li upada u vec zakazani termin odredjenog dermatologa
+						return null; //vraca null jer jer upada u termin ako udje u taj if, ako ne nastavlja dalje
+					}
+				}
+			}
+		}
+		
+		//provera da li prosledjen termin ulazi u radno vreme dermatologa apoteke 
+		List<WorkTime> worktimes = workTimeService.findByDermatologist(examRequest.getDermatologistId()); //vrati sva radna vremena dermatologa u svim apotekama
+		boolean found = false;
+		for(WorkTime wt: worktimes) { 
+			
+			
+			Calendar c = Calendar.getInstance();
+			c.setTime(examRequest.getDateAndTime());
+			int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+			
+			System.out.println(wt.getDay());
+			System.out.println(dayOfWeek);
+			
+			if(wt.getDay() != dayOfWeek) {
+				continue;
+			}
+			
+			int minutesExam = examRequest.getDateAndTime().getHours() * 60 + examRequest.getDateAndTime().getMinutes();
+			int minutesFrom = wt.getFrom().getHours() * 60 + wt.getFrom().getMinutes();
+			int minutesTo = wt.getTo().getHours() * 60 + wt.getTo().getMinutes();
+			System.out.println(minutesExam);
+			System.out.println(minutesFrom);
+			System.out.println(minutesTo);
+			if(minutesExam >= minutesFrom && minutesExam <= minutesTo) {
+				
+				User dermatologist = userService.findById(examRequest.getDermatologistId());
+				exam = new Examination();
+				exam.setDermatologist(dermatologist);
+				exam.setDateAndTime(examRequest.getDateAndTime());
+				found = true;
+				break;
+			}
+		}
+		System.out.println(found);
+		if(found) {
+			
+			exam.setDuration(examRequest.getDuration());
+			exam.setPrice(examRequest.getPrice());
+			exam.setReport("");
+			exam.setExecuted(false);
+			exam.setDidntShow(false);
+			exam.setPatient(null);
+
+			return examinationRepo.save(exam);
+		} else {
+			return null;
+		}
+	}
+	
 	@Override
 	public Examination schedule(ScheduleExaminationRequest schedule) {
 		System.out.println("usao u examschedule");
@@ -93,8 +174,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 		return examinationRepo.save(exam);
 	}
 
-	@Autowired
-	CustomUserDetailsService customUserService;
+	
 	@Override
 	public List<CanUnscheduleResponce> getScheduled() {
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
@@ -194,7 +274,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 		return lista;
 	}
 
-	public List<Examination> scheduleForDermatologist() {
+	public List<Examination> scheduleForDermatologist() { //vraca samo zakazane tremine kod tog dermatologa
 
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 		User dermatologist = (User) customUserService.loadUserByUsername(currentUser.getName()); 
@@ -213,8 +293,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 		return exams;
 	}
 
-	@Autowired
-	PenaltyServiceImpl penaltyService;
+	
 	public Examination didntShow(Examination exam) {
 		//exam.setDidntShow(true);
 		System.out.println(exam.toString());

@@ -26,10 +26,11 @@ import com.back.apoteka.service.impl.PenaltyServiceImpl;
 public class ExaminationController {
 	@Autowired
 	ExaminationServiceImpl examinationService;
-	@PostMapping
+	@PostMapping("/saveexam")
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
-	public Examination createExamination(@RequestBody ExaminationRequest examRequst) {
-		return examinationService.save(examRequst);
+	public Examination createExamination(@RequestBody ExaminationRequest examRequest) {
+		System.out.println(examRequest);
+		return examinationService.save(examRequest);
 	}
 	//@PreAuthorize("hasRole('PATIENT')")
 	@PostMapping("/pharm") //vraca samo slobodne termine za tu apoteku

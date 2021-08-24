@@ -88,7 +88,7 @@ public class EmailServiceImpl {
 	}
 
 	public void sendExaminationConfirmationMail(String email, String firstName, String name, String address,
-			Timestamp dateAndTime) throws MessagingException {
+			Date dateAndTime) throws MessagingException {
 		System.out.println("Slanje emaila opregledu...");
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
