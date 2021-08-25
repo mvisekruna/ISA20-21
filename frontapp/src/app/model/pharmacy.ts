@@ -11,5 +11,7 @@ export class Pharmacy {
     dermatologists: User[];
     pharmacists: User[];
     priceForCounseling: number;
+    latitude: any;
+    longitude: any;
 
 }

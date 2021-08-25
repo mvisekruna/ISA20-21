@@ -26,6 +26,7 @@
           </tr>
         </tbody>
       </table>
+      
     </div>
     <div class="card my-5" *ngIf="showPharm" id="showPharm">
       <div class="card-body">
@@ -34,6 +35,9 @@
       <p>
         <strong>Address: {{ pharmacy1.address }}</strong><br/>
         <strong>Phone: {{ pharmacy1.phone }}</strong><br/>
+        <agm-map [latitude]="pharmacy1.latitude" [longitude]="pharmacy1.longitude">
+          <agm-marker [latitude]="pharmacy1.latitude" [longitude]="pharmacy1.longitude"></agm-marker>
+        </agm-map>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>

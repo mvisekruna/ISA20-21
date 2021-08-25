@@ -17,6 +17,8 @@ import { UserServiceService } from 'src/app/service/user-service.service';
 })
 export class PharmacyListComponent implements OnInit {
 
+  
+
   dtOptions: any = {};
   isAdmin: boolean = false;
   pharmacys: Pharmacy[];

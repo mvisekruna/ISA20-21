@@ -89,11 +89,11 @@ insert into allergies (medicine_name, patient_email) values ('Aciklovir', 'patie
 insert into allergies (medicine_name, patient_email) values ('Hemomicin', 'patient2@example.com');
 
 --apoteke
-insert into pharmacy (address, description, phone, name, price_for_counseling) values ('Dositeja Obradovica 14', 'Privatna klinika', '069223221', 'Prva Apoteka', 2200);
-insert into pharmacy (address, description, phone, name, price_for_counseling) values ('Gunduliceva 41', 'Privatna klinika', '066552221', 'Druga Apoteka', 2000);
-insert into pharmacy (address, description, phone, name, price_for_counseling) values ('Strazilovska 14', 'Privatna klinika', '021285321', 'Helthmedica', 3200);
-insert into pharmacy (address, description, phone, name, price_for_counseling) values ('200 Kaplara 6', 'Privatna klinika', '021777221', 'Atlas', 3000);
-insert into pharmacy (address, description, phone, name, price_for_counseling) values ('Narodnog Fronta 43', 'Privatna klinika', '02123221', 'MedioCentar', 2500);
+insert into pharmacy (address, description, phone, name, price_for_counseling, latitude, longitude) values ('Trg Dositeja Obradovica 14', 'Privatna klinika', '069223221', 'Prva Apoteka', 2200, 45.24706051330164, 19.85175085396389);
+insert into pharmacy (address, description, phone, name, price_for_counseling, latitude, longitude) values ('Gunduliceva 41', 'Privatna klinika', '066552221', 'Druga Apoteka', 2000, 45.26401366144306, 19.848909555810668);
+insert into pharmacy (address, description, phone, name, price_for_counseling, latitude, longitude) values ('Strazilovska 14', 'Privatna klinika', '021285321', 'Helthmedica', 3200, 45.24899822788164, 19.84845541163444);
+insert into pharmacy (address, description, phone, name, price_for_counseling, latitude, longitude) values ('Gavrila Principa 6', 'Privatna klinika', '021777221', 'Atlas', 3000, 45.253709181820774, 19.38435354231594);
+insert into pharmacy (address, description, phone, name, price_for_counseling, latitude, longitude) values ('Narodnog Fronta 43', 'Privatna klinika', '02123221', 'MedioCentar', 2500, 45.238944828620525, 19.836142669304444);
 
 --lekovi u apotekama
 insert into pharmacy_medicine (pharmacy_id, medicine_id) values (1, 1);

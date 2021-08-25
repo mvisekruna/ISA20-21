@@ -32,6 +32,10 @@ public class Pharmacy {
 	
 	private String address;
 	
+	private double latitude;
+	
+	private double longitude;
+	
 	private String description;
 	
 	@ManyToMany //sklonila fetch type namerno jer sa tim ne radi

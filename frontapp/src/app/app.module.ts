@@ -43,6 +43,7 @@ import { PharmacistsListComponent } from './components/pharmacists-list/pharmaci
 import { HomePagePharmacyAdminComponent } from './components/home-page/home-page-pharmacy-admin/home-page-pharmacy-admin.component';
 import { AddNewPharmacistOrDermatologistComponent } from './components/add-new-pharmacist-or-dermatologist/add-new-pharmacist-or-dermatologist.component';
 
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +85,10 @@ import { AddNewPharmacistOrDermatologistComponent } from './components/add-new-p
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDMB95HndoUh1HWZJ0v2MFyWWQ-eaRWVGw'
+    })
   ],
   providers: [PharmacyServiceService,
     MedicineServiceService, 

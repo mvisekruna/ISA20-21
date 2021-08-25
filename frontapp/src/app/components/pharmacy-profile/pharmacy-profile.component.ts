@@ -9,6 +9,8 @@ import { PharmacyServiceService } from 'src/app/service/pharmacy-service.service
 })
 export class PharmacyProfileComponent implements OnInit {
 
+
+
   pharmacy: Pharmacy;
   constructor(pharmacyService: PharmacyServiceService) { 
   }
