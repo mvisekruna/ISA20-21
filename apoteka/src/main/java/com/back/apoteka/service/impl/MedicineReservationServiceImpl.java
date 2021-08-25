@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,9 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 	EmailServiceImpl emailService;
 	@Autowired
 	CustomUserDetailsService customUserService;
+	
 	@Override
+	@Transactional
 	public boolean save(MedicineReservationRequest mrr) {
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 		User patient = (User) customUserService.loadUserByUsername(currentUser.getName());

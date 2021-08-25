@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -89,7 +90,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 	}
 	
 	
-	
+	@Transactional
 	public Examination save(ExaminationRequest examRequest) { 
 		Examination exam = null; //u njega dodajemo krajni examination
 		
@@ -158,6 +159,7 @@ public class ExaminationServiceImpl implements ExaminationService{
 	}
 	
 	@Override
+	@Transactional
 	public Examination schedule(ScheduleExaminationRequest schedule) {
 		System.out.println("usao u examschedule");
 		Examination exam = examinationRepo.findById(schedule.getExamId()).orElse(null);

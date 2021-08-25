@@ -15,10 +15,17 @@ export class WorktimeServiceService {
 
   }
 
-  public addWorkTime(addWorkTimeRequest: AddWorktimeRequest): Observable<any> {
+  public addWorkTimeDermatologist(addWorkTimeRequest: AddWorktimeRequest): Observable<any> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.post<Observable<any>>('http://localhost:8080/pharmacy/setdermatologist' , addWorkTimeRequest, {headers});
+  
+  }
+
+  public addWorkTimePharmacist(addWorkTimeRequest: AddWorktimeRequest): Observable<any> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post<Observable<any>>('http://localhost:8080/pharmacy/setpharmacist' , addWorkTimeRequest, {headers});
   
   }
   

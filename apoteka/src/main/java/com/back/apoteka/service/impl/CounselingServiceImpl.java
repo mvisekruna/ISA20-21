@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -94,7 +95,9 @@ public class CounselingServiceImpl implements CounselingService{
 	UserServiceImpl userService;
 	@Autowired
 	EmailServiceImpl emailService;
+	
 	@Override
+	@Transactional
 	public boolean schedule(ScheduleCounselingRequest scr) {
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 		User patient = (User) customUserService.loadUserByUsername(currentUser.getName());

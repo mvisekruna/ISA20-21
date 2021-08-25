@@ -3,6 +3,7 @@ package com.back.apoteka.service.impl;
 import java.util.List;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -71,6 +72,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 	}
 	@Autowired
 	EmailServiceImpl emailService;
+	@Transactional
 	public Complaint answer(Complaint comp) {
 		try {
 			emailService.sendResponceToComplaint(comp.getPatient().getEmail(), comp.getAnswer());

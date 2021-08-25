@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,7 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 	}
 	
 	@Override
+	@Transactional
 	public WorkTime addWorkTime(AddWorkTimeRequest wtr) {
 		WorkTime wt = new WorkTime();
 		wt.setDay(wtr.getDayWT());
@@ -49,6 +52,7 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 		User user = userService.findByEmail(wtr.getPharmOrDermEmail());
 		if(user.getAuthority().getName().contains("PHARMACIST")) {
 			wt.setPharmacist(user);
+			wt = workTimeRepo.save(wt);
 		} else if(user.getAuthority().getName().contains("DERMATOLOGIST")) {
 			boolean check = checkDermWorkTime(user.getId(), wt.getFrom(), wt.getTo(), wtr.getDayWT());
 			System.out.println(check);//udje ovde ali ipak doda iz nekog razloga ponovo u listu dermatologa apoteke
