@@ -25,6 +25,8 @@ import { PatientListComponent } from './components/patient-list/patient-list.com
 import { WorkingScheduleComponent } from './components/working-schedule/working-schedule.component';
 import { PharmacistsListComponent } from './components/pharmacists-list/pharmacists-list.component';
 import { AddNewPharmacistOrDermatologistComponent } from './components/add-new-pharmacist-or-dermatologist/add-new-pharmacist-or-dermatologist.component';
+import { AskForAbsenceComponent } from './components/ask-for-absence/ask-for-absence.component';
+import { AbsencesListComponent } from './components/absences-list/absences-list.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -70,6 +72,18 @@ const routes: Routes = [
   data: { 
     expectedRole: 'ROLE_PHARMACY_ADMIN'
   }   },
+  { path: 'ask-for-absence',
+  component : AskForAbsenceComponent,
+  canActivate: [GuardServiceService],
+  data: {
+    expectedRole: 'ROLE_PHARMACIST ROLE_DERMATOLOGIST'
+  }  },
+  { path: 'absences-list', 
+  component: AbsencesListComponent,
+  canActivate: [GuardServiceService],
+  data: {
+    expectedRole: 'ROLE_PHARMACY_ADMIN ROLE_SYSTEM_ADMIN'
+  } },
 //
   { path: 'workingschedule',
   component: WorkingScheduleComponent,

@@ -1,5 +1,6 @@
 package com.back.apoteka.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -38,6 +39,7 @@ public class AbsenceServiceImpl implements AbsenceService {
 		System.out.println(createAbsenceRequest.getStartAbsence());
 		absence.setStartAbsence(createAbsenceRequest.getStartAbsence());
 		absence.setEndAbsence(createAbsenceRequest.getEndAbsence());
+		absence.setApproved(false);
 		
 		
 		User user = userService.getCurrent();
@@ -46,7 +48,7 @@ public class AbsenceServiceImpl implements AbsenceService {
 		} else {
 			absence.setDermatologist(user);
 		}
-		System.out.println(absence.getPharmacist().getId());
+		//System.out.println(absence.getPharmacist().getId());
 		List<User> systemAdmins = userService.findAll();
 		if(absence.getPharmacist()==(null)) { //dermatolog trazi odsustvo ako je farmaceut nula
 			for(User u:systemAdmins) { //prolazi kroz usere 
@@ -89,7 +91,91 @@ public class AbsenceServiceImpl implements AbsenceService {
 		return pharmacy;
 	}
 	
+	@Override
+	public List<Absence> findAllRequestsFromPharmacists() {
+		List<Absence> absences = absenceRepository.findAll();
+		List<Absence> temp = new ArrayList<Absence>();
+		
+		for(Absence a: absences) {
+			if(a.getDermatologist()==null) {
+				temp.add(a);
+			}
+		}
+		return temp;
+	}
 	
+	@Override
+	public List<Absence> findAllRequestsFromDermatologists() {
+		List<Absence> absences = absenceRepository.findAll();
+		List<Absence> temp = new ArrayList<Absence>();
+		
+		for(Absence a: absences) {
+			if(a.getPharmacist()==null) {
+				temp.add(a);
+			}
+		}
+		return temp;
+	}
 	
+	@Override
+	public void absenceApprovalForPharmacist(Long pharmacistId) {
+		List<Absence> absences = findAllRequestsFromPharmacists();
+		for(Absence a: absences) {
+			if(a.getPharmacist().getId().equals(pharmacistId)) {
+				a.setApproved(true);
+				absenceRepository.save(a);
+				try {
+					emailService.sendAbsenceRequestApproved(a.getPharmacist().getEmail());
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+	
+	@Override
+	public void absenceDeniedForPharmacist(Long pharmacistId) {
+		List<Absence> absences = findAllRequestsFromPharmacists();
+		for(Absence a: absences) {
+			if(a.getPharmacist().getId().equals(pharmacistId)) {
+				try {
+					emailService.sendAbsenceRequestDenied(a.getPharmacist().getEmail());
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+	
+	@Override
+	public void absenceApprovalForDermatologist(Long dermatologistId) {
+		List<Absence> absences = findAllRequestsFromDermatologists();
+		System.out.println(absences);
+		for(Absence a: absences) {
+			if(a.getDermatologist().getId().equals(dermatologistId)) {
+				a.setApproved(true);
+				absenceRepository.save(a);
+				try {
+					emailService.sendAbsenceRequestApproved(a.getDermatologist().getEmail());
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
+	
+	@Override
+	public void absenceDeniedForDermatologist(Long dermatologistId) {
+		List<Absence> absences = findAllRequestsFromDermatologists();
+		for(Absence a: absences) {
+			if(a.getDermatologist().getId().equals(dermatologistId)) {
+				try {
+					emailService.sendAbsenceRequestDenied(a.getDermatologist().getEmail());
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+			}
+		}		
+	}
 }
 

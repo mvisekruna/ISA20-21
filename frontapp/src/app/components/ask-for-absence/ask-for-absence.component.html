@@ -1,0 +1,30 @@
+<div class="card my-5">
+    <div class="card-body">
+        <h2>{{ title }}</h2>
+        <div >
+      <form (ngSubmit)="onSubmit()" #form="ngForm" name="askForAbsenceForm" #r="ngForm" novalidate>
+        <div class="form-group">
+          <label for="startAbsence">Start absence</label>
+          <input type="date"   [(ngModel)]="createAbsenceRequest.startAbsence"
+            class="form-control" 
+            id="startAbsence" 
+            name="startAbsence" 
+            placeholder="Enter start date for absence"
+            >
+        </div>
+        <div class="form-group">
+          <label for="endAbsence">End absence</label>
+          <input type="date"  [(ngModel)]="createAbsenceRequest.endAbsence"
+            class="form-control" 
+            id="endAbsence" 
+            name="endAbsence" 
+            placeholder="Enter end date for absence"
+            > 
+        </div>
+        <button type="submit" 
+          class="btn btn-info">Send</button>
+      </form>
+      </div>
+   </div>
+</div>
+          

@@ -29,5 +29,7 @@ public class Absence {
 	
 	@ManyToOne
 	private User dermatologist;
+	
+	private boolean approved; // da li je dozvoljen godisnji
 
 }

@@ -161,6 +161,39 @@ public class EmailServiceImpl {
 		javaMailSender.send(mimeMessage);
 		System.out.println("Email poslat!");
 	}
+	
+	
+	public void sendAbsenceRequestApproved(String email) throws MessagingException {
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+		
+		String htmlMsg = "<h3>Hello</h3><br> <p>Your leave of absence is approved!</p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Leave of absence approval");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");
+	}
+	
+	
+	public void sendAbsenceRequestDenied(String email) throws MessagingException {
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+		
+		String htmlMsg = "<h3>Hello</h3><br> <p>Your leave of absence is denied!</p>";
+		System.out.println(htmlMsg);
+		mimeMessage.setContent(htmlMsg, "text/html");
+		helper.setTo(email);
+		helper.setSubject("Leave of absence denied");
+		helper.setFrom(env.getProperty("spring.mail.username"));
+		javaMailSender.send(mimeMessage);
+		System.out.println("Email poslat!");
+	}
+	
+	
+	
 
 	
 	
