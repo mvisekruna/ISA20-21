@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { Pharmacy } from '../model/pharmacy';
 import { User } from '../model/user';
 import { Medicine } from '../model/medicine';
+import { MedicineUpdateRequest } from '../model/medicine-update-request';
 @Injectable(
 )
 export class PharmacyServiceService {
@@ -21,7 +22,7 @@ export class PharmacyServiceService {
    this.pharmacyUrlDeletePharmacist = 'http://localhost:8080/pharmacy/deletePharmPharmacist'
    }
 
-  public findAll(): Observable<Pharmacy[]> {
+  public findAll(): Observable<Pharmacy[]> { 
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<Pharmacy[]>(this.pharmacyUrl, {headers});
@@ -35,56 +36,103 @@ export class PharmacyServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<Pharmacy>(this.pharmacyUrlName, pharmacyName, {headers});
    }
-   public getPharmacists(id: number): Observable<User[]> {
-    const t= localStorage.getItem("TOKEN");
-    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.get<User[]>(`${this.pharmacyUrl}/getPharmacists/${id}`, {headers});
-  }
-  public getPharmacyWithMed(id: number): Observable<Pharmacy[]> {
-    const t= localStorage.getItem("TOKEN");
-    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.get<Pharmacy[]>(`${this.pharmacyUrl}/havemedicine/${id}`, {headers});
-  }
-  public setAdmin(body: any): Observable<Pharmacy> {
+   public setAdmin(body: any): Observable<Pharmacy> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.post<Pharmacy>(`${this.pharmacyUrl}/setadmin`, body, {headers});
   }
 
-
-  public getDermatologists(id: number): Observable<User[]> {
+  public getPharmacyWithMed(id: number): Observable<Pharmacy[]> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.get<User[]>(`${this.pharmacyUrl}/getDermatologists/${id}`, {headers});
+    return this.http.get<Pharmacy[]>(`${this.pharmacyUrl}/havemedicine/${id}`, {headers});
   }
 
-  public getMedicinesFromPharmacy(id: number): Observable<Medicine[]> {
+  //MEDICINE/////////////////////
+
+  public getMedicinesFromPharmacy(id: any): Observable<Medicine[]> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<Medicine[]>(`${this.pharmacyUrl}/getMedicines/${id}`, {headers});
   }
 
-  public deleteDermatologistFromPharmacy(id: number, dermatologistSurname: string): Observable<any> {
+  public getAllMedicinesFromPharmacy(id: any, medName: string): Observable<Medicine[]> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.post(`${this.pharmacyUrlDeleteDermatologist}/${id}/${dermatologistSurname}`, {headers});
-    
+    return this.http.get<Medicine[]>(`${this.pharmacyUrl}/getAllPharmMedicines/${id}/${medName}`, {headers});
+  }
+
+  public findOneMedicineFromPharmacy(id: any, medName: string): Observable<Medicine> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Medicine>(`${this.pharmacyUrl}/getOnePharmMedicine/${id}/${medName}`, {headers});
+  }
+
+  public updateMedicineFromPharmacy(id: any, medName: string, medicineUpdateRequest: MedicineUpdateRequest): Observable<Medicine> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Medicine>(`${this.pharmacyUrl}/updatePharmMedicine/${id}/${medName}`, {headers});
+  }
+
+  public deleteMedicineFromPharmacy(id: any, medName: string): Observable<any> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post(`${this.pharmacyUrl}/deletePharmMedicine/${id}/${medName}`, {medName}, {headers}); 
+  }
+
+
+  //PHARMACIST///////
+
+   public getPharmacists(id: any): Observable<User[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<User[]>(`${this.pharmacyUrl}/getPharmacists/${id}`, {headers});
+  }
+
+  public getAllPharmacistsFromPharmacy(id: any, pharmacistEmail: String): Observable<User[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<User[]>(`${this.pharmacyUrl}/getAllPharmPharmacists/${id}/${pharmacistEmail}`, {headers})
+  } 
+
+  public findOnePharmacistFromPharmacy(id: any, pharmacistSurname: String): Observable<User> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<User>(`${this.pharmacyUrl}/getOnePharmPharmacist/${id}/${pharmacistSurname}`, {headers});
   }
 
   public deletePharmacistFromPharmacy(id: number, pharmacistSurname: string): Observable<any> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.post(`${this.pharmacyUrlDeletePharmacist}/${id}/${pharmacistSurname}`, {headers});
+    return this.http.post(`${this.pharmacyUrlDeletePharmacist}/${id}/${pharmacistSurname}`, {pharmacistSurname}, {headers});
     
   }
 
-  public deleteMedicineFromPharmacy(id: number, medName: string): Observable<any> {
+
+  //DERMATOLOGIST//////
+
+  public getDermatologists(id: any): Observable<User[]> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.post(`${this.pharmacyUrl}/deletePharmMedicine/${id}/${medName}`, {headers});
+    return this.http.get<User[]>(`${this.pharmacyUrl}/getDermatologists/${id}`, {headers});
+  }
+
+  public getAllDermatologistsFromPharmacy(id: any, dermEmail: String): Observable<User[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<User[]>(`${this.pharmacyUrl}/getAllPharmDermatologists/${id}/${dermEmail}`, {headers});
+  }
+
+  public findOneDermatologistFromPharmacy(id: any, dermatologistSurname: String): Observable<User> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<User>(`${this.pharmacyUrl}/getOnePharmDermatologist/${id}/${dermatologistSurname}`, {headers});
+  }
+
+  public deleteDermatologistFromPharmacy(id: any, dermatologistSurname: string): Observable<any> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post(`${this.pharmacyUrlDeleteDermatologist}/${id}/${dermatologistSurname}`, {dermatologistSurname}, {headers});
     
   }
-  
-
-
 }

@@ -25,6 +25,7 @@ import com.back.apoteka.repository.ExaminationRepository;
 import com.back.apoteka.repository.MedicineRepository;
 import com.back.apoteka.repository.MedicineReservationRepository;
 import com.back.apoteka.repository.PharmacyRepository;
+import com.back.apoteka.request.AddMedicineToPharmacyRequest;
 import com.back.apoteka.request.AddPhamracyAdminReuest;
 import com.back.apoteka.request.AddPharmacyRequest;
 import com.back.apoteka.request.AddWorkTimeRequest;
@@ -136,6 +137,14 @@ public class PharmacyServiceImpl implements PharmacyService{
 	}
 
 /*LEKOVI***********************************************/
+	
+	public Pharmacy addMedicineToPharmacy(AddMedicineToPharmacyRequest addMedToPharmacyRequest) {
+		Pharmacy pharmacy = pharmacyRepository.findById(addMedToPharmacyRequest.getPharmacyId()).orElse(null);
+		Medicine medicinePharmacy = medicineService.findById(addMedToPharmacyRequest.getMedicineId());
+		pharmacy.getMedicines().add(medicinePharmacy);
+		return pharmacyRepository.save(pharmacy);
+	}
+	
 	
 	public List<Medicine> getMedicinesFromPharmacy(Long id){//radi
 		User user = userService.getCurrent();

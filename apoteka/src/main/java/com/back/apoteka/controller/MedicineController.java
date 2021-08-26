@@ -62,7 +62,7 @@ public class MedicineController {
 	}
 	
 	@PostMapping("/savemedicine")
-	@PreAuthorize("hasAnyRole('PHARMACY_ADMIN','SYSTEM_ADMIN')")
+	@PreAuthorize("hasAnyRole('PHARMACY_ADMIN','SYSTEM_ADMIN')") //ima na frontu
 	public Medicine addMedicine(@RequestBody MedicineRequest medRequest) {
 		return medicineService.saveMed(medRequest);
 	}

@@ -30,7 +30,7 @@ export class PharmacyListComponent implements OnInit {
   freeAdmins: User[];
   pharmAdmin: User;
   body: any;
-  
+  isPharmacyAdmin: boolean = false;
   dermatologists : User[];
   pharmacists : User[];
   medicines : Medicine[];
@@ -58,7 +58,8 @@ export class PharmacyListComponent implements OnInit {
          this.freeAdmins=data;
          console.log(data);
       });
-    } else {this.isAdmin=false;}
+    } else {this.isAdmin=false;
+    this.isPharmacyAdmin=true;}
     this.pharmacy1 = new Pharmacy();
     this.title='Pharmacy list';
     this.pharmacyService.findAll().subscribe(data => {
@@ -134,7 +135,7 @@ makeAdmin(){
 
 removeDermatologistFromList(id:number, dermatologistSurname: string){
   console.log(id);
-  console.log(dermatologistSurname); //ispise, tj. preuzme dobro ali izgleda ko da ne ulazi uopste beku
+  console.log(dermatologistSurname); 
   this.pharmacyService.deleteDermatologistFromPharmacy(id, dermatologistSurname).subscribe(data =>{
     console.log(data);
   })
