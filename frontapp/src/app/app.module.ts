@@ -46,6 +46,9 @@ import { AddNewPharmacistOrDermatologistComponent } from './components/add-new-p
 import { AgmCoreModule } from '@agm/core';
 import { AskForAbsenceComponent } from './components/ask-for-absence/ask-for-absence.component';
 import { AbsencesListComponent } from './components/absences-list/absences-list.component';
+import { AddMedicineToPharmacyComponent } from './components/add-medicine-to-pharmacy/add-medicine-to-pharmacy.component';
+import { AddPromotionComponent } from './components/add-promotion/add-promotion.component';
+import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +83,10 @@ import { AbsencesListComponent } from './components/absences-list/absences-list.
     HomePagePharmacyAdminComponent,
     AddNewPharmacistOrDermatologistComponent,
     AskForAbsenceComponent,
-    AbsencesListComponent
+    AbsencesListComponent,
+    AddMedicineToPharmacyComponent,
+    AddPromotionComponent,
+    AddOrderItemComponent
   ],
   imports: [
     DataTablesModule,

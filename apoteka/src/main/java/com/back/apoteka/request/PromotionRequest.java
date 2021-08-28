@@ -9,9 +9,9 @@ public class PromotionRequest {
 	
 	//private Long id;
 	
-	private Date startPromo;
+	private String startPromo;
 	
-	private Date endPromo;
+	private String endPromo;
 	
 	private String description;
 	

@@ -5,6 +5,7 @@ import { Pharmacy } from '../model/pharmacy';
 import { User } from '../model/user';
 import { Medicine } from '../model/medicine';
 import { MedicineUpdateRequest } from '../model/medicine-update-request';
+import { AddMedicineToPharmacyRequest } from '../model/add-medicine-to-pharmacy-request';
 @Injectable(
 )
 export class PharmacyServiceService {
@@ -49,6 +50,12 @@ export class PharmacyServiceService {
   }
 
   //MEDICINE/////////////////////
+
+  public addMedicineToPharmacy(addMedToPharmacyRequest: AddMedicineToPharmacyRequest): Observable<Pharmacy> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post<Pharmacy>(`${this.pharmacyUrl}/addmedicinetopharmacy`, addMedToPharmacyRequest, {headers});
+  }
 
   public getMedicinesFromPharmacy(id: any): Observable<Medicine[]> {
     const t= localStorage.getItem("TOKEN");

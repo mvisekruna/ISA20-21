@@ -27,6 +27,9 @@ import { PharmacistsListComponent } from './components/pharmacists-list/pharmaci
 import { AddNewPharmacistOrDermatologistComponent } from './components/add-new-pharmacist-or-dermatologist/add-new-pharmacist-or-dermatologist.component';
 import { AskForAbsenceComponent } from './components/ask-for-absence/ask-for-absence.component';
 import { AbsencesListComponent } from './components/absences-list/absences-list.component';
+import { AddMedicineToPharmacyComponent } from './components/add-medicine-to-pharmacy/add-medicine-to-pharmacy.component';
+import { AddPromotionComponent } from './components/add-promotion/add-promotion.component';
+import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -84,6 +87,27 @@ const routes: Routes = [
   data: {
     expectedRole: 'ROLE_PHARMACY_ADMIN ROLE_SYSTEM_ADMIN'
   } },
+  {
+    path: 'add-medicine-to-pharmacy',
+    component: AddMedicineToPharmacyComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
+  {
+    path: 'add-promotion',
+    component: AddPromotionComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
+  {
+    path: 'add-order-item',
+    component: AddOrderItemComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
 //
   { path: 'workingschedule',
   component: WorkingScheduleComponent,

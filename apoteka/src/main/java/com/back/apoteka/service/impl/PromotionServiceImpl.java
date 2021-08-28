@@ -1,5 +1,7 @@
 package com.back.apoteka.service.impl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -40,16 +42,19 @@ public class PromotionServiceImpl implements PromotionService {
 	public Promotion addPromotion(PromotionRequest pr) {
 		Pharmacy pharmacy = pharmacyService.findById(pr.getPharmId());
 		Promotion promo = new Promotion();
+		System.out.println(pr);
 		promo.setPharm(pharmacy);
-		promo.setStartPromo(pr.getStartPromo());
-		promo.setEndPromo(pr.getEndPromo());
+		promo.setStartPromo(Timestamp.valueOf(pr.getStartPromo()));
+		promo.setEndPromo(Timestamp.valueOf(pr.getEndPromo()));
 		promo.setDescription(pr.getDescription());
+		
+		promoRepo.save(promo);
 		
 		List<PharmacyPromoUser> pharmacyPromoUsers = pharmacyPromoUserService.findAll();
 		for(PharmacyPromoUser pharmacyPromoUser : pharmacyPromoUsers) {
 			if(pharmacyPromoUser.isSubscribed() && pharmacyPromoUser.getPharmacy().getId().equals(pharmacy.getId())) {
 				System.out.println("usao u if");
-				promoRepo.save(promo);
+				//promoRepo.save(promo);
 				User user = pharmacyPromoUser.getPromoUser();
 				try {
 					emailService.sendNewPromotionNotification(user.getEmail(), promo.getId());
@@ -60,6 +65,18 @@ public class PromotionServiceImpl implements PromotionService {
 		}
 		return promo;	
 	}
+	
+	public Date parseDate(String dateString) {
+		System.out.println(dateString);
+		String[] parts = dateString.split("-");
+		String[] parts1 = parts[2].split(" ");
+		Date date = new Timestamp(0,0,0,0,0,0,0);
+		date.setDate(Integer.parseInt(parts1[0]));
+		date.setMonth(Integer.parseInt(parts[1]));
+		date.setYear(Integer.parseInt(parts[0]) - 1900);
+		return date;
+	}
+	
 
 	@Override
 	public Promotion findById(Long id) throws AccessDeniedException {
