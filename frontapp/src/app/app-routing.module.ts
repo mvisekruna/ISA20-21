@@ -30,6 +30,7 @@ import { AbsencesListComponent } from './components/absences-list/absences-list.
 import { AddMedicineToPharmacyComponent } from './components/add-medicine-to-pharmacy/add-medicine-to-pharmacy.component';
 import { AddPromotionComponent } from './components/add-promotion/add-promotion.component';
 import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
+import { AddNewOrderComponent } from './components/add-new-order/add-new-order.component';
 
 const routes: Routes = [
   { path: 'loginform',
@@ -104,6 +105,13 @@ const routes: Routes = [
   {
     path: 'add-order-item',
     component: AddOrderItemComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
+  {
+    path: 'add-new-order',
+    component: AddNewOrderComponent,
     canActivate: [GuardServiceService],
     data: {
       expectedRole: 'ROLE_PHARMACY_ADMIN'

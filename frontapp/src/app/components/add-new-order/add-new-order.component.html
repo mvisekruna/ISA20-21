@@ -1,0 +1,22 @@
+<div class="card my-5">
+    <div class="card-body" >
+        <form (ngSubmit)="onSubmit()" #form="ngForm" name="addOrder" #r="ngForm" novalidate>
+            <div class="form-group">
+      <h2>New order:</h2>
+      <p>Pharmacy id:</p>
+      <input type="text"   [(ngModel)]="orderRequest.pharmacyId"
+            class="form-control" 
+            id="pharmacyId" 
+            name="pharmacyId" 
+            placeholder="Enter pharmacy id"
+            >
+
+      <p>End date for offers:</p>
+      <input type="date"  class="form-control"  id="dateOfEnd"  name="dateOfEnd"  [ngModel]="orderRequest.dateOfEnd | date:'yyyy-MM-ddTHH:mm'" />
+
+        <button type="submit" 
+        class="btn btn-info" >Add</button>
+        </div>
+        </form>
+    </div>
+</div>

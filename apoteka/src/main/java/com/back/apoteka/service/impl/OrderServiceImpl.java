@@ -1,6 +1,7 @@
 package com.back.apoteka.service.impl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.back.apoteka.repository.OrderRepository;
 import com.back.apoteka.request.OrderRequest;
 import com.back.apoteka.service.OrderService;
 import com.back.apoteka.service.PharmacyService;
+
+import java.sql.Timestamp;
 //za narudzbinu daj mi sve ponude
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -29,10 +32,10 @@ public class OrderServiceImpl implements OrderService {
 	public Order saveOrder(OrderRequest orderRequest) { //imam
 		Order order = new Order();
 		
-		order.setDate(orderRequest.getDate());
+		order.setDateOfEnd(Timestamp.valueOf(orderRequest.getDateOfEnd()));
 		Pharmacy p = pharmService.findById(orderRequest.getPharmacyId());
 		order.setPharm(p);
-		order.setStatus(orderRequest.getStatus());
+		order.setStatus(OrderStatus.WAITNG_FOR_OFFER);
 		
 		return orderRepo.save(order);
 	}
@@ -99,4 +102,5 @@ public class OrderServiceImpl implements OrderService {
 		
 		return OrderStatus.PROCESSED;
 	}
+
 }

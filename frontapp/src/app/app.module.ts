@@ -49,6 +49,7 @@ import { AbsencesListComponent } from './components/absences-list/absences-list.
 import { AddMedicineToPharmacyComponent } from './components/add-medicine-to-pharmacy/add-medicine-to-pharmacy.component';
 import { AddPromotionComponent } from './components/add-promotion/add-promotion.component';
 import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
+import { AddNewOrderComponent } from './components/add-new-order/add-new-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +87,8 @@ import { AddOrderItemComponent } from './components/add-order-item/add-order-ite
     AbsencesListComponent,
     AddMedicineToPharmacyComponent,
     AddPromotionComponent,
-    AddOrderItemComponent
+    AddOrderItemComponent,
+    AddNewOrderComponent
   ],
   imports: [
     DataTablesModule,

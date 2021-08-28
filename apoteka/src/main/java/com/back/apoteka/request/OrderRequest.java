@@ -14,8 +14,7 @@ public class OrderRequest {
 	
 	private Long pharmacyId;
 	
-	private Date date;
+	private String dateOfEnd;
 	
-	private OrderStatus status;
 
 }

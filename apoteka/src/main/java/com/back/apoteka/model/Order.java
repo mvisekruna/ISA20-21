@@ -22,7 +22,7 @@ public class Order {
 	@ManyToOne
 	private Pharmacy pharm;
 	
-	private Date date;
+	private Date dateOfEnd;
 
 	private OrderStatus status;
 

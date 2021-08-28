@@ -1,7 +1,7 @@
 package com.back.apoteka.service.impl;
 
 import java.sql.Timestamp;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -64,17 +64,6 @@ public class PromotionServiceImpl implements PromotionService {
 			}
 		}
 		return promo;	
-	}
-	
-	public Date parseDate(String dateString) {
-		System.out.println(dateString);
-		String[] parts = dateString.split("-");
-		String[] parts1 = parts[2].split(" ");
-		Date date = new Timestamp(0,0,0,0,0,0,0);
-		date.setDate(Integer.parseInt(parts1[0]));
-		date.setMonth(Integer.parseInt(parts[1]));
-		date.setYear(Integer.parseInt(parts[0]) - 1900);
-		return date;
 	}
 	
 
