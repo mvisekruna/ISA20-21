@@ -32,6 +32,7 @@ import { AddPromotionComponent } from './components/add-promotion/add-promotion.
 import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
 import { AddNewOrderComponent } from './components/add-new-order/add-new-order.component';
 
+
 const routes: Routes = [
   { path: 'loginform',
    component: LoginFormComponent },

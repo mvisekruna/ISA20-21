@@ -52,7 +52,7 @@
           <tbody>
 
           </tbody>
-          <tr *ngFor="let derm of dermatologists" id="dermatologists">
+          <tr *ngFor="let derm of dermatologists | search:terms" id="dermatologists" >
             <td>{{ derm.id }}</td>
             <td>{{ derm.firstName }}</td>
             <td>{{ derm.lastName }}</td>
@@ -109,9 +109,28 @@
             <td><button type="submit" (click)="removeMedicineFromList(pharmacy1.id, med.name)"
               class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
-        
-        <strong>Address: {{ pharmacy1.address }}</strong><br/>
-        <strong>Phone: {{ pharmacy1.phone }}</strong><br/>
+        <div>
+          
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Pharmacy</th>
+              <th scope="col">Date of end</th>
+              <th scope="col">status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+          <tr *ngFor="let order of orders" id="orders">
+            <td>{{ order.id }}</td>
+            <td>{{ order.pharm.id }}</td>
+            <td>{{ order.dateOfEnd | date:'medium' }}</td>
+            <td>{{ order.status }}</td>
+          </tr>
+        </table>
+      </div>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>

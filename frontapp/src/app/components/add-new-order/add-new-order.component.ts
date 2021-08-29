@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Order } from 'src/app/model/order';
 import { OrderRequest } from 'src/app/model/order-request';
 import { OrderServiceService } from 'src/app/service/order-service.service';
 
@@ -12,6 +13,8 @@ export class AddNewOrderComponent implements OnInit {
 
   orderRequest: OrderRequest;
   filterDate: Date;
+  orders: Order[];
+  isShown: boolean = false;
 
   constructor(private orderService: OrderServiceService, private router: Router) { }
 

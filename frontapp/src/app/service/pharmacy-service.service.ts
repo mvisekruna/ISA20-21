@@ -49,6 +49,12 @@ export class PharmacyServiceService {
     return this.http.get<Pharmacy[]>(`${this.pharmacyUrl}/havemedicine/${id}`, {headers});
   }
 
+  public findPharmacyByAdmin(pharmacyAdminEmail: string): Observable<Pharmacy> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Pharmacy>(`${this.pharmacyUrl}/findpharmacybyadmin/${pharmacyAdminEmail}`, {headers})
+  }
+
   //MEDICINE/////////////////////
 
   public addMedicineToPharmacy(addMedToPharmacyRequest: AddMedicineToPharmacyRequest): Observable<Pharmacy> {

@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { Examination } from 'src/app/model/examination';
 import { Medicine } from 'src/app/model/medicine';
+import { Order } from 'src/app/model/order';
 import { Pharmacy } from 'src/app/model/pharmacy';
 import { ScheduleExaminationRequest } from 'src/app/model/schedule-examination-request';
 import { User } from 'src/app/model/user';
 import { ExaminationServiceService } from 'src/app/service/examination-service.service';
+import { OrderServiceService } from 'src/app/service/order-service.service';
 import { PharmacyServiceService } from 'src/app/service/pharmacy-service.service';
 import { UserServiceService } from 'src/app/service/user-service.service';
 
@@ -34,12 +36,16 @@ export class PharmacyListComponent implements OnInit {
   dermatologists : User[];
   pharmacists : User[];
   medicines : Medicine[];
+
+  isShown : boolean = false;
+  orders: Order[];
   //terms="";
   scheduleExaminationRequest: ScheduleExaminationRequest;
   constructor(private pharmacyService: PharmacyServiceService,
      private examService: ExaminationServiceService,
      private userService: UserServiceService,
-     private route: Router) { 
+     private route: Router,
+     private orderService: OrderServiceService) { 
        this.freeAdmins=[];
        this.pharmAdmin = new User;
        this.body = {
@@ -96,6 +102,10 @@ export class PharmacyListComponent implements OnInit {
 
       this.pharmacyService.getMedicinesFromPharmacy(this.pharmacy1.id).subscribe(data => {
         this.medicines = data;
+
+      this.orderService.getOrdersFromPharmacy(this.pharmacy1.id).subscribe(data => {
+        this.orders = data;
+      })
       })
     }
     );

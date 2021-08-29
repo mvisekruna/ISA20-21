@@ -135,6 +135,21 @@ public class PharmacyServiceImpl implements PharmacyService{
 		}
 		return phar;
 	}
+	
+	@Override
+	public Pharmacy findPharmacyByAdmin(String pharmacyAdminEmail) {
+		List<Pharmacy> pharmacies = pharmacyService.findAll();
+		Pharmacy pharmacy = null;
+		for(Pharmacy p: pharmacies) {
+			List<User> pharmacists = p.getPharmacists();
+			for(User u:pharmacists) {
+				if(u.getEmail().equals(pharmacyAdminEmail)) {
+					pharmacy = p;
+				}
+			}
+		}
+		return pharmacy;
+	}
 
 /*LEKOVI***********************************************/
 	

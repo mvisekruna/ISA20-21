@@ -64,6 +64,12 @@ public class PharmacyController {
 		return pharmacyService.getPharmacyWithMedicine(id);
 	}
 	
+	@GetMapping("/findpharmacybyadmin/{pharmacyAdminEmail}")
+	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public Pharmacy findPharmacyByAdmin(@PathVariable String pharmacyAdminEmail) {
+		return pharmacyService.findPharmacyByAdmin(pharmacyAdminEmail);
+	}
+	
 /**LEKOVI***********************************************/
 
 	@PostMapping("/addmedicinetopharmacy")
