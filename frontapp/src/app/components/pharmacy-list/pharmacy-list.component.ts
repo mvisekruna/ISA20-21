@@ -36,6 +36,7 @@ export class PharmacyListComponent implements OnInit {
   dermatologists : User[];
   pharmacists : User[];
   medicines : Medicine[];
+  selected = '-1'
 
   isShown : boolean = false;
   orders: Order[];
@@ -94,19 +95,20 @@ export class PharmacyListComponent implements OnInit {
       });
       this.pharmacyService.getDermatologists(this.pharmacy1.id).subscribe(data => {
         this.dermatologists = data;
-      })
+      });
 
       this.pharmacyService.getPharmacists(this.pharmacy1.id).subscribe(data => {
         this.pharmacists = data;
-      })
+      });
 
       this.pharmacyService.getMedicinesFromPharmacy(this.pharmacy1.id).subscribe(data => {
         this.medicines = data;
+      });
 
-      this.orderService.getOrdersFromPharmacy(this.pharmacy1.id).subscribe(data => {
+      this.orderService.filtrateOrdersFromPharmacy(this.pharmacy1.id, this.selected).subscribe(data => {
         this.orders = data;
       })
-      })
+      
     }
     );
     //await delay(1100);
@@ -163,6 +165,15 @@ removeMedicineFromList(id:number, medName: string){
   console.log(id);
   console.log(medName); 
   this.pharmacyService.deleteMedicineFromPharmacy(id, medName).subscribe(data =>{
+    console.log(data);
+  })
+}
+
+filtrateWithStatus(pharmacyId: any){
+  this.orderService.filtrateOrdersFromPharmacy(pharmacyId, this.selected).subscribe(data => {
+    console.log(this.selected);
+
+    this.orders = data;
     console.log(data);
   })
 }

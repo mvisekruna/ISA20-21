@@ -68,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> filtrateOrdersFromPharmacy(Long pharmacyId, int status) { 
+		System.out.println(status);
 		List<Pharmacy> pharms = pharmService.findAll();
 		Pharmacy pharm = null;
 		for(Pharmacy p: pharms) {
@@ -80,15 +81,16 @@ public class OrderServiceImpl implements OrderService {
 			return new ArrayList<Order>();
 		}
 		
+		if(status == -1) {
+			return getOrdersFromPharmacy(pharmacyId);
+		}
+		
 		List<Order> orders = orderRepo.findAll();
 		List<Order> temp = orderRepo.findAll();
 		temp.removeAll(temp);
 		for(Order o:orders) {
-			if(o.getPharm().getId().equals(pharm.getId())) {
-				
-				if(o.getStatus() == convertToOrderStatus(status)) {
-					temp.add(o);
-				}
+			if(o.getPharm().getId().equals(pharm.getId()) && o.getStatus() == convertToOrderStatus(status)) {
+				temp.add(o);
 			}
 		}
 		return temp;

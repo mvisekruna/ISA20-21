@@ -38,6 +38,7 @@
         <agm-map [latitude]="pharmacy1.latitude" [longitude]="pharmacy1.longitude">
           <agm-marker [latitude]="pharmacy1.latitude" [longitude]="pharmacy1.longitude"></agm-marker>
         </agm-map>
+        <h4>Dermatologists:</h4>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>
@@ -62,7 +63,7 @@
               class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
 
-
+        <h4>Pharmacists:</h4>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>
@@ -87,7 +88,7 @@
               class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
 
-
+        <h4>Medicines:</h4>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>
@@ -109,8 +110,20 @@
             <td><button type="submit" (click)="removeMedicineFromList(pharmacy1.id, med.name)"
               class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
+
+        
         <div>
+          <h4>Orders:</h4>
+          <mat-form-field appearance="fill">
+          <mat-label>Cars</mat-label>
+          <select matNativeControl [(ngModel)]="selected">
+            <option value="-1">Please select</option>
+            <option value="0">Waiting for offer</option>
+            <option value="1">Processed</option>
+          </select>
           
+        </mat-form-field>
+        <button type="submit" (click)="filtrateWithStatus(pharmacy1.id)"  class="btn btn-info"  style="width:10%">Select</button>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>
@@ -131,6 +144,9 @@
           </tr>
         </table>
       </div>
+
+
+      <h4>List of free examinations(dermatologists):</h4>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
             <tr>
