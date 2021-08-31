@@ -18,10 +18,10 @@ export class OfferServiceService {
     return this.http.post<Offer>('http://localhost:8080/offer', offerRequest, {headers})
   }
 
-  public getOffersForOrder(pharmacyId: any): Observable<Offer[]> {
+  public getOffersForOrder(orderId: any): Observable<Offer[]> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.get<Offer[]>(`http://localhost:8080/offer/getoffers/${pharmacyId}`, {headers});
+    return this.http.get<Offer[]>(`http://localhost:8080/offer/getoffers/${orderId}`, {headers});
   }
 
   public pickOneOffer(offerId: any): Observable<Offer>{

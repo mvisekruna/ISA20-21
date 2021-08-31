@@ -13,16 +13,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.back.apoteka.model.Absence;
 import com.back.apoteka.model.Examination;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.model.User;
 import com.back.apoteka.model.WorkTime;
+import com.back.apoteka.repository.AbsenceRepository;
 import com.back.apoteka.repository.ExaminationRepository;
 import com.back.apoteka.repository.UserRepository;
 import com.back.apoteka.repository.WorkTimeRepository;
 import com.back.apoteka.request.ExaminationRequest;
 import com.back.apoteka.request.ScheduleExaminationRequest;
 import com.back.apoteka.response.CanUnscheduleResponce;
+import com.back.apoteka.service.AbsenceService;
 import com.back.apoteka.service.ExaminationService;
 import com.back.apoteka.service.WorkTimeService;
 
@@ -47,6 +50,8 @@ public class ExaminationServiceImpl implements ExaminationService{
 	CustomUserDetailsService customUserService;
 	@Autowired
 	PenaltyServiceImpl penaltyService;
+	@Autowired
+	AbsenceService absenceService;
 	
 	
 	
@@ -108,6 +113,18 @@ public class ExaminationServiceImpl implements ExaminationService{
 				}
 			}
 		}
+		//provera za godisnji odmor 
+		List<Absence>  absences = absenceService.findAllRequestsFromDermatologists(); 
+		for(Absence a: absences) {
+			if(a.getDermatologist().getId().equals(examRequest.getDermatologistId()) && a.isApproved()) {
+				if(examRequest.getDateAndTime().after(a.getStartAbsence()) && examRequest.getDateAndTime().before(a.getEndAbsence())) {
+					System.out.println("NE MOZE BITI ZAKAZAN U VREME GODISNJEG ODMORA");
+					return null;
+				}
+				
+			}
+		}
+		
 		
 		//provera da li prosledjen termin ulazi u radno vreme dermatologa apoteke 
 		List<WorkTime> worktimes = workTimeService.findByDermatologist(examRequest.getDermatologistId()); //vrati sva radna vremena dermatologa u svim apotekama

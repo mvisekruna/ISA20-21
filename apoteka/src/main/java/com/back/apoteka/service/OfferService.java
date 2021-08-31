@@ -8,7 +8,7 @@ import com.back.apoteka.request.OfferRequest;
 public interface OfferService {
 	
 	Offer save(OfferRequest or);
-	List<Offer> getOffersForOrder(Long pharmacyId);
+	List<Offer> getOffersForOrder(Long offerId);
 	Offer pickOneOffer(Long offerId);
 	void checkOffersEndDate(Long pharmacyId);
 }

@@ -30,10 +30,10 @@ public class OfferController {
 		return offerService.save(or);
 	}
 	
-	@GetMapping("/getoffers/{pharmacyId}")
+	@GetMapping("/getoffers/{orderId}")
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
-	public List<Offer> getOffersForOrder(@PathVariable Long pharmacyId) {
-		return offerService.getOffersForOrder(pharmacyId);
+	public List<Offer> getOffersForOrder(@PathVariable Long orderId) {
+		return offerService.getOffersForOrder(orderId);
 	}
 	
 	@GetMapping("/pickoffer/{offerId}")
