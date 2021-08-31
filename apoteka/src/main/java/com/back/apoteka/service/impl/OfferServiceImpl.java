@@ -54,6 +54,10 @@ public class OfferServiceImpl implements OfferService {
 		offer.setSupplier(supplier);
 		
 		Order order = orderService.findById(or.getOrderId());
+		if(order.isExpired()) {
+			System.out.println("isteklo vreme za davanje ponuda");
+			return null;
+		}
 		offer.setOrder(order);
 		
 		offer.setPrice(or.getPrice());
