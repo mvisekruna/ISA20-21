@@ -31,6 +31,8 @@ import { AddMedicineToPharmacyComponent } from './components/add-medicine-to-pha
 import { AddPromotionComponent } from './components/add-promotion/add-promotion.component';
 import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
 import { AddNewOrderComponent } from './components/add-new-order/add-new-order.component';
+import { AddNewOfferComponent } from './components/add-new-offer/add-new-offer.component';
+import { OfferListComponent } from './components/offer-list/offer-list.component';
 
 
 const routes: Routes = [
@@ -113,6 +115,20 @@ const routes: Routes = [
   {
     path: 'add-new-order',
     component: AddNewOrderComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
+  {
+    path: 'add-new-offer',
+    component: AddNewOfferComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_SUPPLIER'
+    } },
+  {
+    path: 'offer-list',
+    component: OfferListComponent,
     canActivate: [GuardServiceService],
     data: {
       expectedRole: 'ROLE_PHARMACY_ADMIN'

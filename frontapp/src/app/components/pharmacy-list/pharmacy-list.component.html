@@ -39,7 +39,7 @@
           <agm-marker [latitude]="pharmacy1.latitude" [longitude]="pharmacy1.longitude"></agm-marker>
         </agm-map>
         <h4>Dermatologists:</h4>
-        <table class="table table-bordered table-striped">
+        <table *ngIf="showDerm" class="table table-bordered table-striped table-sm row-border hover" datatable [dtOptions]="dtOptions1">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
@@ -51,20 +51,20 @@
             </tr>
           </thead>
           <tbody>
+            <tr *ngFor="let derm of dermatologists | search:terms" id="dermatologists" >
+              <td>{{ derm.id }}</td>
+              <td>{{ derm.firstName }}</td>
+              <td>{{ derm.lastName }}</td>
+              <td>{{ derm.phoneNumber }}</td>
+              <td>{{ derm.city }}</td>
+              <td><button type="submit" (click)="removeDermatologistFromList(pharmacy1.id, derm.lastName)"
+                class="btn btn-info" style="width:100%">Delete from list</button></td></tr>
 
           </tbody>
-          <tr *ngFor="let derm of dermatologists | search:terms" id="dermatologists" >
-            <td>{{ derm.id }}</td>
-            <td>{{ derm.firstName }}</td>
-            <td>{{ derm.lastName }}</td>
-            <td>{{ derm.phoneNumber }}</td>
-            <td>{{ derm.city }}</td>
-            <td><button type="submit" (click)="removeDermatologistFromList(pharmacy1.id, derm.lastName)"
-              class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
 
         <h4>Pharmacists:</h4>
-        <table class="table table-bordered table-striped">
+        <table *ngIf="showPhar" class="table table-bordered table-striped table-sm row-border hover" datatable [dtOptions]="dtOptions2">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
@@ -76,16 +76,16 @@
             </tr>
           </thead>
           <tbody>
-
+            <tr *ngFor="let pharm of pharmacists | search:terms" id="pharmacists">
+              <td>{{ pharm.id }}</td>
+              <td>{{ pharm.firstName }}</td>
+              <td>{{ pharm.lastName }}</td>
+              <td>{{ pharm.phoneNumber }}</td>
+              <td>{{ pharm.city }}</td>
+              <td><button type="submit" (click)="removePharmacistFromList(pharmacy1.id, pharm.lastName)"
+                class="btn btn-info" style="width:100%">Delete from list</button></td></tr>
           </tbody>
-          <tr *ngFor="let pharm of pharmacists" id="pharmacists">
-            <td>{{ pharm.id }}</td>
-            <td>{{ pharm.firstName }}</td>
-            <td>{{ pharm.lastName }}</td>
-            <td>{{ pharm.phoneNumber }}</td>
-            <td>{{ pharm.city }}</td>
-            <td><button type="submit" (click)="removePharmacistFromList(pharmacy1.id, pharm.lastName)"
-              class="btn btn-info" style="width:100%">Delete from list</button></td>
+        
         </table>
 
         <h4>Medicines:</h4>
@@ -115,7 +115,6 @@
         <div>
           <h4>Orders:</h4>
           <mat-form-field appearance="fill">
-          <mat-label>Cars</mat-label>
           <select matNativeControl [(ngModel)]="selected">
             <option value="-1">Please select</option>
             <option value="0">Waiting for offer</option>
@@ -131,6 +130,7 @@
               <th scope="col">Pharmacy</th>
               <th scope="col">Date of end</th>
               <th scope="col">status</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -141,6 +141,8 @@
             <td>{{ order.pharm.id }}</td>
             <td>{{ order.dateOfEnd | date:'medium' }}</td>
             <td>{{ order.status }}</td>
+            <td><button type="submit" [disabled]="!order.expired" (click)="seeOffers(order.id)"  
+              class="btn btn-info"  style="width:100%">See offers</button></td>
           </tr>
         </table>
       </div>

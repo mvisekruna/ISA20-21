@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { Examination } from 'src/app/model/examination';
 import { Medicine } from 'src/app/model/medicine';
+import { Offer } from 'src/app/model/offer';
 import { Order } from 'src/app/model/order';
 import { Pharmacy } from 'src/app/model/pharmacy';
 import { ScheduleExaminationRequest } from 'src/app/model/schedule-examination-request';
 import { User } from 'src/app/model/user';
 import { ExaminationServiceService } from 'src/app/service/examination-service.service';
+import { OfferServiceService } from 'src/app/service/offer-service.service';
 import { OrderServiceService } from 'src/app/service/order-service.service';
 import { PharmacyServiceService } from 'src/app/service/pharmacy-service.service';
 import { UserServiceService } from 'src/app/service/user-service.service';
@@ -22,6 +24,8 @@ export class PharmacyListComponent implements OnInit {
   
 
   dtOptions: any = {};
+  dtOptions1: any = {};
+  dtOptions2: any = {};
   isAdmin: boolean = false;
   pharmacys: Pharmacy[];
   title: string;
@@ -37,16 +41,21 @@ export class PharmacyListComponent implements OnInit {
   pharmacists : User[];
   medicines : Medicine[];
   selected = '-1'
+  showDerm = false;
+  showPhar = false;
+  disableOfferList: boolean = false;
 
   isShown : boolean = false;
   orders: Order[];
+  offers: Offer[];
   //terms="";
   scheduleExaminationRequest: ScheduleExaminationRequest;
   constructor(private pharmacyService: PharmacyServiceService,
      private examService: ExaminationServiceService,
      private userService: UserServiceService,
      private route: Router,
-     private orderService: OrderServiceService) { 
+     private orderService: OrderServiceService,
+     private offerService: OfferServiceService) { 
        this.freeAdmins=[];
        this.pharmAdmin = new User;
        this.body = {
@@ -65,21 +74,32 @@ export class PharmacyListComponent implements OnInit {
          this.freeAdmins=data;
          console.log(data);
       });
-    } else {this.isAdmin=false;
-    this.isPharmacyAdmin=true;}
+    } else {
+      this.isAdmin=false;
+      this.isPharmacyAdmin=true;
+    }
     this.pharmacy1 = new Pharmacy();
     this.title='Pharmacy list';
     this.pharmacyService.findAll().subscribe(data => {
       this.pharmacys = data;
     });
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
     lengthMenu : [5, 10, 25],
       processing: true
+    }; this.dtOptions1 = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+    lengthMenu: [5, 10, 25],
+      processing: true
+    }; this.dtOptions2 = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      legthMeny: [5, 10, 25],
+      processing: true
     };
-    
-    
   }
   showPharmacy(name: string){
     if (localStorage.getItem("TOKEN")!=null){
@@ -95,10 +115,12 @@ export class PharmacyListComponent implements OnInit {
       });
       this.pharmacyService.getDermatologists(this.pharmacy1.id).subscribe(data => {
         this.dermatologists = data;
+        this.showDerm = true;
       });
 
       this.pharmacyService.getPharmacists(this.pharmacy1.id).subscribe(data => {
         this.pharmacists = data;
+        this.showPhar = true;
       });
 
       this.pharmacyService.getMedicinesFromPharmacy(this.pharmacy1.id).subscribe(data => {
@@ -176,6 +198,11 @@ filtrateWithStatus(pharmacyId: any){
     this.orders = data;
     console.log(data);
   })
+}
+
+seeOffers(pharmacyId: any) {
+    this.route.navigate(["/offer-list"], {state: {pharmacyId: pharmacyId}});
+    console.log(pharmacyId);
 }
 
 }

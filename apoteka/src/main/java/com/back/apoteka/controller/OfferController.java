@@ -41,5 +41,12 @@ public class OfferController {
 	public Offer pickOneOffer(@PathVariable Long offerId) {
 		return offerService.pickOneOffer(offerId);
 	}
+	
+	@GetMapping("/check/{pharmacyId}")
+	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public void checkOffersEndDate(@PathVariable Long pharmacyId) {
+		offerService.checkOffersEndDate(pharmacyId);
+	}
+	
 
 }

@@ -49,11 +49,16 @@ public class OfferServiceImpl implements OfferService {
 	@Override
 	public Offer save(OfferRequest or) {
 		Offer offer = new Offer(); // ovako mora, ne == null
+		
+		User supplier = userService.getCurrent();
+		offer.setSupplier(supplier);
+		
 		Order order = orderService.findById(or.getOrderId());
 		offer.setOrder(order);
+		
 		offer.setPrice(or.getPrice());
-		User sup = userService.findById(or.getSupplierId());
-		offer.setSupplier(sup);
+		
+		
 		offer.setStatus(OfferStatus.WAITING);
 		
 		return offerRepo.save(offer);
@@ -61,11 +66,11 @@ public class OfferServiceImpl implements OfferService {
 
 
 	@Override
-	public List<Offer> getOffersForOrder(Long pharmacyId) {
+	public List<Offer> getOffersForOrder(Long orderId) {
 		User user = userService.getCurrent();
-		Order or = orderService.findById(pharmacyId);
-		Pharmacy pharmacy = pharmacyService.findById(pharmacyId);
-		if(user.getAuthority().getName().equals("ROLE_PHARMACY_ADMIN")) { //mozda mi sad ni ne trbea ova provera al nema veze
+		Order or = orderService.findById(orderId);
+		Pharmacy pharmacy = pharmacyService.findById(or.getPharm().getId());
+		if(user.getAuthority().getName().equals("ROLE_PHARMACY_ADMIN")) { //mozda mi sad ni ne treba ova provera al nema veze
 			if(pharmacy.isUserPharmacyAdmin(user.getId())) {
 				List<Offer> offers = offerRepo.findAll();
 				List<Offer> temp = offerRepo.findAll();
@@ -86,11 +91,13 @@ public class OfferServiceImpl implements OfferService {
 	@Override 
 	public Offer pickOneOffer(Long offerId) {
 		Offer temp = offerRepo.findById(offerId).orElseGet(null);
-		List<Offer> offers = getOffersForOrder(temp.getOrder().getPharm().getId()); //dobijem sve ponude za narudzbenicu 
+		System.out.println(temp.getId());
+		List<Offer> offers = getOffersForOrder(temp.getOrder().getId()); //dobijem sve ponude za narudzbenicu 
 		Offer offer = null; //u njega smestamo krajnji
 		//na frontu proveravamo je l isteklo vreme davanja ponude
 		for(Offer o: offers) {
-			if(o.getId().equals(offerId)) {  //ako je izabrana ta ponuda
+			System.out.println(o);
+			if(o.getId().equals(temp.getId())) {  //ako je izabrana ta ponuda
 				o.setStatus(OfferStatus.ACCEPTED);
 				offer = o;
 				System.out.println(o.getStatus());
@@ -113,7 +120,23 @@ public class OfferServiceImpl implements OfferService {
 			}
 		
 		}
-		return offer; //ne stavlja ostale koje nisu prihvacene na cancel
+		return offer; 
+	}
+	
+	@Override
+	public void checkOffersEndDate(Long pharmacyId) {
+		List<Order> orders = orderService.getOrdersFromPharmacy(pharmacyId);
+		Date currentDate = new Date();
+		System.out.println(currentDate);
+		
+		
+		for(Order o: orders) {
+			if(o.getDateOfEnd().before(currentDate)) {
+				System.out.println("usao");
+				o.setExpired(true);
+				System.out.println(o);
+			}
+		}
 	}
 		
 }

@@ -16,6 +16,9 @@
     <div *ngIf="isDerm" id="isDerm">
       <app-home-page-dermatologist></app-home-page-dermatologist>
     </div>
+    <div *ngIf="isSupplier" id="isSupplier">
+      <app-home-page-supplier></app-home-page-supplier>
+    </div>
     <button class="btn btn-info" (click)="logout()">Logout</button>
     </div>
     </div>

@@ -25,5 +25,7 @@ public class Order {
 	private Date dateOfEnd;
 
 	private OrderStatus status;
+	
+	private boolean expired = false;
 
 }

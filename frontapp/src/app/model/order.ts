@@ -5,4 +5,5 @@ export class Order {
     pharm: Pharmacy;
     dateOfEnd: Date;
     status: string;
+    expired: boolean; 
 }

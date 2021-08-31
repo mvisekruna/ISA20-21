@@ -1,3 +1,4 @@
+import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,6 +13,7 @@ export class HomePageComponent implements OnInit {
   isPharmacyAdmin= false;
   isDerm=false;
   isPharm=false;
+  isSupplier=false;
   title = 'Pharmacy information system';
   constructor() {
 
@@ -38,6 +40,8 @@ export class HomePageComponent implements OnInit {
       this.isDerm=true;
     } else if (this.info.authorities == "ROLE_PHARMACY_ADMIN"){
       this.isPharmacyAdmin=true;
+    } else if(this.info.authorities == "ROLE_SUPPLIER"){
+      this.isSupplier=true;
     }
   }
   logout() {

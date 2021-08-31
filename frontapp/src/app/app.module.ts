@@ -50,6 +50,9 @@ import { AddMedicineToPharmacyComponent } from './components/add-medicine-to-pha
 import { AddPromotionComponent } from './components/add-promotion/add-promotion.component';
 import { AddOrderItemComponent } from './components/add-order-item/add-order-item.component';
 import { AddNewOrderComponent } from './components/add-new-order/add-new-order.component';
+import { AddNewOfferComponent } from './components/add-new-offer/add-new-offer.component';
+import { HomePageSupplierComponent } from './components/home-page/home-page-supplier/home-page-supplier.component';
+import { OfferListComponent } from './components/offer-list/offer-list.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,9 @@ import { AddNewOrderComponent } from './components/add-new-order/add-new-order.c
     AddPromotionComponent,
     AddOrderItemComponent,
     AddNewOrderComponent,
+    AddNewOfferComponent,
+    HomePageSupplierComponent,
+    OfferListComponent,
    
   ],
   imports: [

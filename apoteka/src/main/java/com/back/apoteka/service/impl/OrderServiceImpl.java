@@ -1,7 +1,7 @@
 package com.back.apoteka.service.impl;
 
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> getOrdersFromPharmacy(Long pharmacyId) { //imam
 		List<Pharmacy> pharms = pharmService.findAll();
 		Pharmacy pharm = new Pharmacy();
+		Date currentDate = new Date();
 		for(Pharmacy p: pharms) {
 			if(p.getId().equals(pharmacyId)) {
 				pharm = p;
@@ -61,6 +62,12 @@ public class OrderServiceImpl implements OrderService {
 		for(Order o:orders) {
 			if(o.getPharm().getId().equals(pharm.getId())) {
 				temp.add(o);
+				if(o.getDateOfEnd().before(currentDate)) {
+					o.setExpired(true);
+					orderRepo.save(o);
+				}
+				
+				
 			}
 		}
 		return temp;

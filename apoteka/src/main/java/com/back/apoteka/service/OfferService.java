@@ -10,5 +10,5 @@ public interface OfferService {
 	Offer save(OfferRequest or);
 	List<Offer> getOffersForOrder(Long pharmacyId);
 	Offer pickOneOffer(Long offerId);
-
+	void checkOffersEndDate(Long pharmacyId);
 }
