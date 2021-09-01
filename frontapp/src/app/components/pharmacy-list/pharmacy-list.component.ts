@@ -75,6 +75,7 @@ export class PharmacyListComponent implements OnInit {
          console.log(data);
       });
     } else {
+      console.log("usao")
       this.isAdmin=false;
       this.isPharmacyAdmin=true;
     }

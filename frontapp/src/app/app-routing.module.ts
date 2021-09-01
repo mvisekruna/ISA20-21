@@ -34,7 +34,6 @@ import { AddNewOrderComponent } from './components/add-new-order/add-new-order.c
 import { AddNewOfferComponent } from './components/add-new-offer/add-new-offer.component';
 import { OfferListComponent } from './components/offer-list/offer-list.component';
 import { AddPricelistComponent } from './components/add-pricelist/add-pricelist.component';
-import { PharmacyProfilePatientComponent } from './components/pharmacy-profile-patient/pharmacy-profile-patient.component';
 import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
 import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
 
@@ -143,13 +142,6 @@ const routes: Routes = [
     canActivate: [GuardServiceService],
     data: {
       expectedRole: 'ROLE_PHARMACY_ADMIN'
-    } },
-  {
-    path: 'pharmacy-profile-patient',
-    component: PharmacyProfilePatientComponent,
-    canActivate: [GuardServiceService],
-    data: {
-      expectedRole: 'ROLE_PATIENT'
     } },
   {
     path: 'monthly-report',

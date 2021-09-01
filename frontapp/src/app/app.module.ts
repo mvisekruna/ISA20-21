@@ -54,7 +54,6 @@ import { AddNewOfferComponent } from './components/add-new-offer/add-new-offer.c
 import { HomePageSupplierComponent } from './components/home-page/home-page-supplier/home-page-supplier.component';
 import { OfferListComponent } from './components/offer-list/offer-list.component';
 import { AddPricelistComponent } from './components/add-pricelist/add-pricelist.component';
-import { PharmacyProfilePatientComponent } from './components/pharmacy-profile-patient/pharmacy-profile-patient.component';
 import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
 import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
 
@@ -101,7 +100,7 @@ import { QuarterReportComponent } from './components/quarter-report/quarter-repo
     HomePageSupplierComponent,
     OfferListComponent,
     AddPricelistComponent,
-    PharmacyProfilePatientComponent,
+  
     MonthlyReportComponent,
     QuarterReportComponent,
    
