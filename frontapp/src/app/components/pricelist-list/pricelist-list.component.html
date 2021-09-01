@@ -1,0 +1,31 @@
+  
+<div class="card my-5">
+    <div class="card-body">
+      <h2> Pricelists </h2>
+    </div>
+    <div>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Medicine</th>
+            <th scope="col">Pharmacy</th>
+            <th scope="col">Price</th>
+            <th scope="col">Start period</th>
+            <th scope="col">End period</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pricelist of pricelists" id="pricelist">
+            <td>{{ pricelist.id }}</td>
+            <td>{{ pricelist.medicine.id }}</td>
+            <td>{{ pricelist.pharmacy.id }}</td>
+            <td>{{ pricelist.price }}</td>
+            <td>{{ pricelist.fromPeriod | date:'medium'}}</td>
+            <td>{{ pricelist.toPeriod | date:'medium' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>

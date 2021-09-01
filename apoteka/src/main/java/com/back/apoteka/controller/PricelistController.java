@@ -2,6 +2,8 @@ package com.back.apoteka.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +28,12 @@ public class PricelistController {
 	
 	@Autowired
 	PricelistService pricelistService;
+	
+	@GetMapping("/findall")
+	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public List<Pricelist> findAllFromOnePharmacy(){
+		return pricelistService.findAllFromOnePharmacy();
+	}
 	
 	@GetMapping("/findbyid/{pricelistId}")
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")

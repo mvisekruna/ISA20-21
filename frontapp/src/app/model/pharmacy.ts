@@ -13,5 +13,6 @@ export class Pharmacy {
     priceForCounseling: number;
     latitude: any;
     longitude: any;
+    rating: string;
 
 }

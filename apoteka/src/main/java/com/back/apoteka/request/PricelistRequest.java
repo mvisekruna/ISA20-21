@@ -13,4 +13,5 @@ public class PricelistRequest {
 	private String fromPeriod;
 	private String toPeriod;
 	private Long pharmacyId;
+	private Long admin;
 }

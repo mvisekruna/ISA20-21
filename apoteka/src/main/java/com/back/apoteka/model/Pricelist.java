@@ -31,5 +31,8 @@ public class Pricelist {
 	
 	@ManyToOne
 	private Pharmacy pharmacy;
+	
+	@ManyToOne
+	private User admin;
 
 }

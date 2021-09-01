@@ -38,6 +38,8 @@ public class Pharmacy {
 	
 	private String description;
 	
+	private String rating; //prosecna ocena
+	
 	@ManyToMany //sklonila fetch type namerno jer sa tim ne radi
     @JoinTable(name = "pharmacy_medicine",
             joinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"),

@@ -12,6 +12,12 @@ export class PricelistServiceService {
 
   constructor(private http: HttpClient) { }
 
+  public findAllFromOnePharmacy(): Observable<Pricelist[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Pricelist[]>(`http://localhost:8080/pricelist/findall`, {headers})
+  }
+
   public findById(pricelistId: any): Observable<Pricelist> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);

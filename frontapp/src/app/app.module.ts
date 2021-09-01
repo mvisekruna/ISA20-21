@@ -56,6 +56,7 @@ import { OfferListComponent } from './components/offer-list/offer-list.component
 import { AddPricelistComponent } from './components/add-pricelist/add-pricelist.component';
 import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
 import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
+import { PricelistListComponent } from './components/pricelist-list/pricelist-list.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { QuarterReportComponent } from './components/quarter-report/quarter-repo
   
     MonthlyReportComponent,
     QuarterReportComponent,
+    PricelistListComponent,
    
   ],
   imports: [
