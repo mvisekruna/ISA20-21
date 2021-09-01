@@ -1,6 +1,6 @@
 package com.back.apoteka.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,9 +27,10 @@ public class PricelistController {
 	@Autowired
 	PricelistService pricelistService;
 	
-	@GetMapping
-	public Pricelist findById(@PathVariable Long id) {
-		return pricelistService.findById(id);
+	@GetMapping("/findbyid/{pricelistId}")
+	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public Pricelist findById(@PathVariable Long pricelistId) {
+		return pricelistService.findById(pricelistId);
 	}
 	
 	@PostMapping("/save")

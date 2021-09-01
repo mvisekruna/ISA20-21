@@ -28,5 +28,8 @@ public class Pricelist {
 	private Date fromPeriod;
 	
 	private Date toPeriod;
+	
+	@ManyToOne
+	private Pharmacy pharmacy;
 
 }

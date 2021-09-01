@@ -1,0 +1,51 @@
+<div class="card my-5">
+    <div class="card-body">
+        <h2>Add pricelist</h2>
+        <div >
+      <form (ngSubmit)="onSubmit()" #form="ngForm" name="addPricelistForm" #r="ngForm" novalidate>
+        <div class="form-group">
+          <label for="medicineId">Medicine</label>
+          <input type="text"   [(ngModel)]="pricelistRequest.medicineId"
+            class="form-control" 
+            id="medicineId" 
+            name="medicineId" 
+            placeholder="Enter medicine id"
+            >
+        </div>
+        <div class="form-group">
+          <label for="pharmacyId">Pharmacy</label>
+          <input type="text"   [(ngModel)]="pricelistRequest.pharmacyId"
+            class="form-control" 
+            id="pharmacyId" 
+            name="pharmacyId" 
+            placeholder="Enter pharmacy id"
+            >
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="text"  [(ngModel)]="pricelistRequest.price"
+            class="form-control" 
+            id="price" 
+            name="price" 
+            placeholder="Enter price"
+            > 
+        </div>
+        <div>
+            <p>Start period:</p>
+            <input type="date"  class="form-control"  id="fromPeriod"  
+            name="fromPeriod"  
+            [ngModel]="pricelistRequest.fromPeriod | date:'yyyy-MM-ddTHH:mm'" />
+        </div>
+        <div>
+            <p>End period:</p>
+            <input type="date"  class="form-control"  id="toPeriod"  
+            name="toPeriod"  
+            [ngModel]="pricelistRequest.toPeriod | date:'yyyy-MM-ddTHH:mm'" />
+        </div>
+        <button type="submit" 
+            class="btn btn-info">Add</button>
+      </form>
+      </div>
+   </div>
+</div>
+          
