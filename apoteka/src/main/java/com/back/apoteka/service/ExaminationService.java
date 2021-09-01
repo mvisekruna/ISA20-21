@@ -18,4 +18,6 @@ public interface ExaminationService {
 	Examination schedule(ScheduleExaminationRequest schedule);
 
 	List<CanUnscheduleResponce> getScheduled();
+	
+	List<Examination> findAll();
 }

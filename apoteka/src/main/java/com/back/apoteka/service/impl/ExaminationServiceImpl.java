@@ -54,6 +54,11 @@ public class ExaminationServiceImpl implements ExaminationService{
 	AbsenceService absenceService;
 	
 	
+	@Override
+	public List<Examination> findAll(){
+		return examinationRepo.findAll();
+	}
+	
 	
 	@Override
 	public List<Examination> findByPharmacy(Long id) { //vraca samo slobodne termine za tu apoteku
