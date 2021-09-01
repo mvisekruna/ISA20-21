@@ -24,9 +24,8 @@ export class PharmacyServiceService {
    }
 
   public findAll(): Observable<Pharmacy[]> { 
-    const t= localStorage.getItem("TOKEN");
-    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.get<Pharmacy[]>(this.pharmacyUrl, {headers});
+    
+    return this.http.get<Pharmacy[]>(this.pharmacyUrl);
   }
   public createPharmacy(body: any): Observable<Pharmacy> {
     const t= localStorage.getItem("TOKEN");

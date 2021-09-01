@@ -53,6 +53,10 @@ import { AddNewOrderComponent } from './components/add-new-order/add-new-order.c
 import { AddNewOfferComponent } from './components/add-new-offer/add-new-offer.component';
 import { HomePageSupplierComponent } from './components/home-page/home-page-supplier/home-page-supplier.component';
 import { OfferListComponent } from './components/offer-list/offer-list.component';
+import { AddPricelistComponent } from './components/add-pricelist/add-pricelist.component';
+import { PharmacyProfilePatientComponent } from './components/pharmacy-profile-patient/pharmacy-profile-patient.component';
+import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
+import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +100,10 @@ import { OfferListComponent } from './components/offer-list/offer-list.component
     AddNewOfferComponent,
     HomePageSupplierComponent,
     OfferListComponent,
+    AddPricelistComponent,
+    PharmacyProfilePatientComponent,
+    MonthlyReportComponent,
+    QuarterReportComponent,
    
   ],
   imports: [

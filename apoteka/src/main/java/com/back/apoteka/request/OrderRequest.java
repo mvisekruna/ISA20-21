@@ -1,9 +1,6 @@
 package com.back.apoteka.request;
 
-import java.util.Date;
 
-import com.back.apoteka.model.OrderStatus;
-import com.back.apoteka.model.Pharmacy;
 
 import lombok.Data;
 

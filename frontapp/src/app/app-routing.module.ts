@@ -33,6 +33,10 @@ import { AddOrderItemComponent } from './components/add-order-item/add-order-ite
 import { AddNewOrderComponent } from './components/add-new-order/add-new-order.component';
 import { AddNewOfferComponent } from './components/add-new-offer/add-new-offer.component';
 import { OfferListComponent } from './components/offer-list/offer-list.component';
+import { AddPricelistComponent } from './components/add-pricelist/add-pricelist.component';
+import { PharmacyProfilePatientComponent } from './components/pharmacy-profile-patient/pharmacy-profile-patient.component';
+import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
+import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
 
 
 const routes: Routes = [
@@ -129,6 +133,34 @@ const routes: Routes = [
   {
     path: 'offer-list',
     component: OfferListComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
+  {
+    path: 'add-pricelist',
+    component: AddPricelistComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
+  {
+    path: 'pharmacy-profile-patient',
+    component: PharmacyProfilePatientComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PATIENT'
+    } },
+  {
+    path: 'monthly-report',
+    component: MonthlyReportComponent,
+    canActivate: [GuardServiceService],
+    data: {
+      expectedRole: 'ROLE_PHARMACY_ADMIN'
+    } },
+  {
+    path: 'quarter-report',
+    component: QuarterReportComponent,
     canActivate: [GuardServiceService],
     data: {
       expectedRole: 'ROLE_PHARMACY_ADMIN'
