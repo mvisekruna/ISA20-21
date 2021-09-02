@@ -49,7 +49,7 @@ public class MedicineController {
 		return this.medicineService.findAll();
 	}
 	
-	@GetMapping("getId/{id}") //u postmanu saljem getId/1 na primer, bez zagrada
+	@GetMapping("getId/{id}")
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public Medicine findById(@PathVariable int id){
 		return this.medicineService.findById(Integer.toUnsignedLong(id));

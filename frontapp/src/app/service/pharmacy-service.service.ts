@@ -81,16 +81,16 @@ export class PharmacyServiceService {
     return this.http.get<Medicine>(`${this.pharmacyUrl}/getOnePharmMedicine/${id}/${medName}`, {headers});
   }
 
-  public updateMedicineFromPharmacy(id: any, medName: string, medicineUpdateRequest: MedicineUpdateRequest): Observable<Medicine> {
+  public updateMedicineFromPharmacy(id: any, oldName: string, medName: string): Observable<Medicine> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.get<Medicine>(`${this.pharmacyUrl}/updatePharmMedicine/${id}/${medName}`, {headers});
+    return this.http.post<Medicine>(`${this.pharmacyUrl}/updatePharmMedicine/${id}/${oldName}`, {name: medName}, {headers});
   }
 
   public deleteMedicineFromPharmacy(id: any, medName: string): Observable<any> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.post(`${this.pharmacyUrl}/deletePharmMedicine/${id}/${medName}`, {medName}, {headers}); 
+    return this.http.post<any>(`${this.pharmacyUrl}/deletePharmMedicine/${id}/${medName}`, {medName}, {headers}); 
   }
 
 
@@ -117,7 +117,7 @@ export class PharmacyServiceService {
   public deletePharmacistFromPharmacy(id: number, pharmacistSurname: string): Observable<any> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.post(`${this.pharmacyUrlDeletePharmacist}/${id}/${pharmacistSurname}`, {pharmacistSurname}, {headers});
+    return this.http.post<any>(`${this.pharmacyUrlDeletePharmacist}/${id}/${pharmacistSurname}`, {pharmacistSurname}, {headers});
     
   }
 
@@ -145,7 +145,7 @@ export class PharmacyServiceService {
   public deleteDermatologistFromPharmacy(id: any, dermatologistSurname: string): Observable<any> {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
-    return this.http.post(`${this.pharmacyUrlDeleteDermatologist}/${id}/${dermatologistSurname}`, {dermatologistSurname}, {headers});
+    return this.http.post<any>(`${this.pharmacyUrlDeleteDermatologist}/${id}/${dermatologistSurname}`, {dermatologistSurname}, {headers});
     
   }
 }

@@ -103,6 +103,8 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 		}
 		return false;
 	}
+	
+	@Transactional
 	public boolean cancel(ScheduleExaminationRequest schedule) {
 		MedicineReservation mr = medicineReservationRepo.findById(schedule.getExamId()).orElse(null);
 		mr.setPatient(null);
@@ -122,6 +124,7 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 	}
 	@Autowired
 	AllergiesServiceImpl allergiesService;
+	@Transactional
 	public MedicineAmountResponse tryReservation(Long idMed, Examination exam) {
 		System.out.println(idMed +" "+ exam);
 		MedicineAmountResponse mar=new MedicineAmountResponse();

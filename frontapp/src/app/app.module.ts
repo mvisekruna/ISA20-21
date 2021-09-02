@@ -57,6 +57,7 @@ import { AddPricelistComponent } from './components/add-pricelist/add-pricelist.
 import { MonthlyReportComponent } from './components/monthly-report/monthly-report.component';
 import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
 import { PricelistListComponent } from './components/pricelist-list/pricelist-list.component';
+import { MedicineUpdateComponent } from './components/medicine-update/medicine-update.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { PricelistListComponent } from './components/pricelist-list/pricelist-li
     MonthlyReportComponent,
     QuarterReportComponent,
     PricelistListComponent,
+    MedicineUpdateComponent,
    
   ],
   imports: [

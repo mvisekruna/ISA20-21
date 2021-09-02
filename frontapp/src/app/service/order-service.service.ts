@@ -28,4 +28,10 @@ export class OrderServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<Order[]>(`http://localhost:8080/order/filtrate/${pharmacyId}/${status}`,{headers})
   }
+
+  public deleteOrder(orderId: any): Observable<any> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post<any>(`http://localhost:8080/order/delete/${orderId}`, {orderId}, {headers})
+  }
 }

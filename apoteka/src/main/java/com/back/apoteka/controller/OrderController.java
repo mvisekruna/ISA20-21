@@ -48,6 +48,12 @@ public class OrderController {
 		return orderService.filtrateOrdersFromPharmacy(pharmacyId, status);
 	}
 	
+	@PostMapping("/delete/{orderId}")
+	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	public String deleteOrder(@PathVariable Long orderId) {
+		return orderService.deleteOrder(orderId);
+	}
+	
 	
 	
 	

@@ -98,6 +98,7 @@
               <th scope="col">Name</th>
               <th scope="col">Code</th>
               <th scope="col">Type</th>
+              <th scope="col">Update</th>
               <th scope="col">Remove medicine</th>
             </tr>
           </thead>
@@ -109,6 +110,8 @@
             <td>{{ med.name }}</td>
             <td>{{ med.code }}</td>
             <td>{{ med.type }}</td>
+            <td><button type="submit" (click)="updateMed(pharmacy1.id, med.name)"
+              class="btn btn-info" style="width:100%">Update</button></td>
             <td><button type="submit" (click)="removeMedicineFromList(pharmacy1.id, med.name)"
               class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
@@ -133,6 +136,7 @@
               <th scope="col">Date of end</th>
               <th scope="col">status</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -145,6 +149,8 @@
             <td>{{ order.status }}</td>
             <td><button type="submit" [disabled]="!order.expired" (click)="seeOffers(order.id)"  
               class="btn btn-info"  style="width:100%">See offers</button></td>
+              <td><button type="submit" (click)="deleteOrder(order.id)"  
+                class="btn btn-info"  style="width:100%">Delete</button></td>
           </tr>
         </table>
       </div>

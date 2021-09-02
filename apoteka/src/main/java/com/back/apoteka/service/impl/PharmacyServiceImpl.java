@@ -213,14 +213,14 @@ public class PharmacyServiceImpl implements PharmacyService{
 		}
 	}
 	
-	public Medicine updateMedicineFromPharmacy(Long id, String medName, MedicineUpdateRequest mur) { //ubaciti proveru za pharmacyAdmin
-		Medicine m = findOneMedicineFromPharmacy(id, medName);//imam
+	public Medicine updateMedicineFromPharmacy(Long id, String oldName, MedicineUpdateRequest medicineUpdateRequest) { //ubaciti proveru za pharmacyAdmin
+		Medicine m = findOneMedicineFromPharmacy(id, oldName);//imam
 		
 		if (m == null) {
 			return null;
 		}
 		
-		m.setName(mur.getName());
+		m.setName(medicineUpdateRequest.getName());
 		m = this.medicineRepository.save(m);
 		return m;
 	}

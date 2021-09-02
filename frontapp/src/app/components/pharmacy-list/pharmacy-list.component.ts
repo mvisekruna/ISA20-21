@@ -206,4 +206,16 @@ seeOffers(pharmacyId: any) {
     console.log(pharmacyId);
 }
 
+updateMed(pharmacyId: any, medName: any) {
+  this.route.navigate(["/medicine-update"], {state: {pharmacyId: pharmacyId, medName: medName}});
+    console.log(pharmacyId);
+    console.log(medName);
+
+}
+deleteOrder(orderId: any){
+  this.orderService.deleteOrder(orderId).subscribe(data => {
+    console.log(data);
+  })
+}
+
 }

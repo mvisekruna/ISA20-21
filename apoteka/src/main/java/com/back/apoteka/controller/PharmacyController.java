@@ -96,10 +96,10 @@ public class PharmacyController {
 		return pharmacyService.findOneMedicineFromPharmacy(id, medName);
 	}
 	
-	@PostMapping("/updatePharmMedicine/{id}/{medName}") 
+	@PostMapping("/updatePharmMedicine/{id}/{oldName}") 
 	@PreAuthorize("hasRole('PHARMACY_ADMIN')") //radi
-	public Medicine updateMedicineFromPharmacy(@PathVariable Long id, @PathVariable String medName, @RequestBody MedicineUpdateRequest mur) {
-		return pharmacyService.updateMedicineFromPharmacy(id, medName, mur);
+	public Medicine updateMedicineFromPharmacy(@PathVariable Long id, @PathVariable String oldName, @RequestBody MedicineUpdateRequest medicineUpdateRequest) {
+		return pharmacyService.updateMedicineFromPharmacy(id, oldName, medicineUpdateRequest);
 	}
 	
 	@PostMapping("/deletePharmMedicine/{id}/{medName}") 

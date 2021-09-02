@@ -16,6 +16,8 @@ public interface OrderService {
 	
 	List<Order> filtrateOrdersFromPharmacy(Long pharmacyId, int status);
 	
+	String deleteOrder(Long orderId);
+	
 	
 
 }

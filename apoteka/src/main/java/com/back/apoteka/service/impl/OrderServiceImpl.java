@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+import com.back.apoteka.model.Offer;
 import com.back.apoteka.model.Order;
 import com.back.apoteka.model.OrderStatus;
 import com.back.apoteka.model.Pharmacy;
 import com.back.apoteka.repository.OrderRepository;
 import com.back.apoteka.request.OrderRequest;
+import com.back.apoteka.service.OfferService;
 import com.back.apoteka.service.OrderService;
 import com.back.apoteka.service.PharmacyService;
 
@@ -27,6 +29,8 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	PharmacyService pharmService;
 	
+	@Autowired
+	OfferService offerService;
 	//dodati proveru za admina da li je za tu apoteku
 	@Override
 	public Order saveOrder(OrderRequest orderRequest) { //imam
@@ -110,6 +114,24 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		return OrderStatus.PROCESSED;
+	}
+	
+	//delete narudzbenice i update
+	@Override
+	public String deleteOrder(Long orderId) {
+		List<Offer> offers = offerService.getOffersForOrder(orderId);
+		System.out.println(offers);
+		System.out.println(offers.size());
+		Order order = findById(orderId);
+		System.out.println(order);
+		List<Order> orders = orderRepo.findAll();
+		if(offers.size() == 0) {
+			orderRepo.delete(order);
+			//kako da sacuvam nakon brisanja
+			return "ok";
+		}
+		
+	return "has offers";
 	}
 
 }

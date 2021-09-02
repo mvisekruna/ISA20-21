@@ -55,7 +55,7 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 			wt = workTimeRepo.save(wt);
 		} else if(user.getAuthority().getName().contains("DERMATOLOGIST")) {
 			boolean check = checkDermWorkTime(user.getId(), wt.getFrom(), wt.getTo(), wtr.getDayWT());
-			System.out.println(check);//udje ovde ali ipak doda iz nekog razloga ponovo u listu dermatologa apoteke
+			System.out.println(check);
 			if(check) {
 				wt.setDermatologist(user);
 				wt = workTimeRepo.save(wt);
