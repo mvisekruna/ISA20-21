@@ -132,7 +132,9 @@ public class ExaminationServiceImpl implements ExaminationService{
 		
 		
 		//provera da li prosledjen termin ulazi u radno vreme dermatologa apoteke 
-		List<WorkTime> worktimes = workTimeService.findByDermatologist(examRequest.getDermatologistId()); //vrati sva radna vremena dermatologa u svim apotekama
+		List<WorkTime> worktimes = workTimeService.findByDermatologist(examRequest.getDermatologistId());
+		System.out.println(worktimes);//vrati sva radna vremena dermatologa u svim apotekama
+		System.out.println(examRequest);
 		boolean found = false;
 		for(WorkTime wt: worktimes) { 
 			
@@ -141,38 +143,46 @@ public class ExaminationServiceImpl implements ExaminationService{
 			c.setTime(examRequest.getDateAndTime());
 			int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 			
-			System.out.println(wt.getDay());
+			System.out.println(wt.getDay()+1);
 			System.out.println(dayOfWeek);
 			
-			if(wt.getDay() != dayOfWeek) {
+			if(wt.getDay()+1 != dayOfWeek) {
 				continue;
 			}
 			
-			int minutesExam = examRequest.getDateAndTime().getHours() * 60 + examRequest.getDateAndTime().getMinutes();
+			int minutesExam = examRequest.getDateAndTime().getHours() * 60 + examRequest.getDateAndTime().getMinutes() -120;
 			int minutesFrom = wt.getFrom().getHours() * 60 + wt.getFrom().getMinutes();
 			int minutesTo = wt.getTo().getHours() * 60 + wt.getTo().getMinutes();
 			System.out.println(minutesExam);
 			System.out.println(minutesFrom);
 			System.out.println(minutesTo);
 			if(minutesExam >= minutesFrom && minutesExam <= minutesTo) {
+				System.out.println("ne udje u ovo");
 				
 				User dermatologist = userService.findById(examRequest.getDermatologistId());
 				exam = new Examination();
 				exam.setDermatologist(dermatologist);
-				exam.setDateAndTime(examRequest.getDateAndTime());
+				Calendar cal = Calendar.getInstance();
+		        cal.setTime(examRequest.getDateAndTime());
+		        cal.add(Calendar.HOUR, -2);
+				exam.setDateAndTime(cal.getTime());
+				
 				found = true;
 				break;
 			}
 		}
+		System.out.println("nakon ovoga");
 		System.out.println(found);
 		if(found) {
-			
+			Pharmacy pharmacy = pharmacyService.findById(examRequest.getPharmacyId());
+			exam.setPharmacy(pharmacy);
 			exam.setDuration(examRequest.getDuration());
 			exam.setPrice(examRequest.getPrice());
 			exam.setReport("");
 			exam.setExecuted(false);
 			exam.setDidntShow(false);
 			exam.setPatient(null);
+			
 
 			return examinationRepo.save(exam);
 		} else {

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CanUnscheduleExamination } from '../model/can-unschedule-examination';
 import { Examination } from '../model/examination';
+import { ExaminationRequest } from '../model/examination-request';
 import { ScheduleExaminationRequest } from '../model/schedule-examination-request';
 import { User } from '../model/user';
 
@@ -69,6 +70,12 @@ export class ExaminationServiceService {
     const t= localStorage.getItem("TOKEN");
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<Examination[]>('http://localhost:8080/examination/mypatients', {headers});
+   }
+
+   public createExamination(examRequest: ExaminationRequest): Observable<Examination> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.post<Examination>('http://localhost:8080/examination/saveexam', examRequest, {headers});
    }
    
 }

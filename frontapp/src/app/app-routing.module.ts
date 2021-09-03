@@ -38,6 +38,7 @@ import { MonthlyReportComponent } from './components/monthly-report/monthly-repo
 import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
 import { PricelistListComponent } from './components/pricelist-list/pricelist-list.component';
 import { MedicineUpdateComponent } from './components/medicine-update/medicine-update.component';
+import { AddFreeExaminationComponent } from './components/add-free-examination/add-free-examination.component';
 
 
 const routes: Routes = [
@@ -173,6 +174,13 @@ const routes: Routes = [
     data: {
       expectedRole: 'ROLE_PHARMACY_ADMIN'
     } },
+    {
+      path:'add-free-examination',
+      component: AddFreeExaminationComponent,
+      canActivate: [GuardServiceService],
+      data: {
+        expectedRole: 'ROLE_PHARMACY_ADMIN'
+      } },
 //
   { path: 'workingschedule',
   component: WorkingScheduleComponent,

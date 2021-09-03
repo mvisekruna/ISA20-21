@@ -58,6 +58,7 @@ import { MonthlyReportComponent } from './components/monthly-report/monthly-repo
 import { QuarterReportComponent } from './components/quarter-report/quarter-report.component';
 import { PricelistListComponent } from './components/pricelist-list/pricelist-list.component';
 import { MedicineUpdateComponent } from './components/medicine-update/medicine-update.component';
+import { AddFreeExaminationComponent } from './components/add-free-examination/add-free-examination.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { MedicineUpdateComponent } from './components/medicine-update/medicine-u
     QuarterReportComponent,
     PricelistListComponent,
     MedicineUpdateComponent,
+    AddFreeExaminationComponent,
    
   ],
   imports: [

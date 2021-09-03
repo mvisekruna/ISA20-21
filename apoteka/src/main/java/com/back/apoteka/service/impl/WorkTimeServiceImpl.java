@@ -33,8 +33,13 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 		List<WorkTime> worktimes = workTimeRepo.findAll();
 		List<WorkTime> temp = workTimeRepo.findAll();
 		temp.removeAll(temp);
-		
+		System.out.println(worktimes);
 		for(WorkTime wt: worktimes) {
+			
+			if(wt.getDermatologist() == null) {
+				continue;
+			}
+			
 			if(wt.getDermatologist().getId().equals(dermatologistId)) {
 				temp.add(wt);
 			}
