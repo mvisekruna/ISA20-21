@@ -126,4 +126,9 @@ public class MedicineController {
 		return medicineReservationService.takeMedicine(Long.valueOf(id));
 	}
 	
+	@GetMapping("/findunres/{id}")
+	@PreAuthorize("hasRole('PATIENT')")
+	public List<MedicineReservation> findByPharmacy(@PathVariable Long id){
+		return medicineReservationService.findByPharmacy(id);
+	}
 }

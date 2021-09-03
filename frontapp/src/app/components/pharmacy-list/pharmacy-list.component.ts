@@ -1,14 +1,18 @@
 import { Component, OnInit, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
+import { Counseling } from 'src/app/model/counseling';
 import { Examination } from 'src/app/model/examination';
 import { Medicine } from 'src/app/model/medicine';
+import { MedicineReservation } from 'src/app/model/medicine-reservation';
 import { Offer } from 'src/app/model/offer';
 import { Order } from 'src/app/model/order';
 import { Pharmacy } from 'src/app/model/pharmacy';
 import { ScheduleExaminationRequest } from 'src/app/model/schedule-examination-request';
 import { User } from 'src/app/model/user';
+import { CounselingServiceService } from 'src/app/service/counseling-service.service';
 import { ExaminationServiceService } from 'src/app/service/examination-service.service';
+import { MedicineServiceService } from 'src/app/service/medicine-service.service';
 import { OfferServiceService } from 'src/app/service/offer-service.service';
 import { OrderServiceService } from 'src/app/service/order-service.service';
 import { PharmacyServiceService } from 'src/app/service/pharmacy-service.service';
@@ -44,10 +48,12 @@ export class PharmacyListComponent implements OnInit {
   showDerm = false;
   showPhar = false;
   disableOfferList: boolean = false;
-
+  isPatient: boolean = false;
   isShown : boolean = false;
   orders: Order[];
   offers: Offer[];
+  medsRes: MedicineReservation[];
+  counselings: Counseling[];
   //terms="";
   scheduleExaminationRequest: ScheduleExaminationRequest;
   constructor(private pharmacyService: PharmacyServiceService,
@@ -55,7 +61,9 @@ export class PharmacyListComponent implements OnInit {
      private userService: UserServiceService,
      private route: Router,
      private orderService: OrderServiceService,
-     private offerService: OfferServiceService) { 
+     private offerService: OfferServiceService,
+     private medicineService: MedicineServiceService,
+     private counselingService: CounselingServiceService) { 
        this.freeAdmins=[];
        this.pharmAdmin = new User;
        this.body = {
@@ -67,6 +75,11 @@ export class PharmacyListComponent implements OnInit {
   
   ngOnInit(): void {
     this.pharmacys=[];
+    console.log(localStorage.getItem("AUTHORITIES"));
+    if (localStorage.getItem("AUTHORITIES")=="ROLE_PATIENT"){
+      this.isPatient = true;
+    }
+
     
     if (localStorage.getItem("AUTHORITIES")=="ROLE_SYSTEM_ADMIN"){
       this.isAdmin=true;
@@ -74,7 +87,7 @@ export class PharmacyListComponent implements OnInit {
          this.freeAdmins=data;
          console.log(data);
       });
-    } else {
+    } else if (localStorage.getItem("AUTHORITIES")=="ROLE_PHARMACY_ADMIN"){
       console.log("usao")
       this.isAdmin=false;
       this.isPharmacyAdmin=true;
@@ -114,6 +127,14 @@ export class PharmacyListComponent implements OnInit {
       this.examService.findAllAvaiable(this.pharmacy1.id).subscribe(data => {
         this.examinations = data;
       });
+      this.medicineService.findByPharmacy(this.pharmacy1.id).subscribe(data => {
+        this.medsRes = data;
+      });
+      this.counselingService.findByPharmacy(this.pharmacy1.id).subscribe(data =>{
+        console.log(data);
+        this.counselings = data;
+      });
+
       this.pharmacyService.getDermatologists(this.pharmacy1.id).subscribe(data => {
         this.dermatologists = data;
         this.showDerm = true;
@@ -130,7 +151,7 @@ export class PharmacyListComponent implements OnInit {
 
       this.orderService.filtrateOrdersFromPharmacy(this.pharmacy1.id, this.selected).subscribe(data => {
         this.orders = data;
-      })
+      });
       
     }
     );

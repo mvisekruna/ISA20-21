@@ -12,11 +12,13 @@ import com.back.apoteka.model.Offer;
 import com.back.apoteka.model.Order;
 import com.back.apoteka.model.OrderStatus;
 import com.back.apoteka.model.Pharmacy;
+import com.back.apoteka.model.User;
 import com.back.apoteka.repository.OrderRepository;
 import com.back.apoteka.request.OrderRequest;
 import com.back.apoteka.service.OfferService;
 import com.back.apoteka.service.OrderService;
 import com.back.apoteka.service.PharmacyService;
+import com.back.apoteka.service.UserService;
 
 import java.sql.Timestamp;
 //za narudzbinu daj mi sve ponude
@@ -31,6 +33,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	OfferService offerService;
+	
+	@Autowired
+	UserService userService;
 	//dodati proveru za admina da li je za tu apoteku
 	@Override
 	public Order saveOrder(OrderRequest orderRequest) { //imam
@@ -59,6 +64,10 @@ public class OrderServiceImpl implements OrderService {
 			if(p.getId().equals(pharmacyId)) {
 				pharm = p;
 			}
+		}
+		User currentUser = userService.getCurrent();
+		if(currentUser.getAuthority().getName().contains("ROLE_PATIENT")) {
+			return null;
 		}
 		List<Order> orders = orderRepo.findAll();
 		List<Order> temp = new ArrayList<Order>();

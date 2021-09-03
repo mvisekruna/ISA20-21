@@ -86,4 +86,10 @@ export class CounselingServiceService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
     return this.http.get<User[]>('http://localhost:8080/counseling/dermatologistsimet', {headers});
    }
+
+   public findByPharmacy(id: any): Observable<Counseling[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<Counseling[]>(`http://localhost:8080/counseling/findfreecounseling/${id}`, {headers});
+   }
   }

@@ -252,4 +252,22 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 		//treba resiti responce
 
 	}
+	
+	@Override
+	public List<MedicineReservation> findByPharmacy(Long id) { //vraca samo slobodne lekove za tu apoteku
+		Pharmacy pharm = pharmacyService.findById(id);
+		System.out.println(pharm);
+		List<MedicineReservation> list= medicineReservationRepo.findAll();
+		List<MedicineReservation> result = new ArrayList<MedicineReservation>();
+		for (MedicineReservation medRes : list) {
+			if(medRes.getPharmacy().getId()==id) {
+				System.out.println(medRes);
+				if (medRes.getPatient()==null) {
+					result.add(medRes);
+				}
+			}
+			
+		}
+		return result;
+	}
 }

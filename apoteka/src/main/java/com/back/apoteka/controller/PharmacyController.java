@@ -79,7 +79,7 @@ public class PharmacyController {
 	
 	
 	@GetMapping("/getMedicines/{id}")
-	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	@PreAuthorize("hasAnyRole(\"PATIENT\",\"PHARMACY_ADMIN\")")
 	public List<Medicine> getMedicinesFromPharmacy(@PathVariable Long id){ //radi
 		return pharmacyService.getMedicinesFromPharmacy(id);
 	}
@@ -117,7 +117,7 @@ public class PharmacyController {
 	}
 	
 	@GetMapping("/getPharmacists/{id}") 
-	@PreAuthorize("hasRole('PHARMACY_ADMIN')") //ima na frontu
+	@PreAuthorize("hasAnyRole(\"PATIENT\",\"PHARMACY_ADMIN\")")
 	public List<User> getPharmacists(@PathVariable Long id){
 		return pharmacyService.getPharmacists(id);
 	}
@@ -151,7 +151,7 @@ public class PharmacyController {
 	}
 	
 	@GetMapping("/getDermatologists/{id}") 
-	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
+	@PreAuthorize("hasAnyRole(\"PATIENT\",\"PHARMACY_ADMIN\")")
 	public List<User> getDermatologists(@PathVariable Long id) { //ima na frontu
 		return pharmacyService.getDermatologists(id);
 	}

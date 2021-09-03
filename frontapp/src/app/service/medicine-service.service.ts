@@ -8,6 +8,7 @@ import { ScheduleExaminationRequest } from '../model/schedule-examination-reques
 import { MedicineRequest } from '../model/medicine-request';
 import { Examination } from '../model/examination';
 import { Counseling } from '../model/counseling';
+import { MedicineReservation } from '../model/medicine-reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,12 @@ export class MedicineServiceService {
   }
   public findAll(): Observable<Medicine[]> {
     return this.http.get<Medicine[]>(this.medicineUrl);
+  }
+
+  public findByPharmacy(id: any): Observable<MedicineReservation[]> {
+    const t= localStorage.getItem("TOKEN");
+    const headers = new HttpHeaders({'Content-Type': 'application/json'}).set("Authorization", "Bearer " + t);
+    return this.http.get<MedicineReservation[]>(`http://localhost:8080/medicine/findunres/${id}`,{headers});
   }
   public makeReservation(mrr: MedicineReservationRequest): Observable<any>{
     const t= localStorage.getItem("TOKEN");

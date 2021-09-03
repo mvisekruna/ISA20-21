@@ -163,8 +163,14 @@ public class PharmacyServiceImpl implements PharmacyService{
 	
 	public List<Medicine> getMedicinesFromPharmacy(Long id){//radi
 		User user = userService.getCurrent();
+		System.out.println("nakon ovoga");
+		System.out.println(user.getAuthority().getName());
+		
 		Pharmacy pharm = findById(id);
-		if(pharm.isUserPharmacyAdmin(user.getId())) {
+		if(user.getAuthority().getName().contains("ROLE_PATIENT")) {
+			System.out.println("usao");
+			return pharm.getMedicines();
+		} else if(pharm.isUserPharmacyAdmin(user.getId())) {
 			return pharm.getMedicines();
 		} else {
 			System.out.println("Nije pharmacy admin te apoteke");
@@ -262,7 +268,10 @@ public class PharmacyServiceImpl implements PharmacyService{
 		Pharmacy pharmacy=findById(id);
 		List<User> pharmacists = new ArrayList<User>();
 		User user = userService.getCurrent();
-		if(pharmacy.isUserPharmacyAdmin(user.getId())) {
+		if(user.getAuthority().getName().contains("ROLE_PATIENT")) {
+			System.out.println("usao");
+			return pharmacy.getPharmacists();
+		} else if(pharmacy.isUserPharmacyAdmin(user.getId())) {
 			pharmacists = pharmacy.getPharmacists();
 		}
 		return pharmacists;	
@@ -344,7 +353,10 @@ public class PharmacyServiceImpl implements PharmacyService{
 		Pharmacy pharmacy=findById(id);
 		List<User> dermatologists = new ArrayList<User>();
 		User user = userService.getCurrent();
-		if(pharmacy.isUserPharmacyAdmin(user.getId())) {
+		if(user.getAuthority().getName().contains("ROLE_PATIENT")) {
+			System.out.println("usao");
+			return pharmacy.getDermatologists();
+		} else if(pharmacy.isUserPharmacyAdmin(user.getId())) {
 			dermatologists = pharmacy.getDermatologists();
 		}
 		return dermatologists;

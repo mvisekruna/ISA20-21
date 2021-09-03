@@ -37,15 +37,18 @@ public class CounselingServiceImpl implements CounselingService{
 	public List<Counseling> findByPharmacy(Long id) {
 		Pharmacy pharm = pharmacyService.findById(id);
 		System.out.println(pharm);
-		List<Counseling> list= counselingRepo.findByPatient(null);
-		List<Counseling> list1= counselingRepo.findByPatient(null);
-		for (Counseling coun : list) {
-			System.out.println(coun);
-			if (coun.getPharmacy().getId()!=id) {
-				list1.remove(coun);
+		List<Counseling> list= counselingRepo.findAll();
+		List<Counseling> result = new ArrayList<Counseling>();
+		for (Counseling c : list) {
+			if(c.getPharmacy().getId()==id) {
+				System.out.println(c);
+				if (c.getPatient()==null) {
+					result.add(c);
+				}
 			}
+			
 		}
-		return list1;
+		return result;
 	}
 	@Override
 	public List<CanCancelCounselingResponse> getScheduleCounseling() {

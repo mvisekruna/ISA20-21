@@ -59,7 +59,7 @@
               <td>{{ derm.lastName }}</td>
               <td>{{ derm.phoneNumber }}</td>
               <td>{{ derm.city }}</td>
-              <td><button type="submit" (click)="removeDermatologistFromList(pharmacy1.id, derm.lastName)"
+              <td><button type="submit" [disabled]="isPatient" (click)="removeDermatologistFromList(pharmacy1.id, derm.lastName)"
                 class="btn btn-info" style="width:100%">Delete from list</button></td></tr>
 
           </tbody>
@@ -84,7 +84,7 @@
               <td>{{ pharm.lastName }}</td>
               <td>{{ pharm.phoneNumber }}</td>
               <td>{{ pharm.city }}</td>
-              <td><button type="submit" (click)="removePharmacistFromList(pharmacy1.id, pharm.lastName)"
+              <td><button type="submit" [disabled]="isPatient" (click)="removePharmacistFromList(pharmacy1.id, pharm.lastName)"
                 class="btn btn-info" style="width:100%">Delete from list</button></td></tr>
           </tbody>
         
@@ -110,14 +110,14 @@
             <td>{{ med.name }}</td>
             <td>{{ med.code }}</td>
             <td>{{ med.type }}</td>
-            <td><button type="submit" (click)="updateMed(pharmacy1.id, med.name)"
+            <td><button type="submit" [disabled]="isPatient" (click)="updateMed(pharmacy1.id, med.name)"
               class="btn btn-info" style="width:100%">Update</button></td>
-            <td><button type="submit" (click)="removeMedicineFromList(pharmacy1.id, med.name)"
+            <td><button type="submit" [disabled]="isPatient" (click)="removeMedicineFromList(pharmacy1.id, med.name)"
               class="btn btn-info" style="width:100%">Delete from list</button></td>
         </table>
 
         
-        <div>
+        <div *ngIf="!isPatient" >
           <h4>Orders:</h4>
           <mat-form-field appearance="fill">
           <select matNativeControl [(ngModel)]="selected">
@@ -155,7 +155,6 @@
         </table>
       </div>
 
-
       <h4>List of free examinations(dermatologists):</h4>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
@@ -171,11 +170,59 @@
               <td>{{ exam.id }}</td>
               <td>{{ exam.dermatologist.firstName }}</td>
               <td>{{ exam.dateAndTime | date:'medium'}}</td>
-              <td><button type="submit" [disabled]="isPharmacyAdmin" (click)="scheduleExamination(exam.id)"  
+              <td><button type="submit" id="Button" [disabled]="isPharmacyAdmin" (click)="scheduleExamination(exam.id)"  
                 class="btn btn-info"  style="width:100%">schedule</button></td>
             </tr>
           </tbody>
         </table>
+        <div *ngIf="!isPharmacyAdmin">
+        <h4>List of available medicines:</h4>
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Medicine id</th>
+              <th scope="col">Pharmacy id</th>
+              <th scope="col"></th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let medRes of medsRes" id="medsRes">
+              <td>{{ medRes.id }}</td>
+              <td>{{ medRes.medicine.id }}</td>
+              <td>{{ medRes.pharmacy.id}}</td>
+              <td><button type="submit" id="Button"   
+                class="btn btn-info"  style="width:100%">Reserve</button></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+        <div *ngIf="!isPharmacyAdmin">
+        <h4>List of available counselings:</h4>
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Pharmacist id</th>
+              <th scope="col">Pharmacy id</th>
+              <th scope="col"></th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let counseling of counselings" id="counselings">
+              <td>{{ counseling.id }}</td>
+              <td>{{ counseling.pharmacist.id }}</td>
+              <td>{{ counseling.pharmacy.id}}</td>
+              <td><button type="submit" id="Button"   
+                class="btn btn-info"  style="width:100%">Schedule</button></td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div *ngIf="isAdmin">
             <input list="freeAdmins"  [(ngModel)]="pharmAdmin.email"
       class="form-control" 
