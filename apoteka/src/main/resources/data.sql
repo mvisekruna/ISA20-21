@@ -260,7 +260,41 @@ insert into examination (date_and_time, didnt_show, executed, price, report, der
 insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-09-14 09:15:00.000000', false, false, 1000, '', 12, 1, 2, 30);
 insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-09-13 10:05:00.000000', false, false, 1500, '', 13, 1, 3, 45);
 
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-12-17', true, false, 3000, '', 11, 1, 1, 1);
 insert into penalty (number_of_penalties, patient_id) values (1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-12-17', false, false, 3000, '', 11, 1, 1,1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-12-18', false, true, 3000, 'izvestaj o pregledu', 11, 1, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-01-17', false, true, 3000, 'nema zdravstvenih tegoba', 11, 2, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-01-17', false, true, 2000, 'prepisana terapija', 11, 2, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-20', false, false, 3000, '', 11, 3, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-20 12', false, false, 2000, '', 11, 1, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-20 12:15', false, false, 2000, '', 11, 1, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-20 12:30', false, false, 2000, '', 11, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-20 13', false, false, 2000, '', 11, 1, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-20 14', false, false, 2000, '', 11, 1, 1);
+
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-01-17', false, true, 3000, 'nema tegoba', 12, 2, 2, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-01-17', false, true, 2000, 'terapija', 12, 2, 2, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-20', false, false, 3000, '', 12, 3, 2, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-20 12', false, false, 2000, '', 12, 1, 2, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-21 13', false, false, 2200, '', 12, 2, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-21 14', false, false, 2200, '', 12, 2, 1);
+
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-01-11', false, true, 3000, 'nema tegoba', 13, 2, 3, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-01-11', false, true, 2000, 'terapija', 13, 2, 3, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-22', false, false, 3000, '', 13, 3, 3, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-22 10', false, false, 2000, '', 13, 4, 3, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-22 12', false, false, 2000, '', 13, 1, 3, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-25 13', false, false, 2200, '', 13, 3, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-25 14', false, false, 2200, '', 13, 3, 1);
+
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-01-17', false, true, 3000, 'nema tegoba', 14, 2, 4, 1);
+
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-26', false, false, 3000, '', 14, 3, 4, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-26 10', false, false, 2000, '', 14, 2, 4, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, patient_id, pharmacy_id, duration) values ('2021-02-26 12', false, false, 2000, '', 14, 1, 4, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-27 13', false, false, 2200, '', 14, 4, 1);
+insert into examination (date_and_time, didnt_show, executed, price, report, dermatologist_id, pharmacy_id, duration) values ('2021-02-27 14', false, false, 2200, '', 14, 4, 1);
 
 
 

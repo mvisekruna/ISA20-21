@@ -8,6 +8,7 @@ import { MedicineReservation } from 'src/app/model/medicine-reservation';
 import { Offer } from 'src/app/model/offer';
 import { Order } from 'src/app/model/order';
 import { Pharmacy } from 'src/app/model/pharmacy';
+import { ScheduleCounselingRequest } from 'src/app/model/schedule-counseling-request';
 import { ScheduleExaminationRequest } from 'src/app/model/schedule-examination-request';
 import { User } from 'src/app/model/user';
 import { CounselingServiceService } from 'src/app/service/counseling-service.service';
@@ -56,6 +57,8 @@ export class PharmacyListComponent implements OnInit {
   counselings: Counseling[];
   //terms="";
   scheduleExaminationRequest: ScheduleExaminationRequest;
+  
+ scheduleCounselingRequest: ScheduleCounselingRequest;
   constructor(private pharmacyService: PharmacyServiceService,
      private examService: ExaminationServiceService,
      private userService: UserServiceService,
@@ -64,6 +67,7 @@ export class PharmacyListComponent implements OnInit {
      private offerService: OfferServiceService,
      private medicineService: MedicineServiceService,
      private counselingService: CounselingServiceService) { 
+      this.scheduleCounselingRequest = new ScheduleCounselingRequest;
        this.freeAdmins=[];
        this.pharmAdmin = new User;
        this.body = {
@@ -237,6 +241,16 @@ deleteOrder(orderId: any){
   this.orderService.deleteOrder(orderId).subscribe(data => {
     console.log(data);
   })
+}
+
+onSubmitCounseling(){
+  if (localStorage.getItem("USERNAME")!=null){
+    this.scheduleCounselingRequest = new ScheduleCounselingRequest;
+    this.counselingService.schedule(this.scheduleCounselingRequest).subscribe( data =>{
+      console.log(data);
+    });
+    }
+    location.reload();
 }
 
 }
